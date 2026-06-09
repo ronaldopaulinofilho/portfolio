@@ -42,20 +42,8 @@ export function Hero() {
       />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-24 sm:py-28 md:py-32 text-center relative">
-        <motion.div
-          {...fadeUp(0)}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm mb-8"
-          style={{
-            borderColor: 'var(--accent)',
-            color: 'var(--accent-light)',
-            backgroundColor: 'var(--accent-glow)',
-          }}
-        >
-          {t.hero.badge}
-        </motion.div>
-
         <motion.h1
-          {...fadeUp(1)}
+          {...fadeUp(0)}
           className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight mb-6"
           style={{ color: 'var(--text-heading)' }}
         >
@@ -65,7 +53,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          {...fadeUp(2)}
+          {...fadeUp(1)}
           className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           style={{ color: 'var(--text)' }}
         >
@@ -73,7 +61,7 @@ export function Hero() {
         </motion.p>
 
         <motion.div
-          {...fadeUp(3)}
+          {...fadeUp(2)}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-12 sm:mb-14"
         >
           <a
@@ -100,7 +88,7 @@ export function Hero() {
           </a>
         </motion.div>
 
-        <motion.div {...fadeUp(4)} className="flex items-center justify-center gap-3 sm:gap-4">
+        <motion.div {...fadeUp(3)} className="flex items-center justify-center gap-3 sm:gap-4">
           {socials.map(({ icon, href, label }) => (
             <a
               key={label}
@@ -120,7 +108,7 @@ export function Hero() {
           ))}
         </motion.div>
 
-        <motion.div {...fadeUp(5)} className="flex justify-center mt-14 sm:mt-16">
+        <motion.div {...fadeUp(4)} className="flex justify-center mt-14 sm:mt-16">
           <a href="#about" aria-label="Scroll down">
             <ArrowDown
               size={20}

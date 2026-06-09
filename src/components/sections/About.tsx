@@ -118,7 +118,7 @@ export function About() {
           <br />
           {t.about.heading[1]}
         </SectionHeader>
-        <p className="text-lg max-w-3xl leading-relaxed mt-6" style={{ color: 'var(--text)' }}>
+        <p className="text-lg max-w-3xl leading-relaxed mt-6 mx-auto text-center" style={{ color: 'var(--text)' }}>
           {t.about.body}
         </p>
       </motion.div>
