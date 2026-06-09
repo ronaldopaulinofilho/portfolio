@@ -1,24 +1,20 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Mail, Sparkles } from 'lucide-react'
-import { IconGithub, IconLinkedin } from '../ui/BrandIcons'
-
-const ease = [0.22, 1, 0.36, 1] as const
-
-function fadeUp(i: number) {
-  return {
-    initial: { opacity: 0, y: 24 },
-    animate: { opacity: 1, y: 0 },
-    transition: { delay: i * 0.12, duration: 0.6, ease },
-  }
-}
-
-const socials = [
-  { icon: <IconGithub size={18} />, href: 'https://github.com/', label: 'GitHub' },
-  { icon: <IconLinkedin size={18} />, href: 'https://linkedin.com/', label: 'LinkedIn' },
-  { icon: <Mail size={18} />, href: 'mailto:rpfilho2@gmail.com', label: 'Email' },
-]
+import { ArrowDown, Mail } from 'lucide-react'
+import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
+import { AnimatedLines } from '../ui/AnimatedLines'
+import { fadeUp } from '../../lib/motion'
+import { contact } from '../../data/contact'
+import { useLang } from '../../contexts/LanguageContext'
 
 export function Hero() {
+  const { t } = useLang()
+
+  const socials = [
+    { icon: <IconBehance size={18} />, href: contact.behance.url, label: 'Behance' },
+    { icon: <IconLinkedin size={18} />, href: contact.linkedin.url, label: 'LinkedIn' },
+    { icon: <Mail size={18} />, href: `mailto:${contact.email}`, label: 'Email' },
+  ]
+
   return (
     <section
       id="hero"
@@ -32,6 +28,8 @@ export function Hero() {
             'radial-gradient(ellipse 80% 60% at 50% -10%, var(--accent-glow), transparent 70%)',
         }}
       />
+
+      <AnimatedLines />
 
       {/* Grid pattern */}
       <div
@@ -53,8 +51,7 @@ export function Hero() {
             backgroundColor: 'var(--accent-glow)',
           }}
         >
-          <Sparkles size={14} />
-          Disponível para novos projetos
+          {t.hero.badge}
         </motion.div>
 
         <motion.h1
@@ -72,8 +69,7 @@ export function Hero() {
           className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
           style={{ color: 'var(--text)' }}
         >
-          Crio experiências digitais elegantes — da pesquisa de UX ao código em produção.
-          Foco em interfaces bonitas, acessíveis e performáticas.
+          {t.hero.description}
         </motion.p>
 
         <motion.div
@@ -89,7 +85,7 @@ export function Hero() {
               boxShadow: '0 0 24px var(--accent-glow)',
             }}
           >
-            Ver Projetos
+            {t.hero.cta1}
           </a>
           <a
             href="#contact"
@@ -100,14 +96,11 @@ export function Hero() {
               backgroundColor: 'var(--bg-card)',
             }}
           >
-            Entrar em Contato
+            {t.hero.cta2}
           </a>
         </motion.div>
 
-        <motion.div
-          {...fadeUp(4)}
-          className="flex items-center justify-center gap-4"
-        >
+        <motion.div {...fadeUp(4)} className="flex items-center justify-center gap-4">
           {socials.map(({ icon, href, label }) => (
             <a
               key={label}
@@ -127,10 +120,7 @@ export function Hero() {
           ))}
         </motion.div>
 
-        <motion.div
-          {...fadeUp(5)}
-          className="flex justify-center mt-16"
-        >
+        <motion.div {...fadeUp(5)} className="flex justify-center mt-16">
           <a href="#about" aria-label="Scroll down">
             <ArrowDown
               size={20}

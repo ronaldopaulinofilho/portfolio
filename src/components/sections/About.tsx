@@ -1,40 +1,66 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Code2, Layers, Zap, PenTool } from 'lucide-react'
+import { Code2, Zap, PenTool } from 'lucide-react'
+import { ease } from '../../lib/motion'
+import { SectionHeader } from '../ui/SectionHeader'
+import { useLang } from '../../contexts/LanguageContext'
+import type { LucideIcon } from 'lucide-react'
 
-const skills = [
-  {
-    category: 'Product Design',
-    icon: PenTool,
-    items: ['UX Research', 'Figma', 'Design Systems', 'Prototipação', 'Testes de Usabilidade'],
-  },
-  {
-    category: 'Frontend',
-    icon: Code2,
-    items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
-  },
-  {
-    category: 'Backend',
-    icon: Layers,
-    items: ['Node.js', 'PostgreSQL', 'REST APIs', 'Docker'],
-  },
-  {
-    category: 'Ferramentas',
-    icon: Zap,
-    items: ['Git', 'Storybook', 'Vercel', 'Linear', 'Notion'],
-  },
-]
+const skillIcons: Record<string, LucideIcon> = {
+  design: PenTool,
+  frontend: Code2,
+  tools: Zap,
+}
 
-const ease = [0.22, 1, 0.36, 1] as const
+function AreaCard({
+  title,
+  description,
+  index,
+}: {
+  title: string
+  description: string
+  index: number
+}) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-60px' })
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1, ease }}
+      className="p-6 rounded-2xl border"
+      style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border)' }}
+    >
+      <div
+        className="w-1 h-6 rounded-full mb-4"
+        style={{ backgroundColor: 'var(--accent)' }}
+      />
+      <h3 className="font-semibold text-sm mb-2" style={{ color: 'var(--accent-light)' }}>
+        {title}
+      </h3>
+      <p className="text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
+        {description}
+      </p>
+    </motion.div>
+  )
+}
 
 function SkillCard({
   category,
-  icon: Icon,
   items,
+  iconKey,
   index,
-}: (typeof skills)[0] & { index: number }) {
+}: {
+  category: string
+  items: readonly string[]
+  iconKey: string
+  index: number
+}) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
+  const Icon = skillIcons[iconKey]
 
   return (
     <motion.div
@@ -74,6 +100,7 @@ function SkillCard({
 }
 
 export function About() {
+  const { t } = useLang()
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -84,34 +111,49 @@ export function About() {
         initial={{ opacity: 0, y: 24 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease }}
-        className="mb-16"
+        className="mb-12"
       >
-        <span
-          className="text-sm font-medium tracking-widest uppercase mb-4 block"
-          style={{ color: 'var(--accent-light)' }}
-        >
-          Sobre
-        </span>
-        <h2
-          className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
-          style={{ color: 'var(--text-heading)' }}
-        >
-          Design que fala,
+        <SectionHeader label={t.about.label} className="mb-6">
+          {t.about.heading[0]}
           <br />
-          código que entrega.
-        </h2>
-        <p className="text-lg max-w-2xl leading-relaxed" style={{ color: 'var(--text)' }}>
-          Sou um profissional que transita entre o design e o desenvolvimento — entendo tanto
-          a linguagem do Figma quanto do terminal. Acredito que os melhores produtos nascem
-          da interseção entre empatia pelo usuário e excelência técnica.
+          {t.about.heading[1]}
+        </SectionHeader>
+        <p className="text-lg max-w-3xl leading-relaxed mt-6" style={{ color: 'var(--text)' }}>
+          {t.about.body}
         </p>
       </motion.div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {skills.map((skill, i) => (
-          <SkillCard key={skill.category} {...skill} index={i} />
+      {/* Frentes de atuação */}
+      <div className="grid sm:grid-cols-2 gap-4 mb-12">
+        {t.about.areas.map((area, i) => (
+          <AreaCard key={area.title} title={area.title} description={area.description} index={i} />
         ))}
       </div>
+
+      {/* Skills */}
+      <div className="grid sm:grid-cols-3 gap-4 mb-10">
+        {t.about.skills.map((skill, i) => (
+          <SkillCard
+            key={skill.key}
+            category={skill.category}
+            items={skill.items}
+            iconKey={skill.key}
+            index={i}
+          />
+        ))}
+      </div>
+
+      {/* Fechamento */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.8, ease }}
+        className="text-sm leading-relaxed"
+        style={{ color: 'var(--text)' }}
+      >
+        {t.about.closing}
+      </motion.p>
     </section>
   )
 }

@@ -1,34 +1,37 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Mail, ArrowUpRight } from 'lucide-react'
-import { IconGithub, IconLinkedin } from '../ui/BrandIcons'
-
-const ease = [0.22, 1, 0.36, 1] as const
-
-const links = [
-  {
-    icon: <Mail size={18} />,
-    label: 'Email',
-    value: 'rpfilho2@gmail.com',
-    href: 'mailto:rpfilho2@gmail.com',
-  },
-  {
-    icon: <IconGithub size={18} />,
-    label: 'GitHub',
-    value: 'github.com/',
-    href: 'https://github.com/',
-  },
-  {
-    icon: <IconLinkedin size={18} />,
-    label: 'LinkedIn',
-    value: 'linkedin.com/in/',
-    href: 'https://linkedin.com/',
-  },
-]
+import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
+import { SectionHeader } from '../ui/SectionHeader'
+import { ease } from '../../lib/motion'
+import { contact } from '../../data/contact'
+import { useLang } from '../../contexts/LanguageContext'
 
 export function Contact() {
+  const { t } = useLang()
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
+
+  const links = [
+    {
+      icon: <Mail size={18} />,
+      label: 'Email',
+      value: contact.email,
+      href: `mailto:${contact.email}`,
+    },
+    {
+      icon: <IconBehance size={18} />,
+      label: 'Behance',
+      value: contact.behance.display,
+      href: contact.behance.url,
+    },
+    {
+      icon: <IconLinkedin size={18} />,
+      label: 'LinkedIn',
+      value: contact.linkedin.display,
+      href: contact.linkedin.url,
+    },
+  ]
 
   return (
     <section id="contact" className="py-24 max-w-6xl mx-auto px-6">
@@ -39,20 +42,11 @@ export function Contact() {
         transition={{ duration: 0.6, ease }}
         className="text-center mb-12"
       >
-        <span
-          className="text-sm font-medium tracking-widest uppercase mb-4 block"
-          style={{ color: 'var(--accent-light)' }}
-        >
-          Contato
-        </span>
-        <h2
-          className="text-4xl md:text-5xl font-bold tracking-tight mb-5"
-          style={{ color: 'var(--text-heading)' }}
-        >
-          Vamos construir algo juntos?
-        </h2>
-        <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text)' }}>
-          Estou disponível para projetos freelance, colaborações e oportunidades full-time.
+        <SectionHeader label={t.contact.label} className="mb-5">
+          {t.contact.heading}
+        </SectionHeader>
+        <p className="text-lg max-w-xl mx-auto mt-5" style={{ color: 'var(--text)' }}>
+          {t.contact.body}
         </p>
       </motion.div>
 

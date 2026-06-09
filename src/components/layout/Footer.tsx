@@ -1,18 +1,22 @@
 import { Mail } from 'lucide-react'
-import { IconGithub, IconLinkedin } from '../ui/BrandIcons'
-
-const socials = [
-  { icon: <IconGithub size={16} />, href: 'https://github.com/', label: 'GitHub' },
-  { icon: <IconLinkedin size={16} />, href: 'https://linkedin.com/', label: 'LinkedIn' },
-  { icon: <Mail size={16} />, href: 'mailto:rpfilho2@gmail.com', label: 'Email' },
-]
+import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
+import { contact } from '../../data/contact'
+import { useLang } from '../../contexts/LanguageContext'
 
 export function Footer() {
+  const { t } = useLang()
+
+  const socials = [
+    { icon: <IconBehance size={16} />, href: contact.behance.url, label: 'Behance' },
+    { icon: <IconLinkedin size={16} />, href: contact.linkedin.url, label: 'LinkedIn' },
+    { icon: <Mail size={16} />, href: `mailto:${contact.email}`, label: 'Email' },
+  ]
+
   return (
     <footer className="border-t py-10 mt-20" style={{ borderColor: 'var(--border)' }}>
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <p className="text-sm" style={{ color: 'var(--text)' }}>
-          © {new Date().getFullYear()} ronal — feito com React + Vite
+          © {new Date().getFullYear()} Ronaldo Paulino Filho — {t.footer.made}
         </p>
 
         <div className="flex items-center gap-4">

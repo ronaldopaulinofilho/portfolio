@@ -2,28 +2,29 @@ import { useState, useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ExternalLink, ArrowUpRight } from 'lucide-react'
 import { IconGithub } from '../ui/BrandIcons'
-import { projects } from '../../data/projects'
+import { projects, typeColors } from '../../data/projects'
+import { SectionHeader } from '../ui/SectionHeader'
+import { ease } from '../../lib/motion'
+import { useLang } from '../../contexts/LanguageContext'
 import type { Project } from '../../types'
 import { cn } from '../../lib/utils'
 
-const ease = [0.22, 1, 0.36, 1] as const
-
-const filterLabels: { value: Project['type'] | 'all'; label: string }[] = [
-  { value: 'all', label: 'Todos' },
-  { value: 'design', label: 'Design' },
-  { value: 'dev', label: 'Dev' },
-  { value: 'fullstack', label: 'Full-stack' },
-]
-
-const typeColors: Record<Project['type'], string> = {
-  design: '#f59e0b',
-  dev: '#3b82f6',
-  fullstack: '#a78bfa',
-}
-
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({
+  project,
+  index,
+  demo,
+  code,
+}: {
+  project: Project
+  index: number
+  demo: string
+  code: string
+}) {
+  const { lang } = useLang()
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const color = typeColors[project.type]
+  const description = lang === 'en' ? project.descriptionEn : project.description
 
   return (
     <motion.article
@@ -45,26 +46,35 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
     >
       {/* Thumbnail */}
       <div
-        className="h-48 flex items-center justify-center relative overflow-hidden"
+        className="h-52 relative overflow-hidden"
         style={{ backgroundColor: 'var(--bg-secondary)' }}
       >
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: `radial-gradient(circle at 30% 50%, ${typeColors[project.type]}, transparent 70%)`,
-          }}
-        />
-        <ArrowUpRight
-          size={40}
-          className="opacity-10 group-hover:opacity-25 transition-opacity"
-          style={{ color: typeColors[project.type] }}
-        />
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{ background: `radial-gradient(circle at 30% 50%, ${color}, transparent 70%)` }}
+            />
+            <ArrowUpRight
+              size={40}
+              className="absolute inset-0 m-auto opacity-10 group-hover:opacity-25 transition-opacity"
+              style={{ color }}
+            />
+          </>
+        )}
         <span
           className="absolute top-3 right-3 text-xs px-2.5 py-1 rounded-full font-medium"
           style={{
-            backgroundColor: `${typeColors[project.type]}20`,
-            color: typeColors[project.type],
-            border: `1px solid ${typeColors[project.type]}40`,
+            backgroundColor: `${color}20`,
+            color,
+            border: `1px solid ${color}40`,
+            backdropFilter: 'blur(8px)',
           }}
         >
           {project.type}
@@ -79,7 +89,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.title}
         </h3>
         <p className="text-sm leading-relaxed mb-4 flex-1" style={{ color: 'var(--text)' }}>
-          {project.description}
+          {description}
         </p>
 
         <div className="flex flex-wrap gap-1.5 mb-5">
@@ -108,7 +118,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               style={{ color: 'var(--accent-light)' }}
             >
               <ExternalLink size={14} />
-              Demo
+              {demo}
             </a>
           )}
           {project.repoUrl && (
@@ -120,7 +130,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               style={{ color: 'var(--text)' }}
             >
               <IconGithub size={14} />
-              Código
+              {code}
             </a>
           )}
         </div>
@@ -130,9 +140,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export function Projects() {
+  const { t } = useLang()
   const [filter, setFilter] = useState<Project['type'] | 'all'>('all')
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
+
+  const filterLabels: { value: Project['type'] | 'all'; label: string }[] = [
+    { value: 'all', label: t.projects.filters.all },
+    { value: 'design', label: t.projects.filters.design },
+    { value: 'dev', label: t.projects.filters.dev },
+    { value: 'fullstack', label: t.projects.filters.fullstack },
+  ]
 
   const filtered = filter === 'all' ? projects : projects.filter(p => p.type === filter)
 
@@ -145,19 +163,8 @@ export function Projects() {
         transition={{ duration: 0.6, ease }}
         className="mb-12"
       >
-        <span
-          className="text-sm font-medium tracking-widest uppercase mb-4 block"
-          style={{ color: 'var(--accent-light)' }}
-        >
-          Projetos
-        </span>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <h2
-            className="text-4xl md:text-5xl font-bold tracking-tight"
-            style={{ color: 'var(--text-heading)' }}
-          >
-            Trabalhos selecionados
-          </h2>
+          <SectionHeader label={t.projects.label}>{t.projects.heading}</SectionHeader>
 
           <div
             className="flex items-center gap-1 p-1 rounded-xl border self-start"
@@ -183,7 +190,13 @@ export function Projects() {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((project, i) => (
-          <ProjectCard key={project.id} project={project} index={i} />
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={i}
+            demo={t.projects.demo}
+            code={t.projects.code}
+          />
         ))}
       </div>
     </section>

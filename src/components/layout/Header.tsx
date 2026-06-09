@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react'
 import { Moon, Sun, Menu, X } from 'lucide-react'
 import { useTheme } from '../../hooks/useTheme'
+import { useLang } from '../../contexts/LanguageContext'
 import { cn } from '../../lib/utils'
 
-const navLinks = [
-  { label: 'Início', href: '#hero' },
-  { label: 'Sobre', href: '#about' },
-  { label: 'Projetos', href: '#projects' },
-  { label: 'Contato', href: '#contact' },
-]
-
 export function Header() {
-  const { theme, toggle } = useTheme()
+  const { theme, toggle: toggleTheme } = useTheme()
+  const { lang, t, toggle: toggleLang } = useLang()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const navLinks = [
+    { label: t.nav.home, href: '#hero' },
+    { label: t.nav.about, href: '#about' },
+    { label: t.nav.projects, href: '#projects' },
+    { label: t.nav.contact, href: '#contact' },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -40,7 +42,7 @@ export function Header() {
           className="font-semibold text-lg tracking-tight transition-colors"
           style={{ color: 'var(--text-heading)' }}
         >
-          ronal<span style={{ color: 'var(--accent-light)' }}>.</span>
+          Ronaldo Paulino Filho<span style={{ color: 'var(--accent-light)' }}></span>
         </a>
 
         <ul className="hidden md:flex items-center gap-8">
@@ -57,9 +59,22 @@ export function Header() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
-            onClick={toggle}
+            onClick={toggleLang}
+            className="h-9 px-3 rounded-lg flex items-center justify-center border text-xs font-semibold tracking-widest transition-colors"
+            style={{
+              borderColor: 'var(--border)',
+              color: 'var(--text)',
+              backgroundColor: 'var(--bg-card)',
+            }}
+            aria-label="Toggle language"
+          >
+            {lang === 'pt' ? 'EN' : 'PT'}
+          </button>
+
+          <button
+            onClick={toggleTheme}
             className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors border"
             style={{
               borderColor: 'var(--border)',
