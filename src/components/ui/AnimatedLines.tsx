@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const paths = [
   'M -200 180 C 200 80, 550 380, 850 130 S 1250 280, 1650 80',
@@ -9,6 +9,9 @@ const paths = [
 ]
 
 export function AnimatedLines() {
+  const reduced = useReducedMotion()
+  if (reduced) return null
+
   return (
     <svg
       className="absolute inset-0 w-full h-full pointer-events-none"
@@ -32,10 +35,7 @@ export function AnimatedLines() {
               delay: 0.2 + i * 0.45,
               ease: [0.22, 1, 0.36, 1],
             },
-            opacity: {
-              duration: 0.6,
-              delay: 0.2 + i * 0.45,
-            },
+            opacity: { duration: 0.6, delay: 0.2 + i * 0.45 },
           }}
         />
       ))}

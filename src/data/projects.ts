@@ -18,6 +18,11 @@ export const projects: Project[] = [
     type: 'design',
     featured: true,
     image: '/projects/design-system.png',
+    images: [
+      '/projects/design-system.png',
+      '/projects/design-system-2.png',
+      '/projects/design-system-3.png',
+    ],
     liveUrl: '#',
   },
   {
@@ -30,19 +35,25 @@ export const projects: Project[] = [
     tags: ['Figma', 'Vue.js', 'Design System', 'B2B'],
     type: 'design',
     featured: true,
-    image: '/projects/b2b.png',
+    image: '/projects/b2b-dashboard.png',
+    images: [
+      '/projects/b2b-dashboard.png',
+      '/projects/b2b-platform.png',
+      '/projects/b2b-pessoas.png',
+    ],
     liveUrl: '#',
   },
   {
     id: 'brand-identity',
     title: 'Brand Identity',
     description:
-      'Criação de identidade visual completa para Dr. Leandro Damiani e First UP — logo, paleta, tipografia, presença digital e guia de marca.',
+      'Criação de identidade visual. logo, paleta, tipografia, presença digital e guia de marca.',
     descriptionEn:
-      'Complete visual identity for Dr. Leandro Damiani and First UP — logo, palette, typography, digital presence and brand guide.',
+      'Complete visual identity. logo, palette, typography, digital presence and brand guide.',
     tags: ['Branding', 'Figma', 'Social Media'],
     type: 'design',
-    image: '/projects/brand.png',
+    image: '/projects/brand-identity.png',
+    images: ['/projects/brand-identity.png', '/projects/brand-identity-2.png'],
     liveUrl: '#',
   },
   {
@@ -55,6 +66,7 @@ export const projects: Project[] = [
     tags: ['Web Design', 'Figma', 'HTML/CSS'],
     type: 'design',
     image: '/projects/sites.png',
+    images: ['/projects/sites.png', '/projects/sites-2.png'],
     liveUrl: '#',
   },
   {

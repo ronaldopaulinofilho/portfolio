@@ -7,6 +7,7 @@ export interface Project {
   descriptionEn: string
   tags: string[]
   image?: string
+  images?: string[]
   liveUrl?: string
   repoUrl?: string
   featured?: boolean

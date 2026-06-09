@@ -5,20 +5,21 @@ export const translations = {
     nav: {
       home: 'Início',
       about: 'Sobre',
+      caseStudy: 'Case Study',
       projects: 'Projetos',
       contact: 'Contato',
     },
     hero: {
       badge: 'Disponível para novos projetos',
       description:
-        'Crio experiências digitais da pesquisa de UX ao código em produção. Foco em interfaces bonitas, acessíveis e performáticas.',
+        'Crio experiências digitais da pesquisa de UX, prototipos dinamicos ao código em produção. Foco em interfaces de produtos digitais, com escala e performáticas.',
       cta1: 'Ver Projetos',
       cta2: 'Entrar em Contato',
     },
     about: {
       label: 'Sobre',
       heading: ['Estratégia que escala,', 'código que entrega.'],
-      body: 'Product Designer com mais de 5 anos de experiência na arquitetura de produtos B2B de alta complexidade. Minha atuação se diferencia pela intersecção entre Design Estratégico e Engenharia de Software, garantindo que a visão de produto seja tecnicamente viável com escalabilidade.',
+      body: 'Product Designer | Software Developercom mais de 5 anos de experiência na arquitetura de produtos B2B de alta complexidade. Minha atuação se diferencia pela intersecção entre Design Estratégico e Engenharia de Software, garantindo que a visão de produto seja tecnicamente viável com escalabilidade.',
       areas: [
         {
           title: 'Design Ops & Scalability',
@@ -59,7 +60,7 @@ export const translations = {
     projects: {
       label: 'Projetos',
       heading: 'Atuação em projetos',
-      filters: { all: 'Todos', design: 'Design', dev: 'Dev', fullstack: 'Full-stack' },
+      filters: { all: 'Todos', design: 'Design', dev: 'Dev' },
       demo: 'Demo',
       code: 'Código',
     },
@@ -76,6 +77,7 @@ export const translations = {
     nav: {
       home: 'Home',
       about: 'About',
+      caseStudy: 'Case Study',
       projects: 'Projects',
       contact: 'Contact',
     },
@@ -130,7 +132,7 @@ export const translations = {
     projects: {
       label: 'Projects',
       heading: 'Project experience',
-      filters: { all: 'All', design: 'Design', dev: 'Dev', fullstack: 'Full-stack' },
+      filters: { all: 'All', design: 'Design', dev: 'Dev' },
       demo: 'Demo',
       code: 'Code',
     },

@@ -13,15 +13,18 @@ export function Header() {
   const navLinks = [
     { label: t.nav.home, href: '#hero' },
     { label: t.nav.about, href: '#about' },
+    { label: t.nav.caseStudy, href: '#case-study' },
     { label: t.nav.projects, href: '#projects' },
     { label: t.nav.contact, href: '#contact' },
   ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const close = () => setMenuOpen(false)
 
   return (
     <header
@@ -36,21 +39,22 @@ export function Header() {
         borderColor: scrolled ? 'var(--border)' : 'transparent',
       }}
     >
-      <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         <a
           href="#hero"
-          className="font-semibold text-lg tracking-tight transition-colors"
+          className="font-semibold text-base sm:text-lg tracking-tight transition-opacity hover:opacity-80"
           style={{ color: 'var(--text-heading)' }}
         >
           Ronaldo Paulino Filho<span style={{ color: 'var(--accent-light)' }}></span>
         </a>
 
-        <ul className="hidden md:flex items-center gap-8">
+        {/* Desktop nav */}
+        <ul className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map(link => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm transition-colors hover:opacity-100 opacity-70"
+                className="text-sm transition-opacity hover:opacity-100 opacity-70"
                 style={{ color: 'var(--text-heading)' }}
               >
                 {link.label}
@@ -101,18 +105,19 @@ export function Header() {
         </div>
       </nav>
 
+      {/* Mobile menu */}
       {menuOpen && (
         <div
-          className="md:hidden px-6 pb-4 pt-2 border-t mt-2"
+          className="md:hidden px-4 pb-5 pt-3 border-t mt-2"
           style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}
         >
-          <ul className="flex flex-col gap-4">
+          <ul className="flex flex-col gap-1">
             {navLinks.map(link => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-sm transition-colors"
+                  onClick={close}
+                  className="block py-2.5 px-2 text-sm rounded-lg transition-colors hover:opacity-80"
                   style={{ color: 'var(--text-heading)' }}
                 >
                   {link.label}
