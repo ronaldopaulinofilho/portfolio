@@ -19,7 +19,9 @@ function imgUrl(path: string) {
 function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const { lang } = useLang()
   const study = designSystemCase
+  const locale = lang === 'en' ? study.en : study.pt
 
   return (
     <motion.div
@@ -36,7 +38,7 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
       }}
     >
       {/* Content */}
-      <div className="flex-1 p-7 flex flex-col justify-between gap-5">
+      <div className="flex-1 p-6 sm:p-7 flex flex-col justify-between gap-5">
         <div>
           <span
             className="inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4"
@@ -45,22 +47,22 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
             {study.label}
           </span>
           <h3 className="font-bold text-xl leading-snug mb-3" style={{ color: 'var(--text-heading)' }}>
-            {study.title}
+            {locale.title}
           </h3>
           <p className="text-sm leading-relaxed max-w-lg" style={{ color: 'var(--text)' }}>
-            {study.subtitle}
+            {locale.subtitle}
           </p>
         </div>
 
         {/* Meta */}
         <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs" style={{ color: 'var(--text)' }}>
           <span>
-            <span className="font-semibold" style={{ color: 'var(--accent-light)' }}>Papel </span>
+            <span className="font-semibold" style={{ color: 'var(--accent-light)' }}>{locale.meta.roleLabel} </span>
             Lead Product Designer
           </span>
           <span>
-            <span className="font-semibold" style={{ color: 'var(--accent-light)' }}>Duração </span>
-            {study.meta.duration}
+            <span className="font-semibold" style={{ color: 'var(--accent-light)' }}>{locale.meta.durationLabel} </span>
+            {locale.meta.duration}
           </span>
           <span>
             <span className="font-semibold" style={{ color: 'var(--accent-light)' }}>Stack </span>
@@ -73,7 +75,7 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
           className="self-start flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-opacity hover:opacity-75"
           style={{ backgroundColor: 'var(--accent-glow)', color: 'var(--accent-light)' }}
         >
-          Ler case completo
+          {locale.readMore}
           <ArrowRight size={14} />
         </button>
       </div>
@@ -86,7 +88,7 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
       >
         <img
           src={imgUrl(study.images[0])}
-          alt={study.title}
+          alt={locale.title}
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">

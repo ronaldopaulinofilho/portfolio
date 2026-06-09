@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import type { CaseStudy, CaseStudyBlock } from '../../data/caseStudies'
+import { useLang } from '../../contexts/LanguageContext'
 
 function imgUrl(path: string) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
@@ -11,7 +12,7 @@ function Paragraph({ text }: { text: string }) {
   return (
     <>
       {text.split('\n\n').map((para, i) => (
-        <p key={i} className={`text-sm leading-relaxed ${i > 0 ? 'mt-3' : ''}`} style={{ color: 'var(--text)' }}>
+        <p key={i} className={`text-sm leading-relaxed${i > 0 ? ' mt-3' : ''}`} style={{ color: 'var(--text)' }}>
           {para}
         </p>
       ))}
@@ -77,6 +78,8 @@ interface Props {
 }
 
 export function CaseStudyModal({ study, onClose }: Props) {
+  const { lang } = useLang()
+  const locale = lang === 'en' ? study.en : study.pt
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -108,7 +111,7 @@ export function CaseStudyModal({ study, onClose }: Props) {
         style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border)' }}
         onClick={e => e.stopPropagation()}
       >
-        {/* Header fixo */}
+        {/* Header */}
         <div
           className="flex items-start justify-between gap-4 px-4 sm:px-7 py-4 sm:py-5 border-b shrink-0"
           style={{ borderColor: 'var(--border)' }}
@@ -121,7 +124,7 @@ export function CaseStudyModal({ study, onClose }: Props) {
               {study.label}
             </span>
             <h2 className="text-lg font-bold leading-snug" style={{ color: 'var(--text-heading)' }}>
-              {study.title}
+              {locale.title}
             </h2>
           </div>
           <button
@@ -134,18 +137,17 @@ export function CaseStudyModal({ study, onClose }: Props) {
           </button>
         </div>
 
-        {/* Corpo rolável */}
+        {/* Scrollable body */}
         <div ref={scrollRef} className="overflow-y-auto flex-1 px-4 sm:px-7 py-5 sm:py-6 space-y-6 sm:space-y-7">
-          {/* Intro */}
-          <Paragraph text={study.intro} />
+          <Paragraph text={locale.intro} />
 
           {/* Meta grid */}
           <div className="grid sm:grid-cols-2 gap-3">
             {[
-              { label: 'Meu Papel', value: study.meta.role },
-              { label: 'Duração', value: study.meta.duration },
-              { label: 'Ferramentas / Tecnologias', value: study.meta.tools },
-              { label: 'Impacto Principal', value: study.meta.impact },
+              { label: locale.meta.roleLabel, value: locale.meta.role },
+              { label: locale.meta.durationLabel, value: locale.meta.duration },
+              { label: locale.meta.toolsLabel, value: locale.meta.tools },
+              { label: locale.meta.impactLabel, value: locale.meta.impact },
             ].map(({ label, value }) => (
               <div
                 key={label}
@@ -168,15 +170,16 @@ export function CaseStudyModal({ study, onClose }: Props) {
               <img
                 key={i}
                 src={imgUrl(src)}
-                alt={`${study.title} ${i + 1}`}
+                alt={`${locale.title} ${i + 1}`}
                 className="h-24 rounded-lg object-cover object-top shrink-0 border"
                 style={{ borderColor: 'var(--border)' }}
+                loading="lazy"
               />
             ))}
           </div>
 
-          {/* Seções */}
-          {study.sections.map(section => (
+          {/* Sections */}
+          {locale.sections.map(section => (
             <div key={section.title}>
               <h3
                 className="flex items-center gap-2 font-semibold text-base mb-4"

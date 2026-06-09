@@ -49,7 +49,7 @@ export function Header() {
         </a>
 
         {/* Desktop nav */}
-        <ul className="hidden md:flex items-center gap-6 lg:gap-8">
+        <ul className="hidden md:flex items-center gap-4 lg:gap-6">
           {navLinks.map(link => (
             <li key={link.href}>
               <a
