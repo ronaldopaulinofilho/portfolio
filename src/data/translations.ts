@@ -12,7 +12,7 @@ export const translations = {
     hero: {
       badge: 'Disponível para novos projetos',
       description:
-        'Crio experiências digitais da pesquisa de UX, prototipos dinamicos ao código em produção. Foco em interfaces de produtos digitais, com escala e performáticas.',
+        'Crio experiências digitais da pesquisa de UX, protótipos dinâmicos ao código em produção. Foco em interfaces de produtos digitais, com escala e performáticas.',
       cta1: 'Ver Projetos',
       cta2: 'Entrar em Contato',
     },
@@ -84,7 +84,7 @@ export const translations = {
     hero: {
       badge: 'Available for new projects',
       description:
-        'I craft elegant digital experiences — from UX research to production code. Focused on beautiful, accessible, and performant interfaces.',
+        'I create digital experiences from UX research and dynamic prototypes to production code. Focused on scalable, high-performance product interfaces.',
       cta1: 'View Projects',
       cta2: 'Get in Touch',
     },
