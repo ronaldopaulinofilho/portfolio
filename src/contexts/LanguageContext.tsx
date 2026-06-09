@@ -11,7 +11,9 @@ const LanguageContext = createContext<LanguageCtx>({} as LanguageCtx)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>(() => {
-    return (localStorage.getItem('lang') as Lang) ?? 'pt'
+    const saved = localStorage.getItem('lang') as Lang | null
+    if (saved) return saved
+    return navigator.language.startsWith('en') ? 'en' : 'pt'
   })
 
   const toggle = () =>
