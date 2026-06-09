@@ -1,0 +1,112 @@
+import { useState, useEffect } from 'react'
+import { Moon, Sun, Menu, X } from 'lucide-react'
+import { useTheme } from '../../hooks/useTheme'
+import { cn } from '../../lib/utils'
+
+const navLinks = [
+  { label: 'Início', href: '#hero' },
+  { label: 'Sobre', href: '#about' },
+  { label: 'Projetos', href: '#projects' },
+  { label: 'Contato', href: '#contact' },
+]
+
+export function Header() {
+  const { theme, toggle } = useTheme()
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  return (
+    <header
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        scrolled ? 'py-3 backdrop-blur-xl border-b' : 'py-5'
+      )}
+      style={{
+        backgroundColor: scrolled
+          ? 'color-mix(in srgb, var(--bg) 85%, transparent)'
+          : 'transparent',
+        borderColor: scrolled ? 'var(--border)' : 'transparent',
+      }}
+    >
+      <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+        <a
+          href="#hero"
+          className="font-semibold text-lg tracking-tight transition-colors"
+          style={{ color: 'var(--text-heading)' }}
+        >
+          ronal<span style={{ color: 'var(--accent-light)' }}>.</span>
+        </a>
+
+        <ul className="hidden md:flex items-center gap-8">
+          {navLinks.map(link => (
+            <li key={link.href}>
+              <a
+                href={link.href}
+                className="text-sm transition-colors hover:opacity-100 opacity-70"
+                style={{ color: 'var(--text-heading)' }}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={toggle}
+            className="w-9 h-9 rounded-lg flex items-center justify-center transition-colors border"
+            style={{
+              borderColor: 'var(--border)',
+              color: 'var(--text)',
+              backgroundColor: 'var(--bg-card)',
+            }}
+            aria-label="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+
+          <button
+            onClick={() => setMenuOpen(o => !o)}
+            className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center border transition-colors"
+            style={{
+              borderColor: 'var(--border)',
+              color: 'var(--text)',
+              backgroundColor: 'var(--bg-card)',
+            }}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
+        </div>
+      </nav>
+
+      {menuOpen && (
+        <div
+          className="md:hidden px-6 pb-4 pt-2 border-t mt-2"
+          style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg)' }}
+        >
+          <ul className="flex flex-col gap-4">
+            {navLinks.map(link => (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm transition-colors"
+                  style={{ color: 'var(--text-heading)' }}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </header>
+  )
+}
