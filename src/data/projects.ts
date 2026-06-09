@@ -73,9 +73,9 @@ export const projects: Project[] = [
     id: 'api-rest',
     title: 'REST API Service',
     description:
-      'API RESTful documentada com autenticação JWT, rate limiting e CI/CD automatizado.',
+      'API RESTful documentada.',
     descriptionEn:
-      'Documented RESTful API with JWT authentication, rate limiting, and automated CI/CD.',
+      'Documented RESTful API.',
     tags: ['Node.js', 'Express'],
     type: 'dev',
   },
