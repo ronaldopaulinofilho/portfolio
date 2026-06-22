@@ -151,11 +151,11 @@ function HeroCanvas() {
       frameId = requestAnimationFrame(animate)
       const t = (performance.now() - startTime) / 1000
 
-      const driftX = t * 0.006
-      const driftY = t * 0.009
+      const driftX = t * 0.022
+      const driftY = t * 0.032
 
-      influence.x += (mouse.y * 0.7 - influence.x) * 0.04
-      influence.y += (mouse.x * 0.7 - influence.y) * 0.04
+      influence.x += (mouse.y * 0.7 - influence.x) * 0.07
+      influence.y += (mouse.x * 0.7 - influence.y) * 0.07
 
       group.rotation.x = TILT_X + driftX + influence.x
       group.rotation.y = driftY + influence.y
