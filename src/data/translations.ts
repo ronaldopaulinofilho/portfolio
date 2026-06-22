@@ -10,14 +10,14 @@ export const translations = {
       contact: 'Contato',
     },
     hero: {
-      label: '001 — hero',
+      label: 'hero',
       badge: 'Disponível para novos projetos',
       tagline: '// Product Designer & Developer',
       heading: ['Product Designer', '& Developer'],
       cta: 'Ver Projetos',
     },
     about: {
-      label: '002 — sobre',
+      label: 'sobre',
       heading: ['Estratégia que escala,', 'código que entrega.'],
       body: 'Product Designer e Software Developer com mais de 5 anos de experiência na arquitetura de produtos B2B de alta complexidade. Minha atuação se diferencia pela intersecção entre Design Estratégico e Engenharia de Software, garantindo que a visão de produto seja tecnicamente viável e escalável.',
       areas: [
@@ -58,7 +58,7 @@ export const translations = {
       industries: ['B2B SaaS', 'Logística', 'Trade Marketing', 'E-commerce', 'Fintech'],
     },
     services: {
-      label: '003 — serviços',
+      label: 'serviços',
       heading: 'O que eu ofereço',
       cards: [
         {
@@ -82,14 +82,14 @@ export const translations = {
       ],
     },
     projects: {
-      label: '004 — projetos',
-      heading: 'Trabalho selecionado',
+      label: 'projetos',
+      heading: 'Case Study',
       filters: { all: 'Todos', design: 'Design', dev: 'Dev' },
       demo: 'Demo',
       code: 'Código',
     },
     contact: {
-      label: '005 — contato',
+      label: 'contato',
       heading: 'Vamos construir algo juntos?',
       body: 'Disponível para projetos, colaborações e oportunidades full-time.',
     },
@@ -107,14 +107,14 @@ export const translations = {
       contact: 'Contact',
     },
     hero: {
-      label: '001 — hero',
+      label: 'hero',
       badge: 'Available for new projects',
       tagline: '// Product Designer & Developer',
       heading: ['Product Designer', '& Developer'],
       cta: 'View Projects',
     },
     about: {
-      label: '002 — about',
+      label: 'about',
       heading: ['Strategy that scales,', 'code that delivers.'],
       body: 'Product Designer and Software Developer with over 5 years of experience in high-complexity B2B product architecture. My approach is defined by the intersection of Strategic Design and Software Engineering, ensuring product vision is technically viable and scalable.',
       areas: [
@@ -155,7 +155,7 @@ export const translations = {
       industries: ['B2B SaaS', 'Logistics', 'Trade Marketing', 'E-commerce', 'Fintech'],
     },
     services: {
-      label: '003 — services',
+      label: 'services',
       heading: 'What I offer',
       cards: [
         {
@@ -179,14 +179,14 @@ export const translations = {
       ],
     },
     projects: {
-      label: '004 — projects',
-      heading: 'Selected work',
+      label: 'projects',
+      heading: 'Case Study',
       filters: { all: 'All', design: 'Design', dev: 'Dev' },
       demo: 'Demo',
       code: 'Code',
     },
     contact: {
-      label: '005 — contact',
+      label: 'contact',
       heading: "Let's build something together?",
       body: 'Available for freelance projects, collaborations, and full-time opportunities.',
     },

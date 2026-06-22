@@ -39,25 +39,56 @@ function HeroCanvas() {
     }
     setSize()
 
-    // Torus knot — light metallic gray
-    const knotGeo = new THREE.TorusKnotGeometry(1.2, 0.38, 160, 20)
+    // Abstract composition: smooth sweep curve + straight line segments
+    const group = new THREE.Group()
+    group.scale.setScalar(1.75)
+    scene.add(group)
+
+    // DDP-inspired: elongated parametric surface with flowing organic waves
+    const uSeg = 100, vSeg = 50
+    const knotGeo = new THREE.BufferGeometry()
+    const verts: number[] = [], uvArr: number[] = [], idxArr: number[] = []
+    for (let j = 0; j <= vSeg; j++) {
+      for (let i = 0; i <= uSeg; i++) {
+        const u = i / uSeg, v = j / vSeg
+        const theta = u * Math.PI * 2
+        const phi = v * Math.PI
+        const bump = Math.sin(theta * 2) * Math.sin(phi) * 0.28
+                   + Math.cos(theta * 3 + phi * 1.5) * 0.12
+        verts.push(
+          Math.sin(phi) * Math.cos(theta) * 1.6 * (1 + bump),
+          Math.cos(phi) * 0.72,
+          Math.sin(phi) * Math.sin(theta) * 1.1 * (1 + bump),
+        )
+        uvArr.push(u, v)
+      }
+    }
+    for (let j = 0; j < vSeg; j++) {
+      for (let i = 0; i < uSeg; i++) {
+        const a = j * (uSeg + 1) + i
+        const b = a + 1, c = (j + 1) * (uSeg + 1) + i, d = c + 1
+        idxArr.push(a, b, d, a, d, c)
+      }
+    }
+    knotGeo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3))
+    knotGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvArr, 2))
+    knotGeo.setIndex(idxArr)
+    knotGeo.computeVertexNormals()
     const knotMat = new THREE.MeshStandardMaterial({
       color: 0xF0F0F0,
       roughness: 0.12,
       metalness: 0.88,
     })
-    const torusKnot = new THREE.Mesh(knotGeo, knotMat)
-    scene.add(torusKnot)
+    group.add(new THREE.Mesh(knotGeo, knotMat))
 
-    // Wireframe overlay
+    // Wireframe overlay — adds surface texture on top of the metallic tube
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0xe5e5e5,
+      color: 0xc0c0c0,
       wireframe: true,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.52,
     })
-    const wireKnot = new THREE.Mesh(knotGeo, wireMat)
-    scene.add(wireKnot)
+    group.add(new THREE.Mesh(knotGeo, wireMat))
 
     // Golden spark particles
     const particleCount = 3000
@@ -111,6 +142,10 @@ function HeroCanvas() {
     }
     window.addEventListener('mousemove', onMouseMove)
 
+    // Diagonal tilt bias — stays constant, parallax + drift animate on top
+    const TILT_X = Math.PI * 0.28
+    const TILT_Z = Math.PI * 0.15
+
     let frameId: number
     const startTime = performance.now()
 
@@ -124,10 +159,9 @@ function HeroCanvas() {
       influence.x += (mouse.y * 0.7 - influence.x) * 0.04
       influence.y += (mouse.x * 0.7 - influence.y) * 0.04
 
-      torusKnot.rotation.x = driftX + influence.x
-      torusKnot.rotation.y = driftY + influence.y
-      wireKnot.rotation.x = driftX + influence.x
-      wireKnot.rotation.y = driftY + influence.y
+      group.rotation.x = TILT_X + driftX + influence.x
+      group.rotation.y = driftY + influence.y
+      group.rotation.z = TILT_Z
 
       particles.rotation.y = driftY * 0.4 + mouse.x * 0.1
       particles.rotation.x = driftX * 0.4 + mouse.y * 0.05
