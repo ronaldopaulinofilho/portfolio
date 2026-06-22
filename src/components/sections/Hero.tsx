@@ -41,25 +41,23 @@ function HeroCanvas() {
 
     // Abstract composition: smooth sweep curve + straight line segments
     const group = new THREE.Group()
-    group.scale.setScalar(1.75)
+    group.scale.setScalar(2.3)
     scene.add(group)
 
-    // DDP-inspired: elongated parametric surface with flowing organic waves
-    const uSeg = 100, vSeg = 50
+    // Abstract smoke: large wavy displaced surface with multi-frequency undulations
+    const uSeg = 90, vSeg = 70
     const knotGeo = new THREE.BufferGeometry()
     const verts: number[] = [], uvArr: number[] = [], idxArr: number[] = []
     for (let j = 0; j <= vSeg; j++) {
       for (let i = 0; i <= uSeg; i++) {
         const u = i / uSeg, v = j / vSeg
-        const theta = u * Math.PI * 2
-        const phi = v * Math.PI
-        const bump = Math.sin(theta * 2) * Math.sin(phi) * 0.28
-                   + Math.cos(theta * 3 + phi * 1.5) * 0.12
-        verts.push(
-          Math.sin(phi) * Math.cos(theta) * 1.6 * (1 + bump),
-          Math.cos(phi) * 0.72,
-          Math.sin(phi) * Math.sin(theta) * 1.1 * (1 + bump),
-        )
+        const x = (u - 0.5) * 3.6
+        const z = (v - 0.5) * 2.8
+        const y = Math.sin(x * 1.1 + z * 0.7) * 0.55
+                + Math.sin(x * 2.4 - z * 1.5) * 0.28
+                + Math.cos(x * 0.7 + z * 2.2) * 0.22
+                + Math.sin(x * 3.6 - z * 0.9) * 0.11
+        verts.push(x, y, z)
         uvArr.push(u, v)
       }
     }
@@ -75,9 +73,9 @@ function HeroCanvas() {
     knotGeo.setIndex(idxArr)
     knotGeo.computeVertexNormals()
     const knotMat = new THREE.MeshStandardMaterial({
-      color: 0xF0F0F0,
-      roughness: 0.12,
-      metalness: 0.88,
+      color: 0xEEEEEE,
+      roughness: 0.04,
+      metalness: 0.96,
     })
     group.add(new THREE.Mesh(knotGeo, knotMat))
 
@@ -86,7 +84,7 @@ function HeroCanvas() {
       color: 0xc0c0c0,
       wireframe: true,
       transparent: true,
-      opacity: 0.52,
+      opacity: 0.62,
     })
     group.add(new THREE.Mesh(knotGeo, wireMat))
 
