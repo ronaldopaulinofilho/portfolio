@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLang } from '../../contexts/LanguageContext'
+import { FigmaLines } from '../ui/FigmaLines'
 
 const ease = [0.25, 0.1, 0.25, 1] as const
 
@@ -62,12 +63,11 @@ export function About() {
               <p className="font-mono text-xs text-neutral-400 mb-3">{skill.category}</p>
               <div className="flex flex-wrap gap-2">
                 {skill.items.map(item => (
-                  <span
-                    key={item}
-                    className="text-xs px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:border-neutral-400 hover:text-neutral-900 transition-colors duration-200 cursor-default"
-                  >
-                    {item}
-                  </span>
+                  <FigmaLines key={item}>
+                    <span className="text-xs px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:border-neutral-400 hover:text-neutral-900 transition-colors duration-200 cursor-default">
+                      {item}
+                    </span>
+                  </FigmaLines>
                 ))}
               </div>
             </div>
@@ -84,12 +84,11 @@ export function About() {
         >
           <span className="font-mono text-xs text-neutral-400 mr-2">indústrias</span>
           {t.about.industries.map(ind => (
-            <span
-              key={ind}
-              className="text-xs px-3 py-1 rounded-full bg-neutral-50 border border-neutral-100 text-neutral-500"
-            >
-              {ind}
-            </span>
+            <FigmaLines key={ind}>
+              <span className="text-xs px-3 py-1 rounded-full bg-neutral-50 border border-neutral-100 text-neutral-500 cursor-default">
+                {ind}
+              </span>
+            </FigmaLines>
           ))}
         </motion.div>
       </div>

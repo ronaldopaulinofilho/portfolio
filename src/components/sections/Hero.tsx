@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 import { ArrowDown } from 'lucide-react'
 import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
 import { contact } from '../../data/contact'
@@ -15,8 +16,16 @@ function HeroCanvas() {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setClearColor(0xffffff, 1)
+    renderer.toneMapping = THREE.ACESFilmicToneMapping
+    renderer.toneMappingExposure = 1.2
 
     const scene = new THREE.Scene()
+
+    // Environment map — gives metallic materials something to reflect
+    const pmrem = new THREE.PMREMGenerator(renderer)
+    pmrem.compileEquirectangularShader()
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+    pmrem.dispose()
 
     const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 100)
     camera.position.set(0, 0, 5)
@@ -30,12 +39,12 @@ function HeroCanvas() {
     }
     setSize()
 
-    // Torus knot
+    // Torus knot — light metallic gray
     const knotGeo = new THREE.TorusKnotGeometry(1.2, 0.38, 160, 20)
     const knotMat = new THREE.MeshStandardMaterial({
-      color: 0x171717,
-      roughness: 0.4,
-      metalness: 0.3,
+      color: 0xF0F0F0,
+      roughness: 0.12,
+      metalness: 0.88,
     })
     const torusKnot = new THREE.Mesh(knotGeo, knotMat)
     scene.add(torusKnot)
@@ -76,17 +85,31 @@ function HeroCanvas() {
     const particles = new THREE.Points(particleGeo, particleMat)
     scene.add(particles)
 
-    // Lights
-    const ambient = new THREE.AmbientLight(0xffffff, 1.2)
+    // Lights — metallic chrome setup
+    const ambient = new THREE.AmbientLight(0xffffff, 0.5)
     scene.add(ambient)
 
-    const keyLight = new THREE.DirectionalLight(0xffecd2, 2)
-    keyLight.position.set(3, 4, 3)
+    const keyLight = new THREE.DirectionalLight(0xfff8f0, 3.0)
+    keyLight.position.set(4, 5, 3)
     scene.add(keyLight)
 
-    const fillLight = new THREE.DirectionalLight(0xfff0e0, 0.8)
-    fillLight.position.set(-3, -2, 2)
+    const fillLight = new THREE.DirectionalLight(0xe0ecff, 1.6)
+    fillLight.position.set(-4, -1, 2)
     scene.add(fillLight)
+
+    const rimLight = new THREE.DirectionalLight(0xc0d8ff, 1.8)
+    rimLight.position.set(-1, 3, -4)
+    scene.add(rimLight)
+
+    // Mouse parallax
+    const mouse = { x: 0, y: 0 }
+    const influence = { x: 0, y: 0 }
+
+    const onMouseMove = (e: MouseEvent) => {
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+      mouse.y = -((e.clientY / window.innerHeight) * 2 - 1)
+    }
+    window.addEventListener('mousemove', onMouseMove)
 
     let frameId: number
     const startTime = performance.now()
@@ -95,12 +118,19 @@ function HeroCanvas() {
       frameId = requestAnimationFrame(animate)
       const t = (performance.now() - startTime) / 1000
 
-      torusKnot.rotation.x = t * 0.2
-      torusKnot.rotation.y = t * 0.3
-      wireKnot.rotation.x = t * 0.2
-      wireKnot.rotation.y = t * 0.3
-      particles.rotation.y = t * 0.04
-      particles.rotation.x = t * 0.02
+      const driftX = t * 0.006
+      const driftY = t * 0.009
+
+      influence.x += (mouse.y * 0.7 - influence.x) * 0.04
+      influence.y += (mouse.x * 0.7 - influence.y) * 0.04
+
+      torusKnot.rotation.x = driftX + influence.x
+      torusKnot.rotation.y = driftY + influence.y
+      wireKnot.rotation.x = driftX + influence.x
+      wireKnot.rotation.y = driftY + influence.y
+
+      particles.rotation.y = driftY * 0.4 + mouse.x * 0.1
+      particles.rotation.x = driftX * 0.4 + mouse.y * 0.05
 
       renderer.render(scene, camera)
     }
@@ -112,6 +142,7 @@ function HeroCanvas() {
     return () => {
       cancelAnimationFrame(frameId)
       window.removeEventListener('resize', onResize)
+      window.removeEventListener('mousemove', onMouseMove)
       renderer.dispose()
       knotGeo.dispose()
       knotMat.dispose()
@@ -127,6 +158,108 @@ function HeroCanvas() {
       className="absolute inset-0 w-full h-full"
       style={{ display: 'block' }}
     />
+  )
+}
+
+const NODES: [number, number][] = [[28, 148], [72, 72], [138, 108], [186, 28]]
+const PATH = `M${NODES.map(([x, y]) => `${x} ${y}`).join(' L')}`
+const PATH_LEN = 340
+
+function FigmaCursor() {
+  const [on, setOn] = useState(false)
+
+  return (
+    <span
+      className="relative inline-block cursor-default select-none"
+      style={{ width: 16, height: 22, verticalAlign: 'middle', marginLeft: 10, position: 'relative', top: -20 }}
+      onMouseEnter={() => setOn(true)}
+      onMouseLeave={() => setOn(false)}
+    >
+      {/* Figma arrow cursor — accurate shape with drop shadow */}
+      <svg width="16" height="22" viewBox="0 0 12 19" fill="none" aria-hidden="true"
+        style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.35))' }}>
+        <path
+          d="M0.5 0.5 L0.5 15.5 L4.1 12 L7 17.8 L9.2 16.9 L6.3 11.1 L11.5 11.1 Z"
+          fill="white"
+          stroke="#111111"
+          strokeWidth="1"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      {/* Vector drawing lines — appear on hover, extend upward into the canvas */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 220 170"
+        width="220"
+        height="170"
+        fill="none"
+        style={{
+          position: 'absolute',
+          bottom: 'calc(100% + 6px)',
+          left: -40,
+          pointerEvents: 'none',
+          opacity: on ? 1 : 0,
+          transition: 'opacity 0.15s ease',
+          zIndex: 20,
+        }}
+      >
+        {/* Blue path */}
+        <path
+          d={PATH}
+          stroke="#18A0FB"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          style={{
+            strokeDasharray: PATH_LEN,
+            strokeDashoffset: on ? 0 : PATH_LEN,
+            transition: on ? 'stroke-dashoffset 0.45s ease-out' : 'none',
+          }}
+        />
+
+        {/* Dashed preview from last node */}
+        <line
+          x1="186" y1="28" x2="210" y2="6"
+          stroke="#18A0FB"
+          strokeWidth="1.5"
+          strokeDasharray="4 3"
+          strokeLinecap="round"
+          style={{
+            opacity: on ? 0.55 : 0,
+            transition: on ? 'opacity 0.2s 0.4s' : 'none',
+          }}
+        />
+
+        {/* Anchor nodes (hollow) */}
+        {NODES.map(([x, y], i) => (
+          <rect
+            key={i}
+            x={x - 4} y={y - 4}
+            width={8} height={8}
+            fill="white"
+            stroke="#18A0FB"
+            strokeWidth="1.5"
+            style={{
+              opacity: on ? 1 : 0,
+              transition: on ? `opacity 0.15s ${i * 0.07}s` : 'none',
+            }}
+          />
+        ))}
+
+        {/* Active node at preview end (filled) */}
+        <rect
+          x={206} y={2}
+          width={8} height={8}
+          fill="#18A0FB"
+          style={{
+            opacity: on ? 1 : 0,
+            transition: on ? 'opacity 0.15s 0.42s' : 'none',
+          }}
+        />
+      </svg>
+    </span>
   )
 }
 
@@ -176,8 +309,8 @@ export function Hero() {
         <p className="font-mono text-xs text-neutral-400 mb-3 tracking-wider">
           {t.hero.tagline}
         </p>
-        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight leading-none text-neutral-900">
-          {t.hero.heading[0]}
+        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-neutral-900" style={{ lineHeight: '0.88' }}>
+          {t.hero.heading[0]}<FigmaCursor />
           <br />
           <span className="text-neutral-400">{t.hero.heading[1]}</span>
         </h1>
