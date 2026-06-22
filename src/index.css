@@ -1,28 +1,17 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap');
 
 @layer base {
   :root {
-    --bg: #0a0a0f;
-    --bg-secondary: #111118;
-    --bg-card: #16161f;
-    --text: #a0a0b8;
-    --text-heading: #f0f0ff;
-    --border: #1e1e2e;
-    --accent: #7c3aed;
-    --accent-light: #a78bfa;
-    --accent-glow: rgba(124, 58, 237, 0.15);
-  }
-
-  .light {
-    --bg: #fafafa;
-    --bg-secondary: #f4f4f8;
+    --bg: #ffffff;
+    --bg-secondary: #fafafa;
     --bg-card: #ffffff;
-    --text: #52525b;
-    --text-heading: #09090b;
-    --border: #e4e4e7;
-    --accent: #7c3aed;
-    --accent-light: #6d28d9;
-    --accent-glow: rgba(124, 58, 237, 0.08);
+    --text: #737373;
+    --text-heading: #171717;
+    --border: #e5e5e5;
+    --accent: #171717;
+    --accent-light: #404040;
+    --accent-glow: rgba(0, 0, 0, 0.05);
   }
 
   * {
@@ -33,20 +22,19 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 72px;
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #ffffff;
+    color: #171717;
+    font-family: 'Geist', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
   }
 
   ::selection {
-    background: var(--accent);
+    background: #171717;
     color: #fff;
   }
 
@@ -54,10 +42,16 @@
     width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--bg);
+    background: #fafafa;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: #e5e5e5;
     border-radius: 3px;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'Geist Mono', monospace;
   }
 }

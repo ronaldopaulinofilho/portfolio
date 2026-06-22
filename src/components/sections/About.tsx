@@ -1,159 +1,98 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Code2, Zap, PenTool } from 'lucide-react'
-import { ease } from '../../lib/motion'
-import { SectionHeader } from '../ui/SectionHeader'
 import { useLang } from '../../contexts/LanguageContext'
-import type { LucideIcon } from 'lucide-react'
 
-const skillIcons: Record<string, LucideIcon> = {
-  design: PenTool,
-  frontend: Code2,
-  tools: Zap,
-}
-
-function AreaCard({
-  title,
-  description,
-  index,
-}: {
-  title: string
-  description: string
-  index: number
-}) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1, ease }}
-      className="p-6 rounded-2xl border"
-      style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border)' }}
-    >
-      <div
-        className="w-1 h-6 rounded-full mb-4"
-        style={{ backgroundColor: 'var(--accent)' }}
-      />
-      <h3 className="font-semibold text-sm mb-2" style={{ color: 'var(--accent-light)' }}>
-        {title}
-      </h3>
-      <p className="text-sm leading-relaxed" style={{ color: 'var(--text)' }}>
-        {description}
-      </p>
-    </motion.div>
-  )
-}
-
-function SkillCard({
-  category,
-  items,
-  iconKey,
-  index,
-}: {
-  category: string
-  items: readonly string[]
-  iconKey: string
-  index: number
-}) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-  const Icon = skillIcons[iconKey]
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1, ease }}
-      className="p-6 rounded-2xl border transition-colors duration-300"
-      style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border)' }}
-    >
-      <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-        style={{ backgroundColor: 'var(--accent-glow)', color: 'var(--accent-light)' }}
-      >
-        <Icon size={20} />
-      </div>
-      <h3 className="font-semibold text-base mb-3" style={{ color: 'var(--text-heading)' }}>
-        {category}
-      </h3>
-      <ul className="flex flex-wrap gap-2">
-        {items.map(item => (
-          <li
-            key={item}
-            className="text-xs px-3 py-1 rounded-full border"
-            style={{
-              borderColor: 'var(--border)',
-              color: 'var(--text)',
-              backgroundColor: 'var(--bg-secondary)',
-            }}
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
-    </motion.div>
-  )
-}
+const ease = [0.25, 0.1, 0.25, 1] as const
 
 export function About() {
   const { t } = useLang()
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-100px' })
+  const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" className="pt-12 pb-24 max-w-6xl mx-auto px-6">
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 24 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease }}
-        className="mb-12"
-      >
-        <SectionHeader label={t.about.label} className="mb-6">
-          {t.about.heading[0]}
-          <br />
-          {t.about.heading[1]}
-        </SectionHeader>
-        <p className="text-lg max-w-3xl leading-relaxed mt-6" style={{ color: 'var(--text)' }}>
-          {t.about.body}
-        </p>
-      </motion.div>
+    <section id="about" className="py-24 sm:py-32 px-8 sm:px-12">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease }}
+        >
+          <p className="font-mono text-xs text-neutral-400 mb-4 tracking-wider">{t.about.label}</p>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight text-neutral-900 mb-6 max-w-2xl">
+            {t.about.heading[0]}
+            <br />
+            {t.about.heading[1]}
+          </h2>
+          <p className="text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mb-16">
+            {t.about.body}
+          </p>
+        </motion.div>
 
-      {/* Frentes de atuação */}
-      <div className="grid sm:grid-cols-2 gap-4 mb-12">
-        {t.about.areas.map((area, i) => (
-          <AreaCard key={area.title} title={area.title} description={area.description} index={i} />
-        ))}
+        {/* Areas grid */}
+        <div className="grid sm:grid-cols-2 gap-px bg-neutral-100 border border-neutral-100 rounded-2xl overflow-hidden mb-16">
+          {t.about.areas.map((area, i) => (
+            <motion.div
+              key={area.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease }}
+              className="bg-white p-7"
+            >
+              <span className="font-mono text-xs text-neutral-300 block mb-3">
+                0{i + 1}
+              </span>
+              <h3 className="font-semibold text-sm text-neutral-900 mb-2">{area.title}</h3>
+              <p className="text-sm text-neutral-500 leading-relaxed">{area.description}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Skills */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, ease }}
+          className="grid sm:grid-cols-3 gap-6"
+        >
+          {t.about.skills.map(skill => (
+            <div key={skill.key}>
+              <p className="font-mono text-xs text-neutral-400 mb-3">{skill.category}</p>
+              <div className="flex flex-wrap gap-2">
+                {skill.items.map(item => (
+                  <span
+                    key={item}
+                    className="text-xs px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:border-neutral-400 hover:text-neutral-900 transition-colors duration-200 cursor-default"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Industries */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2, ease }}
+          className="mt-12 pt-12 border-t border-neutral-100 flex flex-wrap items-center gap-3"
+        >
+          <span className="font-mono text-xs text-neutral-400 mr-2">indústrias</span>
+          {t.about.industries.map(ind => (
+            <span
+              key={ind}
+              className="text-xs px-3 py-1 rounded-full bg-neutral-50 border border-neutral-100 text-neutral-500"
+            >
+              {ind}
+            </span>
+          ))}
+        </motion.div>
       </div>
-
-      {/* Skills */}
-      <div className="grid sm:grid-cols-3 gap-4 mb-10">
-        {t.about.skills.map((skill, i) => (
-          <SkillCard
-            key={skill.key}
-            category={skill.category}
-            items={skill.items}
-            iconKey={skill.key}
-            index={i}
-          />
-        ))}
-      </div>
-
-      {/* Fechamento */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.8, ease }}
-        className="text-sm leading-relaxed"
-        style={{ color: 'var(--text)' }}
-      >
-        {t.about.closing}
-      </motion.p>
     </section>
   )
 }

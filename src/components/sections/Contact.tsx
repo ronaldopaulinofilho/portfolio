@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Mail, ArrowUpRight } from 'lucide-react'
 import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
-import { SectionHeader } from '../ui/SectionHeader'
 import { ease } from '../../lib/motion'
 import { contact } from '../../data/contact'
 import { useLang } from '../../contexts/LanguageContext'
@@ -34,68 +33,53 @@ export function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-24 max-w-6xl mx-auto px-6">
-      <motion.div
-        ref={ref}
-        initial={{ opacity: 0, y: 24 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, ease }}
-        className="text-center mb-12"
-      >
-        <SectionHeader label={t.contact.label} className="mb-5">
-          {t.contact.heading}
-        </SectionHeader>
-        <p className="text-lg max-w-xl mx-auto mt-5" style={{ color: 'var(--text)' }}>
-          {t.contact.body}
-        </p>
-      </motion.div>
+    <section id="contact" className="py-24 sm:py-32 px-8 sm:px-12 bg-neutral-50">
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease }}
+          className="mb-14"
+        >
+          <p className="font-mono text-xs text-neutral-400 mb-4 tracking-wider">{t.contact.label}</p>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900 max-w-lg">
+            {t.contact.heading}
+          </h2>
+          <p className="text-base sm:text-lg text-neutral-500 mt-4 max-w-md">{t.contact.body}</p>
+        </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6, delay: 0.2, ease }}
-        className="max-w-lg mx-auto flex flex-col gap-3"
-      >
-        {links.map(({ icon, label, value, href }) => (
-          <a
-            key={label}
-            href={href}
-            target={href.startsWith('mailto') ? undefined : '_blank'}
-            rel="noopener noreferrer"
-            className="flex items-center justify-between p-5 rounded-2xl border group transition-all duration-200 hover:-translate-y-0.5"
-            style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border)' }}
-            onMouseEnter={e => {
-              ;(e.currentTarget as HTMLElement).style.borderColor =
-                'color-mix(in srgb, var(--accent) 40%, var(--border))'
-            }}
-            onMouseLeave={e => {
-              ;(e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'
-            }}
-          >
-            <div className="flex items-center gap-4">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: 'var(--accent-glow)', color: 'var(--accent-light)' }}
-              >
-                {icon}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.15, ease }}
+          className="flex flex-col gap-3 max-w-lg"
+        >
+          {links.map(({ icon, label, value, href }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith('mailto') ? undefined : '_blank'}
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between p-5 rounded-2xl border border-neutral-100 bg-white hover:border-neutral-300 hover:shadow-md transition-all duration-200"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 flex items-center justify-center rounded-xl bg-neutral-50 border border-neutral-100 text-neutral-500 group-hover:bg-neutral-900 group-hover:text-white group-hover:border-neutral-900 transition-all duration-200">
+                  {icon}
+                </div>
+                <div>
+                  <p className="font-mono text-xs text-neutral-400 mb-0.5">{label}</p>
+                  <p className="text-sm font-medium text-neutral-900">{value}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs mb-0.5" style={{ color: 'var(--text)' }}>
-                  {label}
-                </p>
-                <p className="text-sm font-medium" style={{ color: 'var(--text-heading)' }}>
-                  {value}
-                </p>
-              </div>
-            </div>
-            <ArrowUpRight
-              size={18}
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
-              style={{ color: 'var(--accent-light)' }}
-            />
-          </a>
-        ))}
-      </motion.div>
+              <ArrowUpRight
+                size={18}
+                className="text-neutral-300 group-hover:text-neutral-900 transition-colors duration-200"
+              />
+            </a>
+          ))}
+        </motion.div>
+      </div>
     </section>
   )
 }
