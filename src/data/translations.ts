@@ -13,9 +13,9 @@ export const translations = {
     hero: {
       label: 'hero',
       badge: 'Disponível para novos projetos',
-      tagline: '// Product Designer & Developer',
+      tagline: '// UX/UI Specialist',
       heading: ['Product Designer', '& Developer'],
-      cta: 'Ver Projetos',
+      cta: 'Projetos',
     },
     about: {
       label: 'sobre',
@@ -111,9 +111,9 @@ export const translations = {
     hero: {
       label: 'hero',
       badge: 'Available for new projects',
-      tagline: '// Product Designer & Developer',
+      tagline: '// UX/UI Specialist',
       heading: ['Product Designer', '& Developer'],
-      cta: 'View Projects',
+      cta: 'Projects',
     },
     about: {
       label: 'about',

@@ -33,13 +33,13 @@ export function Contact() {
   ]
 
   return (
-    <section id="contact" className="py-24 sm:py-32 px-8 sm:px-12 bg-neutral-50">
+    <section id="contact" className="pt-12 pb-24 sm:pt-16 sm:pb-32 px-8 sm:px-12 bg-neutral-50">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
+          initial={{ opacity: 0, y: 56, scale: 0.97 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           className="mb-14"
         >
           <p className="font-mono text-xs text-neutral-400 mb-4 tracking-wider">{t.contact.label}</p>
@@ -50,9 +50,9 @@ export function Contact() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.15, ease }}
+          transition={{ duration: 0.65, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col gap-3 max-w-lg"
         >
           {links.map(({ icon, label, value, href }) => (

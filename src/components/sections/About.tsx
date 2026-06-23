@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { useLang } from '../../contexts/LanguageContext'
 import { FigmaLines } from '../ui/FigmaLines'
 
-const ease = [0.25, 0.1, 0.25, 1] as const
+const ease = [0.22, 1, 0.36, 1] as const
 
 export function About() {
   const { t } = useLang()
@@ -11,16 +11,16 @@ export function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" className="py-24 sm:py-32 px-8 sm:px-12">
+    <section id="about" className="pt-12 pb-24 sm:pt-16 sm:pb-32 px-8 sm:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
+          initial={{ opacity: 0, y: 56, scale: 0.97 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.75, ease }}
         >
           <p className="font-mono text-xs text-neutral-400 mb-4 tracking-wider">{t.about.label}</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight text-neutral-900 mb-6 max-w-2xl">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight leading-none text-neutral-900 mb-6 max-w-2xl">
             {t.about.heading[0]}
             <br />
             {t.about.heading[1]}
@@ -35,10 +35,10 @@ export function About() {
           {t.about.areas.map((area, i) => (
             <motion.div
               key={area.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease }}
               className="bg-white p-7"
             >
               <span className="font-mono text-xs text-neutral-300 block mb-3">
@@ -52,10 +52,10 @@ export function About() {
 
         {/* Skills */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.5, ease }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.65, ease }}
           className="grid sm:grid-cols-3 gap-6"
         >
           {t.about.skills.map(skill => (
@@ -76,10 +76,10 @@ export function About() {
 
         {/* Industries */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2, ease }}
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, delay: 0.1, ease }}
           className="mt-12 pt-12 border-t border-neutral-100 flex flex-wrap items-center gap-3"
         >
           <span className="font-mono text-xs text-neutral-400 mr-2">indústrias</span>

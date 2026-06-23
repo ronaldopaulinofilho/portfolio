@@ -25,9 +25,9 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 48 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, ease }}
+      transition={{ duration: 0.65, ease }}
       id="case-study"
       className="col-span-full rounded-2xl border border-neutral-100 overflow-hidden flex flex-col md:flex-row bg-white hover:border-neutral-200 hover:shadow-lg transition-all duration-300"
     >
@@ -111,9 +111,9 @@ function ProjectCard({
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 48 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.08, ease }}
+      transition={{ duration: 0.65, delay: index * 0.1, ease }}
       className="group flex flex-col rounded-2xl border border-neutral-100 overflow-hidden bg-white hover:border-neutral-300 hover:shadow-lg transition-all duration-300"
     >
       <div
@@ -195,13 +195,13 @@ export function Projects() {
   const showCaseStudy = filter === 'all' || filter === 'design'
 
   return (
-    <section id="projects" className="py-24 sm:py-32 px-8 sm:px-12">
+    <section id="projects" className="pt-12 pb-24 sm:pt-16 sm:pb-32 px-8 sm:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
+          initial={{ opacity: 0, y: 56, scale: 0.97 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.75, ease }}
           className="mb-14"
         >
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">

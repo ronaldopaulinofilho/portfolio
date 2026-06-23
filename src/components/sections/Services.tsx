@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { PenTool, Layers, Code2 } from 'lucide-react'
 import { useLang } from '../../contexts/LanguageContext'
 
-const ease = [0.25, 0.1, 0.25, 1] as const
+const ease = [0.22, 1, 0.36, 1] as const
 
 const cardIcons = [PenTool, Layers, Code2]
 
@@ -13,13 +13,13 @@ export function Services() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="services" className="py-24 sm:py-32 px-8 sm:px-12 bg-neutral-50">
+    <section id="services" className="pt-4 pb-24 sm:pt-6 sm:pb-32 px-8 sm:px-12 bg-neutral-50">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease }}
+          initial={{ opacity: 0, y: 56, scale: 0.97 }}
+          animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+          transition={{ duration: 0.75, ease }}
           className="mb-14"
         >
           <p className="font-mono text-xs text-neutral-400 mb-4 tracking-wider">{t.services.label}</p>
@@ -34,10 +34,10 @@ export function Services() {
             return (
               <motion.div
                 key={card.title}
-                initial={{ opacity: 0, y: 28 }}
+                initial={{ opacity: 0, y: 48 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.1, ease }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ duration: 0.65, delay: i * 0.12, ease }}
                 className="group bg-white rounded-2xl border border-neutral-100 p-8 flex flex-col gap-5 hover:border-neutral-300 hover:shadow-lg transition-all duration-300"
               >
                 <div className="flex items-start justify-between">

@@ -151,8 +151,8 @@ function HeroCanvas() {
       frameId = requestAnimationFrame(animate)
       const t = (performance.now() - startTime) / 1000
 
-      const driftX = t * 0.022
-      const driftY = t * 0.032
+      const driftX = t * 0.07
+      const driftY = t * 0.10
 
       influence.x += (mouse.y * 0.7 - influence.x) * 0.07
       influence.y += (mouse.x * 0.7 - influence.y) * 0.07
