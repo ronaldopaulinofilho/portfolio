@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Mail, ArrowUpRight } from 'lucide-react'
 import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
-import { ease } from '../../lib/motion'
 import { contact } from '../../data/contact'
 import { useLang } from '../../contexts/LanguageContext'
 
