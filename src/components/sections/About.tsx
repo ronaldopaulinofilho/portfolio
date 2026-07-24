@@ -11,7 +11,7 @@ export function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" className="pt-12 pb-24 sm:pt-16 sm:pb-32 px-8 sm:px-12">
+    <section id="about" className="pt-12 pb-10 sm:pt-16 sm:pb-14 px-8 sm:px-12">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}

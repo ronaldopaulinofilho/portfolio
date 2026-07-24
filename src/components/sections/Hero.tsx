@@ -1,215 +1,46 @@
-import { useEffect, useRef, useState } from 'react'
-import * as THREE from 'three'
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
-import { ArrowDown } from 'lucide-react'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { ArrowDown, FileText } from 'lucide-react'
 import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
 import { contact } from '../../data/contact'
 import { useLang } from '../../contexts/LanguageContext'
 
-function HeroCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setClearColor(0xffffff, 1)
-    renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.2
-
-    const scene = new THREE.Scene()
-
-    // Environment map — gives metallic materials something to reflect
-    const pmrem = new THREE.PMREMGenerator(renderer)
-    pmrem.compileEquirectangularShader()
-    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
-    pmrem.dispose()
-
-    const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 100)
-    camera.position.set(0, 0, 5)
-
-    const setSize = () => {
-      const w = canvas.clientWidth
-      const h = canvas.clientHeight
-      renderer.setSize(w, h, false)
-      camera.aspect = w / h
-      camera.updateProjectionMatrix()
-    }
-    setSize()
-
-    // Abstract composition: smooth sweep curve + straight line segments
-    const group = new THREE.Group()
-    group.scale.setScalar(2.3)
-    scene.add(group)
-
-    // Abstract smoke: large wavy displaced surface with multi-frequency undulations
-    const uSeg = 90, vSeg = 70
-    const knotGeo = new THREE.BufferGeometry()
-    const verts: number[] = [], uvArr: number[] = [], idxArr: number[] = []
-    for (let j = 0; j <= vSeg; j++) {
-      for (let i = 0; i <= uSeg; i++) {
-        const u = i / uSeg, v = j / vSeg
-        const x = (u - 0.5) * 3.6
-        const z = (v - 0.5) * 2.8
-        const y = Math.sin(x * 1.1 + z * 0.7) * 0.55
-                + Math.sin(x * 2.4 - z * 1.5) * 0.28
-                + Math.cos(x * 0.7 + z * 2.2) * 0.22
-                + Math.sin(x * 3.6 - z * 0.9) * 0.11
-        verts.push(x, y, z)
-        uvArr.push(u, v)
-      }
-    }
-    for (let j = 0; j < vSeg; j++) {
-      for (let i = 0; i < uSeg; i++) {
-        const a = j * (uSeg + 1) + i
-        const b = a + 1, c = (j + 1) * (uSeg + 1) + i, d = c + 1
-        idxArr.push(a, b, d, a, d, c)
-      }
-    }
-    knotGeo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3))
-    knotGeo.setAttribute('uv', new THREE.Float32BufferAttribute(uvArr, 2))
-    knotGeo.setIndex(idxArr)
-    knotGeo.computeVertexNormals()
-    const knotMat = new THREE.MeshStandardMaterial({
-      color: 0xEEEEEE,
-      roughness: 0.04,
-      metalness: 0.96,
-    })
-    group.add(new THREE.Mesh(knotGeo, knotMat))
-
-    // Wireframe overlay — adds surface texture on top of the metallic tube
-    const wireMat = new THREE.MeshBasicMaterial({
-      color: 0xc0c0c0,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.62,
-    })
-    group.add(new THREE.Mesh(knotGeo, wireMat))
-
-    // Golden spark particles
-    const particleCount = 3000
-    const positions = new Float32Array(particleCount * 3)
-    const sizes = new Float32Array(particleCount)
-    for (let i = 0; i < particleCount; i++) {
-      const r = 3 + Math.random() * 5
-      const theta = Math.random() * Math.PI * 2
-      const phi = Math.acos(2 * Math.random() - 1)
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta)
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
-      positions[i * 3 + 2] = r * Math.cos(phi)
-      sizes[i] = Math.random() * 2 + 0.5
-    }
-    const particleGeo = new THREE.BufferGeometry()
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
-    const particleMat = new THREE.PointsMaterial({
-      color: 0xd97706,
-      size: 0.025,
-      transparent: true,
-      opacity: 0.7,
-      sizeAttenuation: true,
-    })
-    const particles = new THREE.Points(particleGeo, particleMat)
-    scene.add(particles)
-
-    // Lights — metallic chrome setup
-    const ambient = new THREE.AmbientLight(0xffffff, 0.5)
-    scene.add(ambient)
-
-    const keyLight = new THREE.DirectionalLight(0xfff8f0, 3.0)
-    keyLight.position.set(4, 5, 3)
-    scene.add(keyLight)
-
-    const fillLight = new THREE.DirectionalLight(0xe0ecff, 1.6)
-    fillLight.position.set(-4, -1, 2)
-    scene.add(fillLight)
-
-    const rimLight = new THREE.DirectionalLight(0xc0d8ff, 1.8)
-    rimLight.position.set(-1, 3, -4)
-    scene.add(rimLight)
-
-    // Mouse parallax
-    const mouse = { x: 0, y: 0 }
-    const influence = { x: 0, y: 0 }
-
-    const onMouseMove = (e: MouseEvent) => {
-      mouse.x = (e.clientX / window.innerWidth) * 2 - 1
-      mouse.y = -((e.clientY / window.innerHeight) * 2 - 1)
-    }
-    window.addEventListener('mousemove', onMouseMove)
-
-    // Diagonal tilt bias — stays constant, parallax + drift animate on top
-    const TILT_X = Math.PI * 0.28
-    const TILT_Z = Math.PI * 0.15
-
-    let frameId: number
-    const startTime = performance.now()
-
-    const animate = () => {
-      frameId = requestAnimationFrame(animate)
-      const t = (performance.now() - startTime) / 1000
-
-      const driftX = t * 0.07
-      const driftY = t * 0.10
-
-      influence.x += (mouse.y * 0.7 - influence.x) * 0.07
-      influence.y += (mouse.x * 0.7 - influence.y) * 0.07
-
-      group.rotation.x = TILT_X + driftX + influence.x
-      group.rotation.y = driftY + influence.y
-      group.rotation.z = TILT_Z
-
-      particles.rotation.y = driftY * 0.4 + mouse.x * 0.1
-      particles.rotation.x = driftX * 0.4 + mouse.y * 0.05
-
-      renderer.render(scene, camera)
-    }
-    animate()
-
-    const onResize = () => setSize()
-    window.addEventListener('resize', onResize)
-
-    return () => {
-      cancelAnimationFrame(frameId)
-      window.removeEventListener('resize', onResize)
-      window.removeEventListener('mousemove', onMouseMove)
-      renderer.dispose()
-      knotGeo.dispose()
-      knotMat.dispose()
-      wireMat.dispose()
-      particleGeo.dispose()
-      particleMat.dispose()
-    }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      style={{ display: 'block' }}
-    />
-  )
-}
+const HeroCanvas = lazy(() => import('./HeroCanvas'))
 
 const NODES: [number, number][] = [[28, 148], [72, 72], [138, 108], [186, 28]]
 const PATH = `M${NODES.map(([x, y]) => `${x} ${y}`).join(' L')}`
 const PATH_LEN = 340
 
 function FigmaCursor() {
-  const [on, setOn] = useState(false)
+  const [hover, setHover] = useState(false)
+  const [auto, setAuto] = useState(false)
+  const on = hover || auto
+
+  // Replays the vector-drawing animation on its own so it's discoverable without hover
+  useEffect(() => {
+    let hide: ReturnType<typeof setTimeout>
+    const show = () => {
+      setAuto(true)
+      hide = setTimeout(() => setAuto(false), 2800)
+    }
+    const first = setTimeout(show, 1200)
+    const loop = setInterval(show, 7500)
+    return () => {
+      clearTimeout(first)
+      clearTimeout(hide)
+      clearInterval(loop)
+    }
+  }, [])
 
   return (
     <span
       className="relative inline-block cursor-default select-none"
-      style={{ width: 16, height: 22, verticalAlign: 'middle', marginLeft: 10, position: 'relative', top: -20 }}
-      onMouseEnter={() => setOn(true)}
-      onMouseLeave={() => setOn(false)}
+      style={{ width: 26, height: 36, verticalAlign: 'middle', marginLeft: 14, position: 'relative', top: -26 }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
     >
       {/* Figma arrow cursor — accurate shape with drop shadow */}
-      <svg width="16" height="22" viewBox="0 0 12 19" fill="none" aria-hidden="true"
-        style={{ filter: 'drop-shadow(0px 1px 2px rgba(0,0,0,0.35))' }}>
+      <svg width="26" height="36" viewBox="0 0 12 19" fill="none" aria-hidden="true"
+        style={{ filter: 'drop-shadow(0px 2px 3px rgba(0,0,0,0.35))' }}>
         <path
           d="M0.5 0.5 L0.5 15.5 L4.1 12 L7 17.8 L9.2 16.9 L6.3 11.1 L11.5 11.1 Z"
           fill="white"
@@ -224,13 +55,13 @@ function FigmaCursor() {
       <svg
         aria-hidden="true"
         viewBox="0 0 220 170"
-        width="220"
-        height="170"
+        width="260"
+        height="201"
         fill="none"
         style={{
           position: 'absolute',
           bottom: 'calc(100% + 6px)',
-          left: -40,
+          left: -48,
           pointerEvents: 'none',
           opacity: on ? 1 : 0,
           transition: 'opacity 0.15s ease',
@@ -305,7 +136,9 @@ export function Hero() {
 
   return (
     <section id="hero" className="relative min-h-screen overflow-hidden bg-white">
-      <HeroCanvas />
+      <Suspense fallback={null}>
+        <HeroCanvas />
+      </Suspense>
 
       {/* Top navbar */}
       <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-8 sm:px-12 py-7">
@@ -326,6 +159,15 @@ export function Hero() {
               {icon}
             </a>
           ))}
+
+          <a
+            href={`${import.meta.env.BASE_URL}Curriculo-Ronaldo-Paulino.pdf`}
+            download
+            className="h-9 px-4 hidden sm:flex items-center gap-2 rounded-xl border border-neutral-200 bg-white/80 backdrop-blur-sm text-sm font-medium text-neutral-700 hover:text-neutral-900 hover:border-neutral-300 transition-all duration-200"
+          >
+            <FileText size={14} />
+            {t.hero.cv}
+          </a>
 
           <a
             href="#projects"
