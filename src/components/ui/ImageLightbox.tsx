@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Media } from './Media'
 
 interface Props {
   images: string[]
@@ -63,18 +64,21 @@ export function ImageLightbox({ images, initialIndex = 0, title, onClose }: Prop
 
         {/* Image */}
         <AnimatePresence mode="wait">
-          <motion.img
+          <motion.div
             key={current}
-            src={imgUrl(images[current])}
-            alt={`${title} ${current + 1}`}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.18 }}
-            className="w-full rounded-xl object-contain shadow-2xl"
-            style={{ maxHeight: '78vh' }}
-            loading="lazy"
-          />
+            className="w-full flex justify-center"
+          >
+            <Media
+              src={imgUrl(images[current])}
+              alt={`${title} ${current + 1}`}
+              className="w-full rounded-xl object-contain shadow-2xl"
+              style={{ maxHeight: '78vh' }}
+            />
+          </motion.div>
         </AnimatePresence>
 
         {/* Navigation arrows — inside on mobile, outside on md+ */}

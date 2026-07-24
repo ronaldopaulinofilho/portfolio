@@ -4,8 +4,9 @@ import { ExternalLink, ArrowUpRight, ZoomIn, ArrowRight } from 'lucide-react'
 import { IconGithub } from '../ui/BrandIcons'
 import { ImageLightbox } from '../ui/ImageLightbox'
 import { CaseStudyModal } from '../ui/CaseStudyModal'
+import { Media } from '../ui/Media'
 import { projects } from '../../data/projects'
-import { designSystemCase } from '../../data/caseStudies'
+import { designSystemCase, fluxCrmCase, type CaseStudy } from '../../data/caseStudies'
 import { ease } from '../../lib/motion'
 import { useLang } from '../../contexts/LanguageContext'
 import type { Project } from '../../types'
@@ -15,11 +16,18 @@ function imgUrl(path: string) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 }
 
-function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
+function CaseStudyCard({
+  study,
+  anchorId,
+  onOpen,
+}: {
+  study: CaseStudy
+  anchorId?: string
+  onOpen: () => void
+}) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
   const { lang } = useLang()
-  const study = designSystemCase
   const locale = lang === 'en' ? study.en : study.pt
 
   return (
@@ -28,7 +36,7 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
       initial={{ opacity: 0, y: 48 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.65, ease }}
-      id="case-study"
+      id={anchorId}
       className="col-span-full rounded-2xl border border-neutral-100 overflow-hidden flex flex-col md:flex-row bg-white hover:border-neutral-200 hover:shadow-lg transition-all duration-300"
     >
       <div className="flex-1 p-7 flex flex-col justify-between gap-5">
@@ -41,15 +49,17 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
         <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-neutral-500">
           <span>
             <span className="font-semibold text-neutral-900">{locale.meta.roleLabel} </span>
-            Lead Product Designer
+            {study.cardRole}
           </span>
-          <span>
-            <span className="font-semibold text-neutral-900">{locale.meta.durationLabel} </span>
-            {locale.meta.duration}
-          </span>
+          {locale.meta.duration && (
+            <span>
+              <span className="font-semibold text-neutral-900">{locale.meta.durationLabel} </span>
+              {locale.meta.duration}
+            </span>
+          )}
           <span>
             <span className="font-semibold text-neutral-900">Stack </span>
-            Figma · React · Vue.js · Storybook
+            {study.cardStack}
           </span>
         </div>
 
@@ -66,24 +76,31 @@ function CaseStudyCard({ onOpen }: { onOpen: () => void }) {
         className="md:w-80 h-56 md:h-auto relative overflow-hidden cursor-pointer group shrink-0 bg-neutral-50"
         onClick={onOpen}
       >
-        <img
-          src={imgUrl(study.images[0])}
-          alt={locale.title}
-          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-          <ZoomIn size={26} className="text-white opacity-0 group-hover:opacity-90 transition-opacity duration-300 drop-shadow-lg" />
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 flex gap-1.5 p-2.5 bg-gradient-to-t from-black/30">
-          {study.images.slice(1).map((src, i) => (
-            <img
-              key={i}
-              src={imgUrl(src)}
-              alt=""
-              className="h-9 w-14 rounded object-cover object-top opacity-70 hover:opacity-100 transition-opacity"
+        {study.images.length > 0 ? (
+          <>
+            <Media
+              src={imgUrl(study.images[0])}
+              alt={locale.title}
+              className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
             />
-          ))}
-        </div>
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+              <ZoomIn size={26} className="text-white opacity-0 group-hover:opacity-90 transition-opacity duration-300 drop-shadow-lg" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 flex gap-1.5 p-2.5">
+              {study.images.slice(1).map((src, i) => (
+                <Media
+                  key={i}
+                  src={imgUrl(src)}
+                  className="h-9 w-14 rounded object-cover object-top border border-white shadow-md hover:scale-105 transition-transform"
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-100 to-neutral-200">
+            <ArrowUpRight size={36} className="text-neutral-300 group-hover:text-neutral-500 transition-colors duration-300" />
+          </div>
+        )}
       </div>
     </motion.div>
   )
@@ -122,7 +139,7 @@ function ProjectCard({
       >
         {project.image ? (
           <>
-            <img
+            <Media
               src={imgUrl(project.image)}
               alt={project.title}
               className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
@@ -181,7 +198,7 @@ export function Projects() {
   const { t } = useLang()
   const [filter, setFilter] = useState<Project['type'] | 'all'>('all')
   const [lightbox, setLightbox] = useState<{ project: Project } | null>(null)
-  const [caseStudyOpen, setCaseStudyOpen] = useState(false)
+  const [openCase, setOpenCase] = useState<CaseStudy | null>(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -232,7 +249,19 @@ export function Projects() {
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {showCaseStudy && <CaseStudyCard onOpen={() => setCaseStudyOpen(true)} />}
+          {showCaseStudy && (
+            <>
+              <CaseStudyCard
+                study={fluxCrmCase}
+                anchorId="case-study"
+                onOpen={() => setOpenCase(fluxCrmCase)}
+              />
+              <CaseStudyCard
+                study={designSystemCase}
+                onOpen={() => setOpenCase(designSystemCase)}
+              />
+            </>
+          )}
           {filtered.map((project, i) => (
             <ProjectCard
               key={project.id}
@@ -256,8 +285,8 @@ export function Projects() {
         </AnimatePresence>
 
         <AnimatePresence>
-          {caseStudyOpen && (
-            <CaseStudyModal study={designSystemCase} onClose={() => setCaseStudyOpen(false)} />
+          {openCase && (
+            <CaseStudyModal study={openCase} onClose={() => setOpenCase(null)} />
           )}
         </AnimatePresence>
       </div>

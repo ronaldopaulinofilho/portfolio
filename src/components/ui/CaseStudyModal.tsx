@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import type { CaseStudy, CaseStudyBlock } from '../../data/caseStudies'
 import { useLang } from '../../contexts/LanguageContext'
+import { Media } from './Media'
 
 function imgUrl(path: string) {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
@@ -22,6 +23,16 @@ function Paragraph({ text }: { text: string }) {
 
 function Block({ block }: { block: CaseStudyBlock }) {
   if (block.type === 'paragraph') return <Paragraph text={block.text} />
+
+  if (block.type === 'media') {
+    return (
+      <Media
+        src={imgUrl(block.src)}
+        className="w-full rounded-xl border mt-4"
+        style={{ borderColor: 'var(--border)' }}
+      />
+    )
+  }
 
   if (block.type === 'subheading') {
     return (
@@ -107,7 +118,7 @@ export function CaseStudyModal({ study, onClose }: Props) {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 32, opacity: 0 }}
         transition={{ duration: 0.28 }}
-        className="w-full max-w-2xl max-h-[90vh] rounded-2xl flex flex-col overflow-hidden border"
+        className="w-full max-w-4xl max-h-[92vh] rounded-2xl flex flex-col overflow-hidden border"
         style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border)' }}
         onClick={e => e.stopPropagation()}
       >
@@ -148,7 +159,9 @@ export function CaseStudyModal({ study, onClose }: Props) {
               { label: locale.meta.durationLabel, value: locale.meta.duration },
               { label: locale.meta.toolsLabel, value: locale.meta.tools },
               { label: locale.meta.impactLabel, value: locale.meta.impact },
-            ].map(({ label, value }) => (
+            ]
+              .filter((item): item is { label: string; value: string } => !!item.label && !!item.value)
+              .map(({ label, value }) => (
               <div
                 key={label}
                 className="p-4 rounded-xl border"
@@ -164,19 +177,35 @@ export function CaseStudyModal({ study, onClose }: Props) {
             ))}
           </div>
 
-          {/* Screenshots */}
-          <div className="flex gap-2.5 overflow-x-auto pb-1">
-            {study.images.map((src, i) => (
-              <img
-                key={i}
-                src={imgUrl(src)}
-                alt={`${locale.title} ${i + 1}`}
-                className="h-24 rounded-lg object-cover object-top shrink-0 border"
-                style={{ borderColor: 'var(--border)' }}
-                loading="lazy"
-              />
-            ))}
-          </div>
+          {/* Demo video */}
+          {study.video && (
+            <video
+              src={imgUrl(study.video)}
+              className="w-full rounded-xl border"
+              style={{ borderColor: 'var(--border)' }}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              preload="metadata"
+            />
+          )}
+
+          {/* Screenshots — hidden when sections embed their own media */}
+          {study.images.length > 0 && !locale.sections.some(s => s.blocks.some(b => b.type === 'media')) && (
+            <div className="flex flex-col gap-3">
+              {study.images.map((src, i) => (
+                <Media
+                  key={i}
+                  src={imgUrl(src)}
+                  alt={`${locale.title} ${i + 1}`}
+                  className="w-full rounded-xl border"
+                  style={{ borderColor: 'var(--border)' }}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Sections */}
           {locale.sections.map(section => (
