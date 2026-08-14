@@ -34,11 +34,11 @@ export const projects: Project[] = [
     tags: ['Figma', 'Tokens', 'React', 'Vue', 'Storybook'],
     type: 'design',
     featured: true,
-    image: '/projects/design-system.png',
+    image: '/projects/design-system.webp',
     images: [
-      '/projects/design-system.png',
-      '/projects/design-system-2.png',
-      '/projects/design-system-3.png',
+      '/projects/design-system.webp',
+      '/projects/design-system-2.webp',
+      '/projects/design-system-3.webp',
     ],
   },
   {
@@ -51,11 +51,11 @@ export const projects: Project[] = [
     tags: ['Figma', 'Vue.js', 'Design System', 'B2B'],
     type: 'design',
     featured: true,
-    image: '/projects/b2b-dashboard.png',
+    image: '/projects/b2b-dashboard.webp',
     images: [
-      '/projects/b2b-dashboard.png',
-      '/projects/b2b-platform.png',
-      '/projects/b2b-pessoas.png',
+      '/projects/b2b-dashboard.webp',
+      '/projects/b2b-platform.webp',
+      '/projects/b2b-pessoas.webp',
     ],
   },
   {
@@ -91,7 +91,7 @@ export const projects: Project[] = [
       'Documented RESTful API with AI integration.',
     tags: ['Node.js', 'Express', 'Integração com IA'],
     type: 'dev',
-    image: '/projects/rest-api.png',
-    images: ['/projects/rest-api.png'],
+    image: '/projects/rest-api.webp',
+    images: ['/projects/rest-api.webp'],
   },
 ]

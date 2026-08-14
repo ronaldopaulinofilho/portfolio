@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { translations, type Lang } from '../data/translations'
 
 interface LanguageCtx {
@@ -15,6 +15,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (saved) return saved
     return navigator.language.startsWith('en') ? 'en' : 'pt'
   })
+
+  // The document starts as pt-BR from index.html; without this the attribute
+  // keeps claiming Portuguese after the user switches, which misleads screen
+  // readers and language detection.
+  useEffect(() => {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR'
+  }, [lang])
 
   const toggle = () =>
     setLang(prev => {

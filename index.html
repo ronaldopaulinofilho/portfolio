@@ -2,22 +2,138 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio — Product Designer & Senior UX Engineer / Design Systems Specialist" />
-    <meta property="og:title" content="Portfolio — Product Designer & Senior UX Engineer" />
-    <meta property="og:description" content="Criando experiências digitais elegantes, do design ao código." />
-    <meta property="og:type" content="website" />
+
+    <title>Ronaldo Paulino Filho — Product Designer & UX Engineer</title>
+    <!-- Kept under ~155 chars: past that Google truncates the snippet mid-phrase. -->
+    <meta
+      name="description"
+      content="Portfólio de Ronaldo Paulino Filho — Product Designer e Senior UX Engineer especializado em Design Systems. Cases de CRM omnichannel, SaaS B2B e IA."
+    />
+    <meta name="author" content="Ronaldo Paulino Filho" />
+    <link rel="canonical" href="https://ronaldopaulinofilho.github.io/portfolio/" />
+    <!-- Matches the hero, which is the first thing painted at the top of the page. -->
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- ?v= busts the browser's favicon cache, which lives in its own store and
+         survives a hard reload. Bump it whenever favicon.svg changes, or
+         returning visitors keep the previous icon indefinitely. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=11" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Ronaldo Paulino Filho" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:title" content="Ronaldo Paulino Filho — Product Designer & UX Engineer" />
+    <meta
+      property="og:description"
+      content="Product Designer e Senior UX Engineer especializado em Design Systems. Criando experiências digitais elegantes, do design ao código."
+    />
     <meta property="og:url" content="https://ronaldopaulinofilho.github.io/portfolio/" />
     <meta property="og:image" content="https://ronaldopaulinofilho.github.io/portfolio/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Portfólio de Ronaldo Paulino Filho — Product Designer & UX Engineer" />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ronaldo Paulino Filho — Product Designer & UX Engineer" />
+    <meta
+      name="twitter:description"
+      content="Product Designer e Senior UX Engineer especializado em Design Systems. Criando experiências digitais elegantes, do design ao código."
+    />
     <meta name="twitter:image" content="https://ronaldopaulinofilho.github.io/portfolio/og-image.png" />
+    <meta name="twitter:image:alt" content="Portfólio de Ronaldo Paulino Filho — Product Designer & UX Engineer" />
+
+    <!-- Fonts: preconnect early, then load the stylesheet without blocking
+         first paint (the `print` media swap to `all` on load). -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet" />
-    <title>Portfolio — Product Designer & UX Engineer</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+      />
+    </noscript>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://ronaldopaulinofilho.github.io/portfolio/#person",
+            "name": "Ronaldo Paulino Filho",
+            "jobTitle": "Product Designer & Senior UX Engineer",
+            "description": "Product Designer e Senior UX Engineer especializado em Design Systems, com atuação em CRM omnichannel, SaaS B2B e integração de design com código.",
+            "url": "https://ronaldopaulinofilho.github.io/portfolio/",
+            "image": "https://ronaldopaulinofilho.github.io/portfolio/og-image.png",
+            "email": "mailto:rpfilho2@gmail.com",
+            "sameAs": [
+              "https://www.linkedin.com/in/ronaldopaulinofilho",
+              "https://www.behance.net/ronaldopaulino1"
+            ],
+            "knowsAbout": [
+              "Design Systems",
+              "Product Design",
+              "UX Engineering",
+              "Figma",
+              "React",
+              "Vue.js",
+              "TypeScript",
+              "Next.js",
+              "Node.js",
+              "Webpack",
+              "Vite",
+              "Tailwind CSS",
+              "Storybook"
+            ]
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://ronaldopaulinofilho.github.io/portfolio/#webpage",
+            "url": "https://ronaldopaulinofilho.github.io/portfolio/",
+            "name": "Ronaldo Paulino Filho — Product Designer & UX Engineer",
+            "inLanguage": "pt-BR",
+            "mainEntity": { "@id": "https://ronaldopaulinofilho.github.io/portfolio/#person" },
+            "hasPart": [
+              { "@id": "https://ronaldopaulinofilho.github.io/portfolio/#case-crm" },
+              { "@id": "https://ronaldopaulinofilho.github.io/portfolio/#case-ds" },
+              { "@id": "https://ronaldopaulinofilho.github.io/portfolio/#flux-landing" }
+            ]
+          },
+          {
+            "@type": "CreativeWork",
+            "@id": "https://ronaldopaulinofilho.github.io/portfolio/#case-crm",
+            "name": "Redesign de Plataforma e Integração com IA",
+            "about": "CRM omnichannel white-label: redesign das telas principais e migração do front-end para um sistema de tokens único, com automação de design-to-code via Figma + MCP.",
+            "creator": { "@id": "https://ronaldopaulinofilho.github.io/portfolio/#person" },
+            "inLanguage": "pt-BR"
+          },
+          {
+            "@type": "CreativeWork",
+            "@id": "https://ronaldopaulinofilho.github.io/portfolio/#case-ds",
+            "name": "Design System para SaaS B2B em Segmentos Diferentes",
+            "about": "Dois anos liderando desenvolvimento, implementação e governança de um Design System proprietário para uma plataforma SaaS B2B complexa.",
+            "creator": { "@id": "https://ronaldopaulinofilho.github.io/portfolio/#person" },
+            "inLanguage": "pt-BR"
+          },
+          {
+            "@type": "CreativeWork",
+            "@id": "https://ronaldopaulinofilho.github.io/portfolio/#flux-landing",
+            "name": "Nova landing page do Flux",
+            "about": "Site de produto do Flux, CRM omnichannel que reúne atendimento, vendas e telefonia numa só plataforma.",
+            "creator": { "@id": "https://ronaldopaulinofilho.github.io/portfolio/#person" },
+            "inLanguage": "pt-BR"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

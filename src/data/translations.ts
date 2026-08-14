@@ -50,7 +50,7 @@ export const translations = {
         {
           key: 'frontend',
           category: 'Frontend',
-          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion'],
         },
         {
           key: 'tools',
@@ -65,28 +65,25 @@ export const translations = {
       heading: 'O que eu ofereço',
       cards: [
         {
-          number: '01',
           title: 'UX/UI Design',
           description: 'Do discovery ao protótipo de alta fidelidade, com integração de IA via MCP: o design do Figma vira protótipo dinâmico navegável em React — validação real antes da produção.',
           tags: ['Figma', 'User Research', 'MCP + IA', 'Protótipo Navegável'],
         },
         {
-          number: '02',
           title: 'Design System',
           description: 'Sistemas de design escaláveis com tokens, componentes documentados e bibliotecas de UI prontas para produção.',
           tags: ['Tokens', 'Storybook', 'Component Lib'],
         },
         {
-          number: '03',
           title: 'Frontend Dev',
           description: 'Interfaces com React e Vue.js, integrando design e código com foco em performance e acessibilidade.',
-          tags: ['React', 'Vue.js', 'TypeScript'],
+          tags: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind'],
         },
       ],
     },
     projects: {
       label: 'projetos',
-      heading: 'Case Study',
+      heading: 'Cases',
       filters: { all: 'Todos', design: 'Design', dev: 'Dev' },
       demo: 'Demo',
       code: 'Código',
@@ -155,7 +152,7 @@ export const translations = {
         {
           key: 'frontend',
           category: 'Frontend',
-          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion'],
         },
         {
           key: 'tools',
@@ -170,28 +167,25 @@ export const translations = {
       heading: 'What I offer',
       cards: [
         {
-          number: '01',
           title: 'UX/UI Design',
           description: 'From discovery to high-fidelity prototype, with AI integration via MCP: Figma design becomes a dynamic, navigable React prototype — real validation before production.',
           tags: ['Figma', 'User Research', 'MCP + AI', 'Navigable Prototype'],
         },
         {
-          number: '02',
           title: 'Design System',
           description: 'Scalable design systems with tokens, documented components, and production-ready UI libraries.',
           tags: ['Tokens', 'Storybook', 'Component Lib'],
         },
         {
-          number: '03',
           title: 'Frontend Dev',
           description: 'Interfaces with React and Vue.js, bridging design and code with a focus on performance and accessibility.',
-          tags: ['React', 'Vue.js', 'TypeScript'],
+          tags: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind'],
         },
       ],
     },
     projects: {
       label: 'projects',
-      heading: 'Case Study',
+      heading: 'Cases',
       filters: { all: 'All', design: 'Design', dev: 'Dev' },
       demo: 'Demo',
       code: 'Code',

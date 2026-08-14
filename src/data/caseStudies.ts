@@ -46,9 +46,9 @@ export const designSystemCase: CaseStudy = {
   cardRole: 'Lead Product Designer',
   cardStack: 'Figma · React · Vue.js · Storybook',
   images: [
-    '/projects/design-system.png',
-    '/projects/design-system-2.png',
-    '/projects/design-system-3.png',
+    '/projects/design-system.webp',
+    '/projects/design-system-2.webp',
+    '/projects/design-system-3.webp',
   ],
   pt: {
     title: 'Design System para SaaS B2B em Segmentos Diferentes',

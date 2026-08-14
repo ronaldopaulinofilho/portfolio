@@ -179,16 +179,11 @@ export function CaseStudyModal({ study, onClose }: Props) {
 
           {/* Demo video */}
           {study.video && (
-            <video
+            <Media
               src={imgUrl(study.video)}
               className="w-full rounded-xl border"
               style={{ borderColor: 'var(--border)' }}
-              autoPlay
-              muted
-              loop
-              playsInline
               controls
-              preload="metadata"
             />
           )}
 

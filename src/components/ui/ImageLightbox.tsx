@@ -72,11 +72,14 @@ export function ImageLightbox({ images, initialIndex = 0, title, onClose }: Prop
             transition={{ duration: 0.18 }}
             className="w-full flex justify-center"
           >
+            {/* controls matter for video here: without them a walkthrough can
+                only be watched straight through, with no way to pause or seek */}
             <Media
               src={imgUrl(images[current])}
               alt={`${title} ${current + 1}`}
               className="w-full rounded-xl object-contain shadow-2xl"
               style={{ maxHeight: '78vh' }}
+              controls
             />
           </motion.div>
         </AnimatePresence>

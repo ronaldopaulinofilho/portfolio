@@ -2,6 +2,8 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { useLang } from '../../contexts/LanguageContext'
 import { FigmaLines } from '../ui/FigmaLines'
+import { TiltCard } from '../ui/TiltCard'
+import { AreaMotif } from '../ui/AreaMotif'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -11,7 +13,7 @@ export function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" className="pt-12 pb-10 sm:pt-16 sm:pb-14 px-8 sm:px-12">
+    <section id="about" className="pt-12 pb-10 sm:pt-16 sm:pb-14 px-8 sm:px-12 ambient-plain ambient-top-fade">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
@@ -19,34 +21,33 @@ export function About() {
           animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.75, ease }}
         >
-          <p className="font-mono text-xs text-neutral-400 mb-4 tracking-wider">{t.about.label}</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight leading-none text-neutral-900 mb-6 max-w-2xl">
+          <p className="font-mono text-xs text-neutral-600 mb-4 tracking-wider">{t.about.label}</p>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight leading-none text-neutral-900 text-gradient mb-6 max-w-2xl">
             {t.about.heading[0]}
             <br />
             {t.about.heading[1]}
           </h2>
-          <p className="text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mb-16">
+          <p className="text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl mb-16">
             {t.about.body}
           </p>
         </motion.div>
 
         {/* Areas grid */}
-        <div className="grid sm:grid-cols-2 gap-px bg-neutral-100 border border-neutral-100 rounded-2xl overflow-hidden mb-16">
+        <div className="grid sm:grid-cols-2 gap-4 mb-16">
           {t.about.areas.map((area, i) => (
-            <motion.div
+            <TiltCard
               key={area.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease }}
-              className="bg-white p-7"
+              index={i}
+              className="glass glass-edge glass-interactive rounded-3xl p-7"
             >
-              <span className="font-mono text-xs text-neutral-300 block mb-3">
-                0{i + 1}
-              </span>
-              <h3 className="font-semibold text-sm text-neutral-900 mb-2">{area.title}</h3>
-              <p className="text-sm text-neutral-500 leading-relaxed">{area.description}</p>
-            </motion.div>
+              <div className="flex items-start justify-between gap-6">
+                <div>
+                  <h3 className="font-semibold text-sm text-neutral-900 mb-2">{area.title}</h3>
+                  <p className="text-sm text-neutral-600 leading-relaxed">{area.description}</p>
+                </div>
+                <AreaMotif index={i} />
+              </div>
+            </TiltCard>
           ))}
         </div>
 
@@ -60,7 +61,7 @@ export function About() {
         >
           {t.about.skills.map(skill => (
             <div key={skill.key}>
-              <p className="font-mono text-xs text-neutral-400 mb-3">{skill.category}</p>
+              <p className="font-mono text-xs text-neutral-600 mb-3">{skill.category}</p>
               <div className="flex flex-wrap gap-2">
                 {skill.items.map(item => (
                   <FigmaLines key={item}>
@@ -80,12 +81,12 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.6, delay: 0.1, ease }}
-          className="mt-12 pt-12 border-t border-neutral-100 flex flex-wrap items-center gap-3"
+          className="mt-12 pt-12 border-t border-neutral-900/[0.07] flex flex-wrap items-center gap-3"
         >
-          <span className="font-mono text-xs text-neutral-400 mr-2">indústrias</span>
+          <span className="font-mono text-xs text-neutral-600 mr-2">indústrias</span>
           {t.about.industries.map(ind => (
             <FigmaLines key={ind}>
-              <span className="text-xs px-3 py-1 rounded-full bg-neutral-50 border border-neutral-100 text-neutral-500 cursor-default">
+              <span className="text-xs px-3 py-1 rounded-full glass-chip text-neutral-600 cursor-default">
                 {ind}
               </span>
             </FigmaLines>

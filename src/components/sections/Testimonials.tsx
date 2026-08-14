@@ -6,6 +6,7 @@ import { testimonials } from '../../data/testimonials'
 import { contact } from '../../data/contact'
 import { useLang } from '../../contexts/LanguageContext'
 import { ease } from '../../lib/motion'
+import { TiltCard } from '../ui/TiltCard'
 
 function initials(name: string) {
   return name
@@ -28,15 +29,13 @@ function TestimonialCard({
   featured?: boolean
 }) {
   return (
-    <motion.figure
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease }}
+    <TiltCard
+      as="figure"
+      index={index}
       className={
         featured
-          ? 'rounded-2xl border border-neutral-100 bg-white p-8 hover:border-neutral-200 hover:shadow-lg transition-all duration-300'
-          : 'rounded-2xl border border-neutral-100 bg-white p-7 hover:border-neutral-200 hover:shadow-lg transition-all duration-300'
+          ? 'rounded-3xl glass glass-interactive p-8'
+          : 'rounded-3xl glass glass-interactive p-7'
       }
     >
       <Quote size={featured ? 26 : 20} className="text-neutral-200 mb-4" aria-hidden="true" />
@@ -49,17 +48,17 @@ function TestimonialCard({
         ))}
       </blockquote>
 
-      <figcaption className="flex items-center gap-3 pt-5 border-t border-neutral-100">
-        <span className="w-10 h-10 shrink-0 rounded-full bg-neutral-100 flex items-center justify-center font-mono text-xs font-semibold text-neutral-600">
+      <figcaption className="flex items-center gap-3 pt-5 border-t border-neutral-900/[0.07]">
+        <span className="w-10 h-10 shrink-0 rounded-full glass-chip flex items-center justify-center font-mono text-xs font-semibold text-neutral-600">
           {initials(item.name)}
         </span>
         <div>
           <p className="text-sm font-semibold text-neutral-900">{item.name}</p>
-          <p className="text-xs text-neutral-500">{item.role[lang]}</p>
-          <p className="text-xs text-neutral-400">{item.relation[lang]}</p>
+          <p className="text-xs text-neutral-600">{item.role[lang]}</p>
+          <p className="text-xs text-neutral-600">{item.relation[lang]}</p>
         </div>
       </figcaption>
-    </motion.figure>
+    </TiltCard>
   )
 }
 
@@ -69,7 +68,7 @@ export function Testimonials() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="testimonials" className="pt-4 pb-24 sm:pt-6 sm:pb-32 px-8 sm:px-12">
+    <section id="testimonials" className="pt-4 pb-24 sm:pt-6 sm:pb-32 px-8 sm:px-12 ambient-plain">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
@@ -79,7 +78,7 @@ export function Testimonials() {
           className="mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
           <div>
-            <p className="font-mono text-xs text-neutral-400 mb-4 tracking-wider">{t.testimonials.label}</p>
+            <p className="font-mono text-xs text-neutral-600 mb-4 tracking-wider">{t.testimonials.label}</p>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-neutral-900">
               {t.testimonials.heading}
             </h2>
@@ -89,7 +88,7 @@ export function Testimonials() {
             href={contact.linkedin.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="self-start md:self-auto flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl border border-neutral-200 text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all duration-200"
+            className="self-start md:self-auto flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl glass-chip glass-chip-hover text-neutral-700"
           >
             <IconLinkedin size={14} />
             {t.testimonials.linkedin}

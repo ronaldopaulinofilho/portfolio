@@ -35,8 +35,8 @@ function NavButton({
         className={cn(
           'w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-200',
           active
-            ? 'bg-neutral-900 text-white'
-            : 'text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100'
+            ? 'bg-neutral-900 text-white shadow-sm'
+            : 'text-neutral-500 hover:text-neutral-900 hover:bg-white/70'
         )}
       >
         <Icon size={18} />
@@ -80,7 +80,7 @@ export function SideRail() {
   }, [])
 
   return (
-    <nav className="fixed z-50 flex items-center gap-1 p-2 bg-white rounded-2xl shadow-xl border border-neutral-100 bottom-3 left-1/2 -translate-x-1/2 flex-row md:bottom-auto md:left-4 md:top-1/2 md:translate-x-0 md:-translate-y-1/2 md:flex-col">
+    <nav className="fixed z-50 flex items-center gap-1 p-2 glass rounded-2xl bottom-3 left-1/2 -translate-x-1/2 flex-row md:bottom-auto md:left-4 md:top-1/2 md:translate-x-0 md:-translate-y-1/2 md:flex-col">
       {navItems.map(item => (
         <NavButton
           key={item.href}
@@ -91,11 +91,11 @@ export function SideRail() {
         />
       ))}
 
-      <div className="h-6 w-px mx-1 md:w-6 md:h-px md:my-1 md:mx-0 bg-neutral-100" />
+      <div className="h-6 w-px mx-1 md:w-6 md:h-px md:my-1 md:mx-0 bg-neutral-900/10" />
 
       <button
         onClick={toggleLang}
-        className="w-10 h-7 flex items-center justify-center rounded-lg text-xs font-mono font-medium text-neutral-400 hover:text-neutral-900 hover:bg-neutral-100 transition-all duration-200"
+        className="w-10 h-7 flex items-center justify-center rounded-lg text-xs font-mono font-medium text-neutral-500 hover:text-neutral-900 hover:bg-white/70 transition-all duration-200"
         aria-label="Toggle language"
       >
         {lang === 'pt' ? 'EN' : 'PT'}
