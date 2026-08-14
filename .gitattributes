@@ -1,0 +1,23 @@
+# Normalise line endings in the repository.
+#
+# Without this, whether a file is stored with LF or CRLF depends on each
+# contributor's core.autocrlf setting. Files committed with CRLF then show up
+# as permanently "modified" on machines with autocrlf=true, even when the
+# working copy is byte-for-byte identical to what was committed.
+#
+# text=auto  -> git decides what is text and normalises it to LF in the repo
+# eol=lf     -> and checks it out as LF everywhere, regardless of platform
+* text=auto eol=lf
+
+# Binaries must never be touched.
+*.png binary
+*.webp binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.mp4 binary
+*.webm binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ico binary
