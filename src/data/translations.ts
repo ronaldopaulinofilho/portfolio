@@ -13,7 +13,7 @@ export const translations = {
     },
     hero: {
       label: 'hero',
-      badge: 'Disponível para novos projetos',
+      badge: 'Porto Alegre · disponível para novos projetos',
       tagline: '// Design Systems Specialist',
       heading: ['Product Designer', '& Senior UX Engineer'],
       cta: 'Projetos',
@@ -99,7 +99,7 @@ export const translations = {
       body: 'Disponível para projetos, colaborações e oportunidades full-time.',
     },
     footer: {
-      available: 'Disponível para projetos',
+      available: 'Porto Alegre · disponível para projetos',
       made: 'feito com React + Vite',
     },
   },
@@ -115,7 +115,7 @@ export const translations = {
     },
     hero: {
       label: 'hero',
-      badge: 'Available for new projects',
+      badge: 'Porto Alegre, Brazil · available for new projects',
       tagline: '// Design Systems Specialist',
       heading: ['Product Designer', '& Senior UX Engineer'],
       cta: 'Projects',
@@ -201,7 +201,7 @@ export const translations = {
       body: 'Available for freelance projects, collaborations, and full-time opportunities.',
     },
     footer: {
-      available: 'Available for projects',
+      available: 'Porto Alegre, Brazil · available for projects',
       made: 'made with React + Vite',
     },
   },
