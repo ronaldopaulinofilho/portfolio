@@ -50,7 +50,7 @@ export const translations = {
         {
           key: 'frontend',
           category: 'Frontend',
-          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion'],
+          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Three.js', 'Radix UI', 'shadcn/ui', 'Zustand', 'TanStack Query', 'React Hook Form', 'Zod', 'Recharts', 'SignalR'],
         },
         {
           key: 'tools',
@@ -152,7 +152,7 @@ export const translations = {
         {
           key: 'frontend',
           category: 'Frontend',
-          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion'],
+          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Three.js', 'Radix UI', 'shadcn/ui', 'Zustand', 'TanStack Query', 'React Hook Form', 'Zod', 'Recharts', 'SignalR'],
         },
         {
           key: 'tools',
