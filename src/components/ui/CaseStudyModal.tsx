@@ -21,7 +21,7 @@ function Paragraph({ text }: { text: string }) {
   )
 }
 
-function Block({ block }: { block: CaseStudyBlock }) {
+export function Block({ block }: { block: CaseStudyBlock }) {
   if (block.type === 'paragraph') return <Paragraph text={block.text} />
 
   if (block.type === 'media') {

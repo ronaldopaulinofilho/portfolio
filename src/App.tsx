@@ -8,27 +8,24 @@ import { Testimonials } from './components/sections/Testimonials'
 import { Contact } from './components/sections/Contact'
 import { SectionThread } from './components/ui/SectionThread'
 import { DepthSection } from './components/ui/DepthSection'
-import { LanguageProvider } from './contexts/LanguageContext'
 
 export default function App() {
   return (
-    <LanguageProvider>
-      <div className="bg-white min-h-screen">
-        <SideRail />
-        <main>
-          <DepthSection><Hero /></DepthSection>
-          <DepthSection><About /></DepthSection>
-          <SectionThread />
-          <DepthSection><Services /></DepthSection>
-          <SectionThread />
-          <DepthSection><Projects /></DepthSection>
-          <SectionThread />
-          <DepthSection><Testimonials /></DepthSection>
-          <SectionThread />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </LanguageProvider>
+    <div className="bg-white min-h-screen">
+      <SideRail />
+      <main>
+        <DepthSection><Hero /></DepthSection>
+        <DepthSection><About /></DepthSection>
+        <SectionThread />
+        <DepthSection><Services /></DepthSection>
+        <SectionThread />
+        <DepthSection><Projects /></DepthSection>
+        <SectionThread />
+        <DepthSection><Testimonials /></DepthSection>
+        <SectionThread />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
   )
 }

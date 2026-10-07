@@ -14,12 +14,17 @@
  * pré-renderização é pior que o ideal, mas melhor do que quebrar o deploy.
  */
 import { createServer } from 'node:http'
-import { readFile, writeFile, stat } from 'node:fs/promises'
+import { readFile, writeFile, stat, mkdir } from 'node:fs/promises'
 import { spawn } from 'node:child_process'
-import { join, extname, resolve } from 'node:path'
+import { join, extname, resolve, dirname } from 'node:path'
 
 const DIST = resolve('dist')
 const PORT = 4321
+
+// Cada rota vira um arquivo próprio no dist. O GitHub Pages serve
+// `/estudos/ui-para-ia/index.html` direto, sem depender de fallback de SPA,
+// e o rastreador recebe HTML completo já no primeiro byte.
+const ROTAS = ['/', '/estudos/ui-para-ia']
 
 const TYPES = {
   '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
@@ -61,7 +66,7 @@ function serve() {
   return new Promise(ok => server.listen(PORT, () => ok(server)))
 }
 
-function dumpDom(chrome) {
+function dumpDom(chrome, rota) {
   return new Promise((ok, fail) => {
     // Sem `--virtual-time-budget`: com ele o Chrome despeja o DOM antes de o
     // React montar, e o resultado é a mesma casca vazia que queremos evitar.
@@ -72,7 +77,7 @@ function dumpDom(chrome) {
     const args = [
       '--headless', '--disable-gpu', '--no-sandbox', '--hide-scrollbars',
       '--lang=pt-BR', '--accept-lang=pt-BR,pt',
-      '--dump-dom', `http://localhost:${PORT}/`,
+      '--dump-dom', `http://localhost:${PORT}${rota}`,
     ]
     const proc = spawn(chrome, args)
     const kill = setTimeout(() => proc.kill('SIGKILL'), 60_000)
@@ -113,23 +118,33 @@ const bodyOf = html => html.slice(html.indexOf('<body'), html.indexOf('</body>')
 /** Conteúdo de verdade, e não a casca de ~150 bytes que o Vite gera. */
 const MIN_BODY = 2000
 
+const destino = rota =>
+  rota === '/' ? join(DIST, 'index.html') : join(DIST, rota.replace(/^\//, ''), 'index.html')
+
 const server = await serve()
 try {
-  // `--dump-dom` despeja no evento `load`, que acontece antes de o React montar
-  // quando o bundle ainda não está em cache. Na segunda tentativa o Chrome já
-  // tem o JS em disco e chega a tempo. Repetir é mais confiável do que cravar
-  // uma espera fixa, que erraria para mais na minha máquina e para menos no CI.
-  let html = null
-  for (let i = 1; i <= 4; i++) {
-    const dump = unhide(await dumpDom(chrome))
-    if (bodyOf(dump).length >= MIN_BODY) { html = dump; break }
-    console.log(`[prerender] tentativa ${i}: página ainda vazia, repetindo`)
+  for (const rota of ROTAS) {
+    // `--dump-dom` despeja no evento `load`, que acontece antes de o React montar
+    // quando o bundle ainda não está em cache. Na segunda tentativa o Chrome já
+    // tem o JS em disco e chega a tempo. Repetir é mais confiável do que cravar
+    // uma espera fixa, que erraria para mais na minha máquina e para menos no CI.
+    let html = null
+    for (let i = 1; i <= 4; i++) {
+      const dump = unhide(await dumpDom(chrome, rota))
+      if (bodyOf(dump).length >= MIN_BODY) { html = dump; break }
+      console.log(`[prerender] ${rota} tentativa ${i}: página ainda vazia, repetindo`)
+    }
+
+    if (!html) throw new Error(`${rota}: body não passou de ${MIN_BODY} bytes em 4 tentativas`)
+
+    const arquivo = destino(rota)
+    await mkdir(dirname(arquivo), { recursive: true })
+    await writeFile(arquivo, html)
+    console.log(`[prerender] ${rota} — body com ${bodyOf(html).length.toLocaleString('pt-BR')} bytes`)
   }
-
-  if (!html) throw new Error(`body não passou de ${MIN_BODY} bytes em 4 tentativas`)
-
-  await writeFile(join(DIST, 'index.html'), html)
-  console.log(`[prerender] ok — body com ${bodyOf(html).length.toLocaleString('pt-BR')} bytes`)
+  // O GitHub Pages serve 404.html em rota desconhecida. Apontando para a home
+  // já pré-renderizada, um link antigo cai numa página válida em vez de erro.
+  await writeFile(join(DIST, '404.html'), await readFile(destino('/')))
 } catch (e) {
   console.warn(`[prerender] falhou (${e.message}). Publicando sem pré-renderização.`)
 } finally {

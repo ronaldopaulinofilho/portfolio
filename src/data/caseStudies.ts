@@ -727,7 +727,7 @@ export const uiParaIaCase: CaseStudy = {
           { type: 'media', src: '/projects/ui-ia-toolcall.webp' },
           {
             type: 'paragraph',
-            text: 'Quando o modelo chama uma ferramenta, o usuário precisa ver o que foi chamado, com quais dados e o que voltou. Uma chamada passa por quatro estados, e cada um pede tratamento visual próprio.',
+            text: 'Quando o modelo chama uma ferramenta, o usuário precisa ver o que foi chamado, com quais dados e o que voltou. Uma chamada de ferramenta, ou tool call, passa por quatro estados, e cada um pede tratamento visual próprio.',
           },
           {
             type: 'bullets',
