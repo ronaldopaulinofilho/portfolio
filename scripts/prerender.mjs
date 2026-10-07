@@ -66,8 +66,12 @@ function dumpDom(chrome) {
     // Sem `--virtual-time-budget`: com ele o Chrome despeja o DOM antes de o
     // React montar, e o resultado é a mesma casca vazia que queremos evitar.
     // O corte por tempo fica por nossa conta, logo abaixo.
+    // `--lang` e `--accept-lang`: o app escolhe o idioma por navigator.language,
+    // e o runner do CI roda em inglês. Sem forçar, o HTML publicado saía todo em
+    // inglês com lang="en", enquanto o title e a description eram em português.
     const args = [
       '--headless', '--disable-gpu', '--no-sandbox', '--hide-scrollbars',
+      '--lang=pt-BR', '--accept-lang=pt-BR,pt',
       '--dump-dom', `http://localhost:${PORT}/`,
     ]
     const proc = spawn(chrome, args)
