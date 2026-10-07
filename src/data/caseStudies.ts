@@ -616,3 +616,337 @@ export const fluxCrmCase: CaseStudy = {
     ],
   },
 }
+
+
+/**
+ * Estudo próprio, não trabalho de cliente: por isso o rótulo do cartão é
+ * "Estudo" e não "Case Study".
+ *
+ * Aqui vai o material completo, incluindo os componentes que ficaram de fora
+ * do carrossel do LinkedIn. O carrossel tem limite de atenção; a página não.
+ */
+export const uiParaIaCase: CaseStudy = {
+  id: 'ui-para-ia-estudo',
+  label: 'Estudo',
+  cardRole: 'Autoria e design',
+  cardStack: 'Design de interface · Padrões de IA · Front-end',
+  images: [
+    '/projects/ui-ia-capa.webp',
+    '/projects/ui-ia-perguntas.webp',
+    '/projects/ui-ia-progresso.webp',
+    '/projects/ui-ia-toolcall.webp',
+    '/projects/ui-ia-fontes.webp',
+  ],
+  pt: {
+    title: 'Componentes de UI para Interfaces de IA',
+    subtitle:
+      'Um mapa dos componentes que uma interface conversacional precisa ter, organizado pelas três perguntas que o usuário faz o tempo todo mesmo sem formular: o que está acontecendo, posso confiar nisso e ainda estou no controle.',
+    readMore: 'Ler o estudo',
+    meta: {
+      roleLabel: 'O que é',
+      role: 'Estudo autoral sobre padrões de interface para produtos construídos sobre modelos de linguagem',
+      toolsLabel: 'Temas',
+      tools: 'Streaming, chamadas de ferramenta, citação de fontes, confirmação de ação, estados de carregamento, histórico de versões e acessibilidade',
+    },
+    intro:
+      'Quando a interface passa a conversar com um modelo, a maior parte do repertório de UI continua valendo — e é justamente isso que costuma passar despercebido. Estado de carregamento, feedback de progresso, confirmação antes de ação destrutiva e histórico de versão são padrões antigos. O que mudou é que o sistema virou não determinístico, e o custo de errar em silêncio ficou alto.\n\nEste estudo organiza os componentes em torno de três perguntas que o usuário faz o tempo todo, mesmo sem formular. Quando a interface não responde a elas, a desconfiança aparece — e com razão.',
+    sections: [
+      {
+        emoji: '🧭',
+        title: 'As três perguntas',
+        blocks: [
+          { type: 'media', src: '/projects/ui-ia-perguntas.webp' },
+          {
+            type: 'paragraph',
+            text: 'A estrutura não veio de uma taxonomia de componentes, mas do que o usuário quer saber. Cada peça da interface existe para responder a uma das três, e componente que não responde a nenhuma costuma ser decoração.',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'O que está acontecendo agora?',
+                text: 'Progresso, raciocínio e ações externas visíveis. Sem isso, o usuário encara uma tela parada e não sabe se o sistema trabalha ou travou.',
+              },
+              {
+                title: 'Posso confiar nisso?',
+                text: 'Fontes, citações e detalhes que dá para inspecionar. Texto bem escrito erra com confiança, e a interface precisa dar como verificar.',
+              },
+              {
+                title: 'Ainda estou no controle?',
+                text: 'Interromper, confirmar, editar e refazer. A sensação de controle não vem de o modelo acertar sempre, vem de dar para corrigir quando ele erra.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '✍️',
+        title: 'Antes de tudo: formular o pedido',
+        blocks: [
+          { type: 'media', src: '/projects/ui-ia-campo.webp' },
+          {
+            type: 'paragraph',
+            text: 'O campo de mensagem é mais que uma área de texto. Ele carrega anexos, expõe as opções que mudam o resultado e troca de papel conforme o estado da conversa.',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'Upload em andamento bloqueia o envio',
+                text: 'Enviar com um anexo pela metade produz uma resposta sobre um documento incompleto. O botão espera o upload terminar.',
+              },
+              {
+                title: 'Opções que mudam o resultado ficam à vista',
+                text: 'Escolha de modelo e busca na web alteram a resposta. Esconder isso num menu faz o usuário atribuir ao acaso uma variação que ele mesmo causou.',
+              },
+              {
+                title: 'Durante a geração, enviar vira interromper',
+                text: 'O mesmo botão, outro papel. Evita o padrão comum de sumir com o controle justo quando ele é mais necessário.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '⏱️',
+        title: 'O que está acontecendo agora?',
+        blocks: [
+          { type: 'subheading', text: 'Progresso que diz o que está sendo feito' },
+          { type: 'media', src: '/projects/ui-ia-progresso.webp' },
+          {
+            type: 'paragraph',
+            text: 'Um spinner não responde à pergunta. Etapa em linguagem humana e tempo decorrido, sim. E nada de porcentagem inventada: barra que avança sem relação com o trabalho real ensina o usuário a não confiar no indicador. Ao terminar, as etapas se recolhem numa linha só, para não ocupar espaço depois de cumprirem a função.',
+          },
+          { type: 'subheading', text: 'Raciocínio que não compete com a resposta' },
+          { type: 'media', src: '/projects/ui-ia-raciocinio.webp' },
+          {
+            type: 'paragraph',
+            text: 'O raciocínio fica aberto enquanto é gerado e se recolhe sozinho ao terminar, com tipografia mais discreta que a da resposta. Ele é contexto, não conteúdo principal — e quando disputa atenção com a resposta, atrapalha a leitura do que de fato importa.',
+          },
+          { type: 'subheading', text: 'Ações fora da conversa, à vista' },
+          { type: 'media', src: '/projects/ui-ia-toolcall.webp' },
+          {
+            type: 'paragraph',
+            text: 'Quando o modelo chama uma ferramenta, o usuário precisa ver o que foi chamado, com quais dados e o que voltou. Uma chamada passa por quatro estados, e cada um pede tratamento visual próprio.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'Preenchendo: o nome da ferramenta e os parâmetros ainda chegando',
+              'Executando: parâmetros completos, execução em andamento',
+              'Concluída: resultado resumido, com detalhes expansíveis',
+              'Com erro: mensagem legível e opção de tentar de novo',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'Quando o resultado merece, vale um componente feito para ele em vez do JSON cru: a mesma consulta de estoque lida muito melhor como lista com indicadores de status do que como objeto. O JSON continua disponível para quem quiser inspecionar, só não é a primeira coisa que aparece.',
+          },
+        ],
+      },
+      {
+        emoji: '🔎',
+        title: 'Posso confiar nisso?',
+        blocks: [
+          { type: 'media', src: '/projects/ui-ia-fontes.webp' },
+          {
+            type: 'paragraph',
+            text: 'A diferença entre uma resposta útil e uma afirmação sem lastro é poder checar de onde ela veio. A referência fica curta ao lado da afirmação, a prévia aparece ao passar o mouse ou ao focar pelo teclado, e a lista completa fica recolhida no fim.',
+          },
+          {
+            type: 'paragraph',
+            text: 'O detalhe que faz diferença é a prévia trazer o trecho exato, destacado dentro do documento de origem. Citar o arquivo prova pouco; citar a linha prova. E como a prévia responde a foco por teclado, não só a mouse, ela continua acessível para quem navega sem apontador.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Na mesma família entram a resposta que chega em partes e o streaming estável. Texto que aparece aos poucos reduz a espera percebida, mas só funciona se não ficar reposicionando o que já foi lido a cada token novo.',
+          },
+        ],
+      },
+      {
+        emoji: '🎛️',
+        title: 'Ainda estou no controle?',
+        blocks: [
+          { type: 'subheading', text: 'Pedir licença antes de agir' },
+          { type: 'media', src: '/projects/ui-ia-licenca.webp' },
+          {
+            type: 'paragraph',
+            text: 'Quando a ação sai da conversa e toca o mundo real, a interface pede confirmação. A ação é descrita em linguagem humana, os dados exatos ficam à vista e editáveis ali mesmo, e confirmar e recusar têm o mesmo peso visual — recusa escondida não é recusa.',
+          },
+          { type: 'subheading', text: 'Refazer, editar, avaliar' },
+          { type: 'media', src: '/projects/ui-ia-refazer.webp' },
+          {
+            type: 'paragraph',
+            text: 'Gerar outra versão sem perder as anteriores, e poder editar o próprio pedido para abrir um caminho diferente. É o equivalente ao histórico de versões, e é o que transforma uma resposta ruim em ponto de partida em vez de beco sem saída.',
+          },
+          { type: 'subheading', text: 'Um espaço próprio para o que vai ser guardado' },
+          { type: 'media', src: '/projects/ui-ia-espaco.webp' },
+          {
+            type: 'paragraph',
+            text: 'Quando o resultado é um documento, ele não deveria viver rolando dentro da conversa. Um painel fixo ao lado mantém o texto estável, o ajuste acontece só no trecho marcado, e as mudanças ficam destacadas com as versões acessíveis.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Vale notar que quase nada disso é novo. São padrões conhecidos de interface — estado de carga, confirmação destrutiva, histórico de versão — reaplicados a um sistema que agora responde de forma diferente a cada execução.',
+          },
+        ],
+      },
+    ],
+  },
+  en: {
+    title: 'UI Components for AI Interfaces',
+    subtitle:
+      'A map of the components a conversational interface needs, organised around the three questions users ask all the time without ever phrasing them: what is happening, can I trust this, and am I still in control.',
+    readMore: 'Read the study',
+    meta: {
+      roleLabel: 'What this is',
+      role: 'A self-directed study on interface patterns for products built on language models',
+      toolsLabel: 'Topics',
+      tools: 'Streaming, tool calls, source citation, action confirmation, loading states, version history and accessibility',
+    },
+    intro:
+      'When an interface starts talking to a model, most of the existing UI repertoire still applies — and that is exactly what tends to go unnoticed. Loading states, progress feedback, confirmation before destructive actions and version history are old patterns. What changed is that the system became non-deterministic, and failing silently got expensive.\n\nThis study organises the components around three questions users ask constantly without phrasing them. When the interface leaves them unanswered, distrust follows — and rightly so.',
+    sections: [
+      {
+        emoji: '🧭',
+        title: 'The three questions',
+        blocks: [
+          { type: 'media', src: '/projects/ui-ia-perguntas.webp' },
+          {
+            type: 'paragraph',
+            text: 'The structure did not come from a taxonomy of components but from what the user wants to know. Every piece of the interface exists to answer one of the three, and a component that answers none is usually decoration.',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'What is happening right now?',
+                text: 'Progress, reasoning and external actions made visible. Without them the user faces a still screen with no way to tell whether the system is working or stuck.',
+              },
+              {
+                title: 'Can I trust this?',
+                text: 'Sources, citations and details that can be inspected. Well-written text gets things wrong with confidence, and the interface has to offer a way to verify.',
+              },
+              {
+                title: 'Am I still in control?',
+                text: 'Stop, confirm, edit and retry. The sense of control does not come from the model always being right, it comes from being able to correct it when it is not.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '✍️',
+        title: 'First of all: composing the request',
+        blocks: [
+          { type: 'media', src: '/projects/ui-ia-campo.webp' },
+          {
+            type: 'paragraph',
+            text: 'The message field is more than a text area. It carries attachments, surfaces the options that change the outcome, and shifts role depending on the state of the conversation.',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'An upload in progress blocks sending',
+                text: 'Sending with a half-uploaded attachment produces an answer about an incomplete document. The button waits for the upload to finish.',
+              },
+              {
+                title: 'Options that change the result stay visible',
+                text: 'Model choice and web search change the answer. Hiding them in a menu makes users attribute to chance a variation they caused themselves.',
+              },
+              {
+                title: 'While generating, send becomes stop',
+                text: 'Same button, different role. It avoids the common pattern of removing the control exactly when it is most needed.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '⏱️',
+        title: 'What is happening right now?',
+        blocks: [
+          { type: 'subheading', text: 'Progress that says what is being done' },
+          { type: 'media', src: '/projects/ui-ia-progresso.webp' },
+          {
+            type: 'paragraph',
+            text: 'A spinner does not answer the question. A step in plain language and the elapsed time do. And no invented percentages: a bar moving with no relation to the actual work teaches users to distrust the indicator. Once finished, the steps collapse into a single line so they stop taking space after serving their purpose.',
+          },
+          { type: 'subheading', text: 'Reasoning that does not compete with the answer' },
+          { type: 'media', src: '/projects/ui-ia-raciocinio.webp' },
+          {
+            type: 'paragraph',
+            text: 'Reasoning stays open while it is generated and collapses on its own once finished, set in quieter type than the answer. It is context, not the main content — and when it competes with the answer, it gets in the way of reading what actually matters.',
+          },
+          { type: 'subheading', text: 'Actions outside the conversation, in plain sight' },
+          { type: 'media', src: '/projects/ui-ia-toolcall.webp' },
+          {
+            type: 'paragraph',
+            text: 'When the model calls a tool, the user needs to see what was called, with which data, and what came back. A call goes through four states, and each one deserves its own visual treatment.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'Streaming input: the tool name and parameters still arriving',
+              'Input available: parameters complete, execution under way',
+              'Output available: a summarised result with expandable detail',
+              'Output error: a readable message and a way to try again',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'When the result deserves it, a purpose-built component beats raw JSON: the same stock query reads far better as a list with status indicators than as an object. The JSON stays available for anyone who wants to inspect it, it just is not the first thing shown.',
+          },
+        ],
+      },
+      {
+        emoji: '🔎',
+        title: 'Can I trust this?',
+        blocks: [
+          { type: 'media', src: '/projects/ui-ia-fontes.webp' },
+          {
+            type: 'paragraph',
+            text: 'The difference between a useful answer and an ungrounded claim is being able to check where it came from. The reference sits short and inline next to the claim, the preview appears on hover or keyboard focus, and the full list stays collapsed at the end.',
+          },
+          {
+            type: 'paragraph',
+            text: 'The detail that matters is the preview carrying the exact passage, highlighted inside the source document. Citing the file proves little; citing the line proves it. And because the preview responds to keyboard focus, not just hover, it stays available to anyone navigating without a pointer.',
+          },
+          {
+            type: 'paragraph',
+            text: 'The same family includes answers that arrive in parts and stable streaming. Text appearing gradually reduces perceived waiting, but only works if it stops repositioning what has already been read on every new token.',
+          },
+        ],
+      },
+      {
+        emoji: '🎛️',
+        title: 'Am I still in control?',
+        blocks: [
+          { type: 'subheading', text: 'Asking permission before acting' },
+          { type: 'media', src: '/projects/ui-ia-licenca.webp' },
+          {
+            type: 'paragraph',
+            text: 'When an action leaves the conversation and touches the real world, the interface asks for confirmation. The action is described in plain language, the exact data stays visible and editable right there, and confirm and decline carry the same visual weight — a hidden decline is not a decline.',
+          },
+          { type: 'subheading', text: 'Retry, edit, rate' },
+          { type: 'media', src: '/projects/ui-ia-refazer.webp' },
+          {
+            type: 'paragraph',
+            text: 'Generating another version without losing the previous ones, and being able to edit the request itself to open a different path. It is the equivalent of version history, and it is what turns a bad answer into a starting point rather than a dead end.',
+          },
+          { type: 'subheading', text: 'A dedicated space for what will be kept' },
+          { type: 'media', src: '/projects/ui-ia-espaco.webp' },
+          {
+            type: 'paragraph',
+            text: 'When the result is a document, it should not live scrolling inside the conversation. A panel fixed alongside keeps the text stable, edits happen only on the selected passage, and changes stay highlighted with versions within reach.',
+          },
+          {
+            type: 'paragraph',
+            text: 'It is worth noting that almost none of this is new. These are familiar interface patterns — loading states, destructive confirmation, version history — reapplied to a system that now answers differently on every run.',
+          },
+        ],
+      },
+    ],
+  },
+}
