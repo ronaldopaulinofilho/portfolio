@@ -15,16 +15,17 @@
  */
 import { createServer } from 'node:http'
 import { readFile, writeFile, stat, mkdir } from 'node:fs/promises'
-import { spawn } from 'node:child_process'
+import { spawn, execFileSync } from 'node:child_process'
 import { join, extname, resolve, dirname } from 'node:path'
+import { ROTAS as PAGINAS, SITE } from './rotas.mjs'
 
 const DIST = resolve('dist')
 const PORT = 4321
 
 // Cada rota vira um arquivo próprio no dist. O GitHub Pages serve
-// `/estudos/ui-para-ia/index.html` direto, sem depender de fallback de SPA,
+// `/cases/<slug>/index.html` direto, sem depender de fallback de SPA,
 // e o rastreador recebe HTML completo já no primeiro byte.
-const ROTAS = ['/', '/estudos/ui-para-ia']
+const ROTAS = PAGINAS.map(p => p.path)
 
 const TYPES = {
   '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
@@ -107,6 +108,34 @@ function unhide(html) {
   })
 }
 
+/**
+ * Data da última alteração de uma página: o commit mais recente que tocou os
+ * arquivos dela. Data de build mentiria — o Google passa a ignorar `lastmod`
+ * de sites em que ele muda a cada deploy. Em clone raso (CI), cai no HEAD.
+ */
+function lastmod(fontes) {
+  const git = args => {
+    try { return execFileSync('git', args, { encoding: 'utf8' }).trim() } catch { return '' }
+  }
+  return git(['log', '-1', '--format=%cs', '--', ...fontes]) || git(['log', '-1', '--format=%cs']) || new Date().toISOString().slice(0, 10)
+}
+
+// O sitemap sai antes do Chrome: sem pré-render, as páginas ainda existem
+// (pelo 404.html da SPA) e continuam merecendo ser listadas.
+const urlDe = path => `${SITE}${path === '/' ? '/' : `${path}/`}`
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${PAGINAS.map(p => `  <url>
+    <loc>${urlDe(p.path)}</loc>
+    <lastmod>${lastmod(p.fontes)}</lastmod>
+    <changefreq>${p.changefreq}</changefreq>
+    <priority>${p.priority}</priority>
+  </url>`).join('\n')}
+</urlset>
+`
+await writeFile(join(DIST, 'sitemap.xml'), sitemap)
+console.log(`[prerender] sitemap.xml com ${PAGINAS.length} URLs`)
+
 const chrome = await findChrome()
 if (!chrome) {
   console.warn('[prerender] Chrome não encontrado. Publicando sem pré-renderização.')
@@ -142,6 +171,13 @@ try {
     await writeFile(arquivo, html)
     console.log(`[prerender] ${rota} — body com ${bodyOf(html).length.toLocaleString('pt-BR')} bytes`)
   }
+  // A home linka cada case. Se linkar uma página que não está em rotas.mjs,
+  // ela ficaria sem HTML estático e fora do sitemap: avisamos no build.
+  const home = await readFile(destino('/'), 'utf8')
+  const linkadas = new Set([...home.matchAll(/href="\/((?:cases|estudos)\/[^"#?]+?)\/?"/g)].map(m => `/${m[1]}`))
+  const faltando = [...linkadas].filter(r => !ROTAS.includes(r))
+  if (faltando.length) console.warn(`[prerender] páginas linkadas fora de scripts/rotas.mjs: ${faltando.join(', ')}`)
+
   // O GitHub Pages serve 404.html em rota desconhecida. Apontando para a home
   // já pré-renderizada, um link antigo cai numa página válida em vez de erro.
   await writeFile(join(DIST, '404.html'), await readFile(destino('/')))

@@ -33,6 +33,12 @@ export interface CaseStudyLocale {
 
 export interface CaseStudy {
   id: string
+  /**
+   * Rota da página própria do case. Cada case precisa de uma URL para ser
+   * indexado e citado: âncora dentro da home não conta como página. Ao criar
+   * um case novo, inclua a rota também em `scripts/rotas.mjs`.
+   */
+  path: string
   label: string
   cardRole: string
   cardStack: string
@@ -46,6 +52,7 @@ export interface CaseStudy {
 
 export const designSystemCase: CaseStudy = {
   id: 'ds-case-study',
+  path: '/cases/design-system-saas-b2b',
   label: 'Case Study',
   cardRole: 'Lead Product Designer',
   cardStack: 'Figma · React · Vue.js · Storybook',
@@ -308,6 +315,7 @@ export const designSystemCase: CaseStudy = {
 
 export const fluxCrmCase: CaseStudy = {
   id: 'flux-crm-case-study',
+  path: '/cases/redesign-crm-omnichannel-ia',
   label: 'Case Study',
   cardRole: 'Design Engineer',
   cardStack: 'Figma + MCP · React · TypeScript · Tailwind',
@@ -635,6 +643,7 @@ export const fluxCrmCase: CaseStudy = {
  */
 export const uiParaIaCase: CaseStudy = {
   id: 'ui-para-ia-estudo',
+  path: '/estudos/ui-para-ia',
   label: 'Estudo',
   cardRole: 'Autoria e design',
   cardStack: 'Design de interface · Padrões de IA · Front-end',
@@ -967,6 +976,7 @@ export const uiParaIaCase: CaseStudy = {
  */
 export const softwareJuridicoCase: CaseStudy = {
   id: 'software-juridico-case-study',
+  path: '/cases/redesign-software-juridico',
   label: 'Case Study',
   cardRole: 'UX Designer & UX Engineer',
   cardStack: 'Figma · Design Tokens · HTML/CSS/JS · MCP',
@@ -1437,6 +1447,7 @@ export const softwareJuridicoCase: CaseStudy = {
  */
 export const plataformaVoipCase: CaseStudy = {
   id: 'plataforma-voip-case-study',
+  path: '/cases/painel-plataforma-voip',
   label: 'Case Study',
   cardRole: 'Design Engineer',
   cardStack: 'React · TypeScript · Tailwind · MSW · Playwright',
@@ -1731,3 +1742,12 @@ export const plataformaVoipCase: CaseStudy = {
     ],
   },
 }
+
+/** Todos os cases com página própria, na ordem em que aparecem na home. */
+export const allCases: CaseStudy[] = [
+  designSystemCase,
+  softwareJuridicoCase,
+  fluxCrmCase,
+  plataformaVoipCase,
+  uiParaIaCase,
+]

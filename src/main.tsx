@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
-import EstudoUiIa from './pages/EstudoUiIa.tsx'
+import CasePage from './pages/CasePage.tsx'
+import { allCases } from './data/caseStudies'
 import { LanguageProvider } from './contexts/LanguageContext'
 
 createRoot(document.getElementById('root')!).render(
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')!).render(
       <LanguageProvider>
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/estudos/ui-para-ia" element={<EstudoUiIa />} />
+          {allCases.map(study => (
+            <Route key={study.id} path={study.path} element={<CasePage study={study} />} />
+          ))}
         </Routes>
       </LanguageProvider>
     </BrowserRouter>

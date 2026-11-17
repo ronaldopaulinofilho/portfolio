@@ -63,13 +63,23 @@ function CaseStudyCard({
           </span>
         </div>
 
-        <button
-          onClick={onOpen}
-          className="self-start flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl glass-chip glass-chip-hover text-neutral-700"
-        >
-          {locale.readMore}
-          <ArrowRight size={14} />
-        </button>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <button
+            onClick={onOpen}
+            className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl glass-chip glass-chip-hover text-neutral-700"
+          >
+            {locale.readMore}
+            <ArrowRight size={14} />
+          </button>
+          {/* Link de verdade para a página do case: é por ele que buscadores e
+              agentes de IA descobrem a URL, já que o botão acima só abre o modal. */}
+          <a
+            href={`${import.meta.env.BASE_URL}${study.path.replace(/^\//, '')}/`}
+            className="text-xs text-neutral-600 underline underline-offset-4 hover:text-neutral-900 transition-colors"
+          >
+            {lang === 'en' ? 'Open as a page' : 'Abrir em página própria'}
+          </a>
+        </div>
       </div>
 
       <div

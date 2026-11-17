@@ -1,0 +1,29 @@
+# Ronaldo Paulino Filho — Product Designer & UX Engineer
+
+> Product Designer e UX Engineer em Porto Alegre (RS, Brasil), com mais de 5 anos em produtos SaaS B2B de alta complexidade — logística, CRM omnichannel e telefonia. Especialista em Design Systems: desenha no Figma, valida com quem usa e implementa em React, Vue.js e TypeScript. Atende presencialmente em Porto Alegre e remotamente no Brasil e no exterior, em português e inglês.
+
+- MBA em UX Design pela PUCRS; palestrante no TDC 2023 sobre Design Systems.
+- Antes da tecnologia, 10 anos na advocacia e na docência universitária: comunicação escrita, documentação e alinhamento com stakeholders.
+- Áreas: Design Systems e design tokens, design engineering (do Figma ao código em produção), IA aplicada ao fluxo de design (Figma Make, MCP), UX para sistemas B2B densos, design de interface para produtos de IA, acessibilidade (WCAG).
+- Stack: Figma, React, Vue.js, TypeScript, Next.js, Vite, Tailwind CSS, shadcn/ui, Storybook, TanStack Query, Vitest, Playwright.
+- Contato: rpfilho2@gmail.com · LinkedIn https://www.linkedin.com/in/ronaldopaulinofilho · Behance https://www.behance.net/ronaldopaulino1 · GitHub https://github.com/ronaldopaulinofilho
+
+## Cases
+
+- [Design System para SaaS B2B em segmentos diferentes](https://www.ronaldopaulinofilho.com.br/cases/design-system-saas-b2b/): 2 anos liderando um Design System proprietário (Figma, React, Vue.js, Storybook); 50% menos tempo de handoff e 35% menos tempo para lançar interfaces.
+- [Redesign incremental de um software jurídico](https://www.ronaldopaulinofilho.com.br/cases/redesign-software-juridico/): diagnóstico, plano de design system para 12 meses e primeira tela da nova direção, com protótipo navegável em código.
+- [Redesign de plataforma e integração com IA](https://www.ronaldopaulinofilho.com.br/cases/redesign-crm-omnichannel-ia/): CRM omnichannel white-label migrado para 100 tokens semânticos (236 arquivos em cerca de 6 semanas, sem code freeze), com esteira de design-to-code via Figma + MCP.
+- [Painel administrativo de uma plataforma VoIP](https://www.ronaldopaulinofilho.com.br/cases/painel-plataforma-voip/): benchmark, protótipo em duas versões e front-end em React com testes em três níveis e entrega contínua.
+
+## Estudos
+
+- [Componentes de UI para interfaces de IA](https://www.ronaldopaulinofilho.com.br/estudos/ui-para-ia/): mapa dos componentes de uma interface conversacional, organizado por três perguntas — o que está acontecendo, posso confiar nisso e ainda estou no controle.
+
+## Currículo
+
+- [Currículo em português (PDF)](https://www.ronaldopaulinofilho.com.br/Curriculo-Ronaldo-Paulino.pdf)
+- [Resume in English (PDF)](https://www.ronaldopaulinofilho.com.br/Resume-Ronaldo-Paulino.pdf)
+
+## Optional
+
+- [Portfólio completo](https://www.ronaldopaulinofilho.com.br/): todos os cases, projetos, serviços e depoimentos numa página.
