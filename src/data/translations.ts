@@ -15,14 +15,14 @@ export const translations = {
       label: 'hero',
       badge: 'Porto Alegre · disponível para novos projetos',
       tagline: '// Design Systems Specialist',
-      heading: ['Product Designer', '& Senior UX Engineer'],
+      heading: ['Product Designer', '& UX Engineer'],
       cta: 'Projetos',
       cv: 'Baixar Currículo',
     },
     about: {
       label: 'sobre',
       heading: ['Estratégia que escala,', 'código que entrega.'],
-      body: 'Product Designer & Senior UX Engineer com mais de 6 anos de experiência na arquitetura de produtos B2B de alta complexidade. Especialista na intersecção entre Design de Produto (UX/UI), Engenharia Front-End (React/Vue/TypeScript) e integração estratégica de IA — garantindo que a visão de produto seja tecnicamente viável e escalável.',
+      body: 'Product Designer & UX Engineer com mais de 6 anos de experiência na arquitetura de produtos B2B de alta complexidade. Especialista na intersecção entre Design de Produto (UX/UI), Engenharia Front-End (React/Vue/TypeScript) e integração estratégica de IA — garantindo que a visão de produto seja tecnicamente viável e escalável.',
       areas: [
         {
           title: 'Design Ops & Scalability',
@@ -117,14 +117,14 @@ export const translations = {
       label: 'hero',
       badge: 'Porto Alegre, Brazil · available for new projects',
       tagline: '// Design Systems Specialist',
-      heading: ['Product Designer', '& Senior UX Engineer'],
+      heading: ['Product Designer', '& UX Engineer'],
       cta: 'Projects',
       cv: 'Download Resume',
     },
     about: {
       label: 'about',
       heading: ['Strategy that scales,', 'code that delivers.'],
-      body: 'Product Designer & Senior UX Engineer with over 6 years of experience in high-complexity B2B product architecture. Specialist at the intersection of Product Design (UX/UI), Front-End Engineering (React/Vue/TypeScript) and strategic AI integration — ensuring product vision is technically viable and scalable.',
+      body: 'Product Designer & UX Engineer with over 6 years of experience in high-complexity B2B product architecture. Specialist at the intersection of Product Design (UX/UI), Front-End Engineering (React/Vue/TypeScript) and strategic AI integration — ensuring product vision is technically viable and scalable.',
       areas: [
         {
           title: 'Design Ops & Scalability',
