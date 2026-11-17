@@ -18,14 +18,15 @@ export const translations = {
       heading: ['Product Designer', '& UX Engineer'],
       cta: 'Projetos',
       cv: 'Baixar Currículo',
+      cvFile: 'Curriculo-Ronaldo-Paulino.pdf',
     },
     about: {
       label: 'sobre',
       heading: ['Estratégia que escala,', 'código que entrega.'],
-      body: 'Product Designer & UX Engineer com mais de 6 anos de experiência na arquitetura de produtos B2B de alta complexidade. Especialista na intersecção entre Design de Produto (UX/UI), Engenharia Front-End (React/Vue/TypeScript) e integração estratégica de IA — garantindo que a visão de produto seja tecnicamente viável e escalável.',
+      body: 'Product Designer & UX Engineer com mais de 5 anos em produtos SaaS B2B de alta complexidade, de logística a CRM e telefonia. Desenho no Figma, valido com quem usa e implemento em React, Vue.js e TypeScript — o que encurta o caminho entre a solução validada e o produto em produção. MBA em UX Design pela PUCRS e palestrante no TDC 2023 sobre Design Systems. Antes da tecnologia, foram 10 anos na advocacia e na docência universitária: daí vêm a comunicação escrita, a documentação e o hábito de alinhar stakeholders.',
       areas: [
         {
-          title: 'Design Ops & Scalability',
+          title: 'Design Systems e escala',
           description: 'Histórico na estruturação de Design Systems do zero, unificando a experiência de módulos críticos. Foco em reduzir débito técnico e acelerar o time-to-market.',
         },
         {
@@ -33,11 +34,11 @@ export const translations = {
           description: 'Especialista na ponte entre design e desenvolvimento, construindo bibliotecas de componentes e garantindo handoffs de alta fidelidade.',
         },
         {
-          title: 'Agentic AI & Prototyping',
+          title: 'IA e prototipagem',
           description: 'Implementação de IA generativa no fluxo de design para prototipagem dinâmica e validação acelerada de hipóteses.',
         },
         {
-          title: 'Complex B2B Systems',
+          title: 'Sistemas B2B complexos',
           description: 'Especialista em traduzir regras de negócio densas em jornadas de usuário intuitivas, equilibrando objetivos de negócio com viabilidade técnica.',
         },
       ],
@@ -45,17 +46,17 @@ export const translations = {
         {
           key: 'design',
           category: 'Product Design',
-          items: ['UX Research', 'Figma', 'Figma Make', 'Design Systems', 'MCP', 'IA', 'Prototipação', 'Testes de Usabilidade'],
+          items: ['UX Research', 'Entrevistas com usuários', 'Testes de Usabilidade', 'Arquitetura da Informação', 'Acessibilidade (WCAG)', 'Figma', 'Design Systems', 'Design Tokens', 'Prototipação', 'Figma Make', 'MCP + IA'],
         },
         {
           key: 'frontend',
           category: 'Frontend',
-          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Three.js', 'Radix UI', 'shadcn/ui', 'Zustand', 'TanStack Query', 'React Hook Form', 'Zod', 'Recharts', 'SignalR'],
+          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Tailwind CSS', 'shadcn/ui', 'Storybook', 'TanStack Query', 'Vite', 'Testes: Vitest, Playwright'],
         },
         {
           key: 'tools',
           category: 'Ferramentas',
-          items: ['Git', 'Storybook', 'Vercel', 'Notion', 'Claude', 'Cursor AI'],
+          items: ['Git', 'Jira', 'Linear', 'Notion', 'Vercel', 'Claude', 'Cursor'],
         },
       ],
       industries: ['B2B SaaS', 'Logística', 'Trade Marketing', 'E-commerce', 'Fintech'],
@@ -120,14 +121,15 @@ export const translations = {
       heading: ['Product Designer', '& UX Engineer'],
       cta: 'Projects',
       cv: 'Download Resume',
+      cvFile: 'Resume-Ronaldo-Paulino.pdf',
     },
     about: {
       label: 'about',
       heading: ['Strategy that scales,', 'code that delivers.'],
-      body: 'Product Designer & UX Engineer with over 6 years of experience in high-complexity B2B product architecture. Specialist at the intersection of Product Design (UX/UI), Front-End Engineering (React/Vue/TypeScript) and strategic AI integration — ensuring product vision is technically viable and scalable.',
+      body: 'Product Designer & UX Engineer with over 5 years on high-complexity B2B SaaS products, from logistics to CRM and telephony. I design in Figma, validate with the people who use the product and build in React, Vue.js and TypeScript — shortening the path from a validated solution to production. MBA in UX Design from PUCRS and speaker at TDC 2023 on Design Systems. Before tech, I spent 10 years in law and university teaching: that is where my written communication, documentation and stakeholder alignment come from.',
       areas: [
         {
-          title: 'Design Ops & Scalability',
+          title: 'Design Systems at Scale',
           description: 'Track record in building Design Systems from scratch, unifying the experience across critical modules. Focus on reducing design technical debt and accelerating time-to-market.',
         },
         {
@@ -135,7 +137,7 @@ export const translations = {
           description: 'Expert at bridging design and software development, building component libraries and ensuring high-fidelity handoffs that optimize engineering delivery cycles.',
         },
         {
-          title: 'Agentic AI & Prototyping',
+          title: 'AI & Prototyping',
           description: 'Implementation of generative AI in the design workflow for dynamic prototyping and accelerated hypothesis validation.',
         },
         {
@@ -147,17 +149,17 @@ export const translations = {
         {
           key: 'design',
           category: 'Product Design',
-          items: ['UX Research', 'Figma', 'Figma Make', 'Design Systems', 'MCP', 'AI', 'Prototyping', 'Usability Testing'],
+          items: ['UX Research', 'User Interviews', 'Usability Testing', 'Information Architecture', 'Accessibility (WCAG)', 'Figma', 'Design Systems', 'Design Tokens', 'Prototyping', 'Figma Make', 'MCP + AI'],
         },
         {
           key: 'frontend',
           category: 'Frontend',
-          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Node.js', 'Webpack', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Three.js', 'Radix UI', 'shadcn/ui', 'Zustand', 'TanStack Query', 'React Hook Form', 'Zod', 'Recharts', 'SignalR'],
+          items: ['React', 'Vue.js', 'TypeScript', 'Next.js', 'Tailwind CSS', 'shadcn/ui', 'Storybook', 'TanStack Query', 'Vite', 'Testing: Vitest, Playwright'],
         },
         {
           key: 'tools',
           category: 'Tools',
-          items: ['Git', 'Storybook', 'Vercel', 'Notion', 'Claude', 'Cursor AI'],
+          items: ['Git', 'Jira', 'Linear', 'Notion', 'Vercel', 'Claude', 'Cursor'],
         },
       ],
       industries: ['B2B SaaS', 'Logistics', 'Trade Marketing', 'E-commerce', 'Fintech'],

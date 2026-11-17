@@ -67,7 +67,7 @@ export const designSystemCase: CaseStudy = {
       toolsLabel: 'Ferramentas / Tecnologias',
       tools: 'Figma (Variables, Component Properties), Figma Make (Prototipagem Ágil com IA), React (Validação Dinâmica), Vue.js (Biblioteca Proprietária Final) e Storybook',
       impactLabel: 'Impacto Principal',
-      impact: 'Redução no tempo de entrega de novas features, eliminação de dívida técnica/estética e escalabilidade modular para novos segmentos B2B',
+      impact: '50% menos tempo de handoff entre Design e Engenharia, 35% menos tempo para lançar novas interfaces e novas verticais montadas com componentes existentes',
     },
     intro:
       'Este case documenta a liderança de 2 anos no desenvolvimento, implementação e governança de um Design System proprietário para uma plataforma SaaS B2B complexa.\n\nO produto atendia a múltiplos segmentos de mercado — incluindo operações robustas de Logística e gestão corporativa —, o que gerava fragmentação de interface e inconsistência nas regras de negócio.\n\nA iniciativa unificou a experiência do produto, centralizou regras operacionais e criou uma biblioteca própria de engenharia, transformando a eficiência dos times de produto.',
@@ -139,7 +139,7 @@ export const designSystemCase: CaseStudy = {
               },
               {
                 title: 'Handoff Estratégico e Biblioteca Proprietária em Vue.js',
-                text: 'A etapa final e mais robusta do projeto foi o fechamento da ponte com a engenharia. Liderei o handoff focado na stack oficial da empresa: Vue.js. Trabalhei em estreita colaboração com os desenvolvedores frontend para traduzir o ecossistema do Figma para uma biblioteca de componentes própria em Vue.js, documentada via Storybook. Garantimos uma paridade de 96% na nomenclatura de tokens: o nome da variável de espaçamento ou cor no Figma era exatamente o mesmo mapeado no código Vue.js.',
+                text: 'A etapa final e mais robusta do projeto foi o fechamento da ponte com a engenharia. Liderei o handoff focado na stack oficial da empresa: Vue.js. Trabalhei em estreita colaboração com os desenvolvedores frontend para traduzir o ecossistema do Figma para uma biblioteca de componentes própria em Vue.js, documentada via Storybook. Os tokens têm o mesmo nome no Figma e no código: a variável de espaçamento ou cor que o designer usa é a mesma que o desenvolvedor importa no Vue.js.',
               },
             ],
           },
@@ -157,9 +157,9 @@ export const designSystemCase: CaseStudy = {
             type: 'bullets',
             items: [
               'Escalabilidade entre Segmentos: A entrada da plataforma em uma nova vertical de negócio, que antes levava meses de planejamento de interface, passou a ser feita de forma modular, plugando os componentes existentes.',
-              'Redução Drástica no Tempo da Equipe (Time-to-Market): O tempo de desenvolvimento de novas features e telas caiu drasticamente. Os desenvolvedores deixaram de criar CSS/HTML do zero e passaram a apenas consumir os componentes prontos da biblioteca em Vue.js.',
+              'Time-to-Market: o tempo para lançar novas interfaces caiu 35%. Os desenvolvedores deixaram de criar CSS/HTML do zero e passaram a apenas consumir os componentes prontos da biblioteca em Vue.js.',
               'Modernização e Consistência Global: Eliminamos a maior parte da fragmentação. A plataforma ganhou um aspecto mais moderno, limpo, focado em alta densidade de dados para logística, sem perder a elegância para os outros segmentos.',
-              'Eficiência de Design e Engenharia: Diminuiu o "ping-pong" de validação de interface. Os protótipos dinâmicos em React e a entrega final em Vue.js alinharam as expectativas.',
+              'Eficiência de Design e Engenharia: o tempo de handoff caiu 50%, com menos "ping-pong" de validação de interface. Os protótipos dinâmicos em React e a entrega final em Vue.js alinharam as expectativas.',
             ],
           },
         ],
@@ -192,7 +192,7 @@ export const designSystemCase: CaseStudy = {
       toolsLabel: 'Tools / Technologies',
       tools: 'Figma (Variables, Component Properties), Figma Make (Agile AI Prototyping), React (Dynamic Validation), Vue.js (Proprietary Final Library) and Storybook',
       impactLabel: 'Main Impact',
-      impact: 'Reduction in feature delivery time, elimination of technical/aesthetic debt and modular scalability for new B2B segments',
+      impact: '50% less handoff time between Design and Engineering, 35% less time to launch new interfaces, and new verticals built from existing components',
     },
     intro:
       'This case documents 2 years of leadership in the development, implementation and governance of a proprietary Design System for a complex SaaS B2B platform.\n\nThe product served multiple market segments — including robust Logistics operations and corporate management —, which created interface fragmentation and inconsistency in business rules.\n\nThe initiative unified the product experience, centralized operational rules and created a proprietary engineering library, transforming the efficiency of product teams.',
@@ -264,7 +264,7 @@ export const designSystemCase: CaseStudy = {
               },
               {
                 title: 'Strategic Handoff and Proprietary Vue.js Library',
-                text: "The final and most robust stage was bridging the gap with engineering. I led the handoff focused on the company's official stack: Vue.js. We worked closely with frontend developers to translate the Figma ecosystem into a proprietary component library in Vue.js, documented via Storybook. We achieved 96% parity in token naming — the variable name in Figma was exactly the same as mapped in Vue.js code.",
+                text: "The final and most robust stage was bridging the gap with engineering. I led the handoff focused on the company's official stack: Vue.js. We worked closely with frontend developers to translate the Figma ecosystem into a proprietary component library in Vue.js, documented via Storybook. Tokens share the same name in Figma and in code: the spacing or colour variable a designer uses is the one a developer imports in Vue.js.",
               },
             ],
           },
@@ -282,9 +282,9 @@ export const designSystemCase: CaseStudy = {
             type: 'bullets',
             items: [
               'Cross-Segment Scalability: Entering a new business vertical, which previously took months of interface planning, became modular — simply plugging in existing components.',
-              'Dramatic Reduction in Time-to-Market: Development time for new features dropped drastically. Developers stopped creating CSS/HTML from scratch and simply consumed ready-made components from the Vue.js library.',
+              'Time-to-Market: the time to launch new interfaces fell by 35%. Developers stopped creating CSS/HTML from scratch and simply consumed ready-made components from the Vue.js library.',
               'Modernization and Global Consistency: We eliminated most of the fragmentation. The platform gained a more modern, clean look focused on high data density for logistics, without losing elegance for other segments.',
-              'Design and Engineering Efficiency: The interface validation "ping-pong" decreased. Dynamic prototypes in React and the final Vue.js delivery aligned team expectations.',
+              'Design and Engineering Efficiency: handoff time fell by 50%, with less interface validation "ping-pong". Dynamic prototypes in React and the final Vue.js delivery aligned team expectations.',
             ],
           },
         ],
@@ -327,6 +327,8 @@ export const fluxCrmCase: CaseStudy = {
       role: 'Design Engineer — Front-end & Design de Interface (do Figma ao código em produção)',
       toolsLabel: 'Ferramentas / Tecnologias',
       tools: 'Figma + MCP (design-to-code), React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui (Radix), TanStack Query e SignalR',
+      impactLabel: 'Em Números',
+      impact: '100 tokens semânticos com temas claro e escuro; 236 arquivos migrados em cerca de 6 semanas sem code freeze, em paralelo a 34 PRs de features no mesmo período',
     },
     intro:
       'Este case mostra como levei um CRM omnichannel white-label de um front-end com três gerações de padrões visuais para um sistema de design único em produção — construindo no caminho uma esteira de automação com IA que converte o design do Figma em código React real, validado navegando antes de chegar à produção.\n\nO produto concentra atendimento por WhatsApp, kanban de leads, campanhas, agentes de IA, relatórios e telefonia PABX numa plataforma multi-tenant: cada revenda personaliza cores e marca em tempo de execução, então nenhum componente pode assumir paleta fixa.\n\nA tensão que define o case: o produto não podia parar. O redesign aconteceu em PRs incrementais, com duas gerações de UI convivendo no mesmo build, enquanto o time mesclava 34 PRs de features nas mesmas semanas.',
@@ -478,6 +480,8 @@ export const fluxCrmCase: CaseStudy = {
       role: 'Design Engineer — Front-end & Interface Design (from Figma to production code)',
       toolsLabel: 'Tools / Technologies',
       tools: 'Figma + MCP (design-to-code), React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui (Radix), TanStack Query and SignalR',
+      impactLabel: 'In Numbers',
+      impact: '100 semantic tokens with light and dark themes; 236 files migrated in about 6 weeks with no code freeze, alongside 34 feature PRs in the same period',
     },
     intro:
       'This case shows how I took a white-label omnichannel CRM from a front-end with three generations of visual patterns to a single design system in production — building along the way an AI automation pipeline that converts Figma design into real React code, validated by navigating before reaching production.\n\nThe product concentrates WhatsApp support, leads kanban, campaigns, AI agents, reports and PBX telephony in a multi-tenant platform: each reseller customizes colors and branding at runtime, so no component can assume a fixed palette.\n\nThe tension that defines this case: the product could not stop. The redesign happened in incremental PRs, with two UI generations coexisting in the same build, while the team merged 34 feature PRs in those same weeks.',
