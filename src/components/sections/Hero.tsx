@@ -161,7 +161,7 @@ export function Hero() {
           ))}
 
           <a
-            href={`${import.meta.env.BASE_URL}Curriculo-Ronaldo-Paulino.pdf`}
+            href={`${import.meta.env.BASE_URL}${t.hero.cvFile}`}
             download
             className="h-9 px-4 hidden sm:flex items-center gap-2 rounded-xl border border-neutral-200 bg-white/80 backdrop-blur-sm text-sm font-medium text-neutral-700 hover:text-neutral-900 hover:border-neutral-300 transition-all duration-200"
           >
