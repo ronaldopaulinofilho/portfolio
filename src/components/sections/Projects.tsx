@@ -261,12 +261,12 @@ function ProjectCard({
 
 export function Projects() {
   const { t } = useLang()
-  const [filter, setFilter] = useState<Project['type'] | 'all'>('all')
   const [lightbox, setLightbox] = useState<{ project: Project } | null>(null)
   const [openCase, setOpenCase] = useState<CaseStudy | null>(null)
   const [showcase, setShowcase] = useState<Showcase | null>(null)
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-100px' })
+  const [filter, setFilter] = useState<Project['type'] | 'all'>('all')
 
   const filterLabels: { value: Project['type'] | 'all'; label: string }[] = [
     { value: 'all', label: t.projects.filters.all },
@@ -318,28 +318,32 @@ export function Projects() {
           {showCaseStudy && (
             <>
               <CaseStudyCard
-                study={fluxCrmCase}
-                anchorId="case-study"
-                index={0}
-                onOpen={() => setOpenCase(fluxCrmCase)}
-              />
-              <CaseStudyCard
                 study={designSystemCase}
-                index={1}
+                anchorId="case-ds"
+                index={0}
                 onOpen={() => setOpenCase(designSystemCase)}
               />
               <CaseStudyCard
                 study={softwareJuridicoCase}
-                index={2}
+                anchorId="case-juridico"
+                index={1}
                 onOpen={() => setOpenCase(softwareJuridicoCase)}
               />
               <CaseStudyCard
+                study={fluxCrmCase}
+                anchorId="case-crm"
+                index={2}
+                onOpen={() => setOpenCase(fluxCrmCase)}
+              />
+              <CaseStudyCard
                 study={plataformaVoipCase}
+                anchorId="case-voip"
                 index={3}
                 onOpen={() => setOpenCase(plataformaVoipCase)}
               />
               <CaseStudyCard
                 study={uiParaIaCase}
+                anchorId="estudo-ui-ia"
                 index={4}
                 onOpen={() => setOpenCase(uiParaIaCase)}
               />
