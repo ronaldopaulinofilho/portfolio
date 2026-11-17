@@ -1,0 +1,39 @@
+/* Kanban: colunas como blocos que agrupam os cartões */
+.kb-only{display:none!important}
+main[data-pagina=Kanban] .kb-only{display:inline-flex!important}
+main[data-pagina=Kanban] div.kb-only{display:block!important}
+main[data-pagina=Kanban] #f-ordem{display:none}
+main[data-pagina=Kanban] .date{display:none}
+#kb-board-w{margin-left:4px}
+.kb-busca{align-items:center;gap:6px;min-height:36px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r-2);background:var(--glass-soft);color:var(--text-muted)}
+.kb-busca input{width:150px;border:0;outline:0;background:transparent;font-size:var(--fs-sm);color:var(--text)}
+.kb-busca:focus-within{border-color:var(--focus);box-shadow:0 0 0 3px var(--focus-halo)}
+.kb-busca input:focus-visible{box-shadow:none}
+#kb-acoes{margin-left:auto;gap:var(--sp-2);align-items:center}
+.kb{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(290px,1fr);grid-template-columns:none;gap:var(--sp-3);align-items:start;padding:var(--sp-3) var(--sp-4) var(--sp-4);overflow-x:auto;background:transparent}
+.kc{display:flex;flex-direction:column;gap:var(--sp-2);min-height:160px;padding:10px;background:var(--surface-sunken);border-radius:var(--r-3);transition:background-color var(--dur-fast) ease,box-shadow var(--dur-fast) ease}
+.kc.over-col{background:var(--action-soft);box-shadow:inset 0 0 0 2px var(--action)}
+.kh{display:flex;align-items:center;gap:var(--sp-2);min-height:32px;margin:0;padding:0 2px 0 6px;font-size:var(--fs-md);font-weight:500}
+.kh .n{min-width:20px;padding:0 6px;border-radius:10px;background:var(--gray-100);font-size:var(--fs-xs);line-height:20px;text-align:center}
+.kh .ddn{margin-left:auto}
+.kh input{flex:1;min-width:0;min-height:28px;padding:0 6px;border:1px solid var(--focus);border-radius:6px;background:var(--surface);font-size:var(--fs-md)}
+.kh-btn{display:grid;place-items:center;width:28px;height:28px;border:0;border-radius:6px;background:transparent;color:var(--text-muted);cursor:pointer}
+.kh-btn:hover{background:var(--gray-100)}
+.kh .menu{left:auto;right:0;transform-origin:top right}
+.kcard{margin:0;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;cursor:grab;transition:box-shadow var(--dur-fast) ease,transform var(--dur-base) var(--ease-ios),opacity var(--dur-fast) ease}
+.kcard:hover{border-color:var(--border-strong)}
+.kcard:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.kcard.arrastando{opacity:.45;transform:scale(.98);cursor:grabbing}
+.kcard .type{width:auto}
+.kcard .title{white-space:normal;margin:6px 0 2px}
+.kcard .meta{white-space:normal}
+.kpe{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.ktags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.ktag{padding:1px 6px;border-radius:4px;background:var(--gray-100);font-size:var(--fs-xs);color:var(--text-muted)}
+.kadd{display:flex;align-items:center;justify-content:center;gap:6px;min-height:36px;border:0;border-radius:var(--r-2);background:transparent;font-size:var(--fs-sm);font-weight:500;color:var(--text-muted);cursor:pointer}
+.kadd:hover{background:var(--gray-100);color:var(--text)}
+.kvazio{padding:14px 8px;text-align:center;font-size:var(--fs-sm);color:var(--text-muted)}
+.kvazio b{display:block;margin-bottom:2px;font-weight:500;color:var(--text)}
+.kdet dl{display:grid;grid-template-columns:110px 1fr;gap:8px 12px;margin:14px 0 0;font-size:var(--fs-sm)}
+.kdet dt{color:var(--text-muted)}.kdet dd{margin:0}
+dialog select{display:block;width:100%;min-height:36px;margin-top:4px;padding:0 8px;border:1px solid var(--border-strong);border-radius:8px;background:var(--surface)}

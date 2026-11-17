@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Protótipo navegável · Software jurídico</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="components.css"><script src="icons.js"></script>
+<style>
+body{min-width:1280px;background:var(--surface-sunken)}
+.top{height:56px;display:flex;align-items:center;gap:var(--sp-4);padding:0 var(--sp-5) 0 var(--sp-4);background:var(--surface);border-bottom:1px solid var(--border)}
+.logo{display:flex;align-items:center;gap:8px;width:204px;font-size:22px;font-weight:450;letter-spacing:-.02em;color:var(--gray-900)}
+.logo i{width:18px;height:18px;background:var(--action);border-radius:3px;}
+.search{flex:0 1 480px;display:flex;align-items:center;gap:8px;height:36px;padding:0 var(--sp-3);border:1px solid var(--border);border-radius:var(--r-2);color:var(--text-muted);font-size:var(--fs-sm)}
+.search kbd{margin-left:auto;font:inherit;font-size:11px;padding:0 5px;border:1px solid var(--border);border-radius:4px}
+.spacer{flex:1}.who{display:flex;align-items:center;gap:8px;font-size:var(--fs-sm);font-weight:500}
+.shell{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 56px - 35px)}
+nav{background:var(--surface);border-right:1px solid var(--border);padding:var(--sp-3) var(--sp-2);font-size:var(--fs-sm)}
+nav a{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:var(--r-2);color:var(--gray-900);text-decoration:none}
+nav a .ico{color:var(--text-muted)}
+nav a.on{background:var(--action-soft);color:var(--action-hover);font-weight:500}nav a.on .ico{color:var(--action-hover)}
+nav .n{margin-left:auto;min-width:20px;padding:0 6px;border-radius:10px;background:var(--gray-100);font-size:var(--fs-xs);font-weight:500;text-align:center}
+nav .j{margin-left:auto;font-size:10px;font-weight:550;color:var(--ai);background:var(--ai-soft);padding:1px 5px;border-radius:4px}
+nav hr{border:0;border-top:1px solid var(--border);margin:var(--sp-2) 6px}
+main{padding:var(--sp-4) var(--sp-5);min-width:0}
+.hd{display:flex;align-items:center;gap:var(--sp-3)}
+h1{margin:0;font-size:var(--fs-2xl);font-weight:500;letter-spacing:-.015em}
+.date{color:var(--text-muted);font-size:var(--fs-md)}
+.notice{display:flex;align-items:center;gap:var(--sp-2);margin-left:auto;font-size:var(--fs-xs);color:var(--text-muted)}
+.notice a{color:var(--link);font-weight:500;text-decoration:none}
+.sum{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3);margin-top:var(--sp-4)}
+.tile{display:flex;align-items:center;gap:var(--sp-3);height:68px;padding:0 var(--sp-4);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2);text-align:left}
+.tile .v{font-size:26px;font-weight:550;line-height:1;font-variant-numeric:tabular-nums}
+.tile .l{font-size:var(--fs-sm);font-weight:500;line-height:1.3}.tile .d{font-size:var(--fs-xs);color:var(--text-muted);display:block;font-weight:400}
+.tile.od{border-color:var(--overdue);background:var(--overdue-soft);color:var(--overdue)}.tile.od .d{color:var(--overdue)}
+.tile.td{border-color:var(--soon);background:var(--soon-soft);color:var(--soon)}.tile.td .d{color:var(--soon)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:var(--sp-4);margin-top:var(--sp-3)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2);overflow:hidden}
+.fwrap{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4);flex-wrap:wrap}
+.views{margin-left:auto}
+.gh{display:flex;align-items:center;gap:var(--sp-2);height:34px;padding:0 var(--sp-4);background:var(--surface-sunken);border-top:1px solid var(--border);font-size:var(--fs-xs);font-weight:550;color:var(--text)}
+.gh .c{font-weight:500;color:var(--text-muted)}.gh.od{color:var(--overdue);background:var(--overdue-soft)}.gh.od .c{color:var(--overdue)}
+.gh small{margin-left:auto;font-size:var(--fs-xs);font-weight:450}
+.more{display:flex;justify-content:center;align-items:center;gap:6px;height:38px;border-top:1px solid var(--gray-100);font-size:var(--fs-sm);font-weight:500;color:var(--link)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-2);margin-bottom:var(--sp-3)}
+.ch{display:flex;align-items:center;gap:var(--sp-2);height:44px;padding:0 var(--sp-3) 0 var(--sp-4);font-size:var(--fs-md);font-weight:500}
+.ch .ico:last-child{margin-left:auto;color:var(--text-muted)}
+.ch .n{min-width:20px;padding:0 6px;border-radius:10px;background:var(--gray-100);font-size:var(--fs-xs);font-weight:500;text-align:center}
+.cb{padding:0 var(--sp-4) var(--sp-4)}
+.pub{font-size:var(--fs-sm);line-height:1.35;font-weight:500}.pub small{display:block;margin-top:2px;font-size:var(--fs-xs);font-weight:400;color:var(--text-muted)}
+.pub2{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-top:1px solid var(--gray-100)}
+.stat{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid var(--gray-100);font-size:var(--fs-sm)}.stat b{font-weight:500}.stat a{color:var(--link);text-decoration:none}
+.cal{display:grid;grid-template-columns:repeat(7,1fr)}.ch-d{padding:6px;font-size:11px;font-weight:550;text-align:center;color:var(--text-muted);border-top:1px solid var(--gray-100)}
+.dia{min-height:88px;padding:4px;border-top:1px solid var(--gray-100);border-right:1px solid var(--gray-100);font-size:11px;min-width:0}.dia .n{display:block;text-align:center;font-weight:500;margin-bottom:3px}.dia.hoje .n{color:#fff;background:var(--action);border-radius:10px;width:22px;margin:0 auto 3px}
+.ev{display:flex;align-items:center;gap:3px;padding:2px 4px;margin-bottom:2px;border:1px solid var(--border);border-radius:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:#fff}.ev b{font-weight:550}.ev.t{background:var(--soon-soft);border-color:var(--soon);color:var(--soon)}
+.kb{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px 16px;border-top:1px solid var(--border);background:var(--surface-sunken)}.kh{display:flex;gap:6px;align-items:center;font-weight:500;font-size:13px;margin-bottom:8px}.kh .n{padding:0 6px;border-radius:10px;background:var(--gray-200);font-size:12px}.kcard{padding:10px 12px;margin-bottom:8px;background:#fff;border:1px solid var(--border);border-radius:var(--r-2)}.mv{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:8px;padding-top:6px;border-top:1px solid var(--gray-100);font-size:12px;color:var(--text-muted)}.mv select{font-size:12px;min-height:26px;border:1px solid var(--border);border-radius:4px;background:#fff}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:12px;padding:8px 14px;border-radius:8px;background:var(--gray-900);color:#fff;font-size:13px;box-shadow:var(--shadow-2);z-index:20}#toast[hidden]{display:none}
+dialog{width:440px;padding:24px;border:0;border-radius:12px;box-shadow:var(--shadow-2)}dialog::backdrop{background:rgb(28 33 38/.5)}dialog h2{margin:0 0 2px;font-size:20px}dialog label{display:block;margin-top:12px;font-size:13px;font-weight:500}dialog input{display:block;width:100%;margin-top:4px;min-height:36px;padding:0 10px;border:1px solid var(--border-strong);border-radius:8px}dialog input.err{border-color:var(--overdue)}
+.protobar{position:sticky;top:0;z-index:10;display:flex;gap:6px;align-items:center;padding:8px 20px;background:var(--gray-900);color:#fff;font-size:13px}.protobar a{color:#fff}
+#titulo:focus{outline:0}
+main:not([data-pagina=Lista]) .sum,main:not([data-pagina=Lista]) aside{display:none}
+main:not([data-pagina=Lista]) .cols{grid-template-columns:minmax(0,1fr);margin-top:var(--sp-3)}
+main[data-pagina=Agenda] #f-ordem{display:none}
+</style><link rel="stylesheet" href="glass.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="sidebar.css"><link rel="stylesheet" href="pagina.css"><script src="sidebar.js"></script><link rel="stylesheet" href="kanban.css"><link rel="stylesheet" href="agenda.css"><script>try{if(sessionStorage.getItem('vindo-da-abertura')){sessionStorage.removeItem('vindo-da-abertura');if(!matchMedia('(prefers-reduced-motion:reduce)').matches)document.documentElement.classList.add('entrando')}}catch(e){}</script><style>html.entrando::after{content:"";position:fixed;inset:0;z-index:9999;background:var(--surface);pointer-events:none;animation:veu .9s cubic-bezier(.32,.72,0,1) forwards}@keyframes veu{to{opacity:0}}</style></head><body>
+<div class="protobar"><b>Protótipo navegável · dados fictícios</b><span style="opacity:.8;margin-left:12px">Experimente: concluir e desfazer, filtrar tipo, navegar pelo menu entre Área de trabalho, Agenda e Kanban, mover cartões, revisar a sugestão de IA.</span></div>
+<header class="top">
+ <div class="logo"><i></i>jurídico</div>
+ <div class="search"><span data-i="search"></span>Pesquisar contato, processo ou atividade<kbd>/</kbd></div>
+ <div class="spacer"></div>
+ <button class="btn primary"><span data-i="plus"></span>Adicionar<span data-i="down" data-s="14"></span></button>
+ <button class="btn"><span data-i="spark"></span>IA</button>
+ <button class="btn icon-btn" aria-label="Mais ferramentas"><span data-i="more"></span></button>
+ <button class="btn icon-btn" aria-label="Configurações"><span data-i="gear"></span></button>
+ <div class="who"><span class="avatar">JA</span>Júlia</div>
+</header>
+<div class="shell">
+<nav aria-label="Principal">
+ <a class="on" href="#" data-visao="Lista" aria-current="page"><span data-i="briefcase"></span>Área de trabalho</a>
+ <a href="#" data-visao="Kanban"><span data-i="board"></span>Gestão kanban</a>
+ <a href="#" data-visao="Agenda"><span data-i="cal"></span>Agenda</a>
+ <a href="#"><span data-i="flow"></span>Workflows</a>
+ <hr class="sep">
+ <a href="#"><span data-i="user"></span>Contatos</a>
+ <a href="#"><span data-i="chat"></span>Atendimentos</a>
+ <a href="#"><span data-i="folder"></span>Processos e casos</a>
+ <a href="#"><span data-i="doc"></span>Publicações<span class="n" id="nav-pub">3</span></a>
+ <hr class="sep">
+ <a href="#"><span data-i="money"></span>Financeiro</a>
+ <hr class="sep">
+ <a href="#"><span data-i="file"></span>Peças jurídicas<span class="j">IA</span></a>
+ <a href="#"><span data-i="gavel"></span>Jurisprudência<span class="j">IA</span></a>
+ <a href="#"><span data-i="clip"></span>Documentos</a>
+ <a href="#"><span data-i="chart"></span>Indicadores</a>
+ <a href="#"><span data-i="bell"></span>Alertas<span class="n">4</span></a>
+ <a class="sup" href="#"><span data-i="help"></span>Suporte</a>
+ <button class="rec" id="rec" aria-expanded="true" aria-label="Recolher menu"><span data-i="down" data-s="15"></span><span class="lb">Recolher</span></button>
+</nav>
+<main id="pagina" data-pagina="Lista">
+ <div class="hd"><span class="tit-ic" id="titulo-ic" aria-hidden="true"><span data-i="briefcase" data-s="18"></span></span><h1 id="titulo" tabindex="-1">Área de trabalho</h1><div class="ddn kb-only" id="kb-board-w"><button class="chip" id="kb-board" aria-haspopup="listbox" aria-expanded="false"><b id="kb-board-val">Quadro padrão</b><span data-i="down" data-s="14"></span></button><div class="menu" id="kb-board-menu" role="listbox" aria-label="Quadro" hidden></div></div><span class="date">Quarta, 4 de novembro</span>
+  <div class="notice">Você está na nova versão.<a href="#">O que mudou</a>·<button class="btn sm ghost" style="color:var(--link);padding:0 4px" data-acao="voltar">Voltar à anterior</button></div></div>
+ <div class="sum">
+  <div class="tile od"><span data-i="alert" data-s="22"></span><span class="v" id="t-at">2</span><span class="l">Atrasadas</span></div>
+  <div class="tile td"><span data-i="sun" data-s="22"></span><span class="v" id="t-ho">3</span><span class="l">Para hoje<span class="d" id="d-ho"></span></span></div>
+  <div class="tile"><span data-i="next" data-s="22"></span><span class="v" id="t-pr">4</span><span class="l">Próximos 7 dias<span class="d" id="d-pr"></span></span></div>
+ </div>
+ <div class="cols">
+  <section class="panel" aria-label="Atividades">
+   <div class="fwrap">
+    <div class="seg" role="group" aria-label="Responsável"><button data-dono="Minhas" aria-pressed="true">Minhas</button><button data-dono="Equipe" aria-pressed="false">Equipe</button></div>
+    <div style="flex-basis:100%;height:0"></div>
+    <div class="seg ag-only" role="group" aria-label="Modo da agenda"><button data-agmodo-b="Mês" aria-pressed="true">Mês</button><button data-agmodo-b="Semana" aria-pressed="false">Semana</button><button data-agmodo-b="Dia" aria-pressed="false">Dia</button><button data-agmodo-b="Lista" aria-pressed="false">Lista</button></div>
+    <div class="ddn"><button class="chip" id="f-chip" aria-haspopup="listbox" aria-expanded="false"><span class="k">Tipo:</span><b id="f-val">Todos</b><span data-i="down" data-s="14"></span></button>
+     <select id="f-tipo" hidden aria-hidden="true"><option>Todos</option><option>Prazo</option><option>Audiência</option><option>Evento</option><option>Tarefa</option></select>
+     <div class="menu" id="f-menu" role="listbox" aria-label="Filtrar por tipo" hidden></div></div>
+    <button class="chip" id="f-ordem"><span data-i="sort"></span><span class="k">Ordem:</span><b>Urgência</b></button>
+    <div class="ddn ag-only ag-sit-w"><button class="chip" id="ag-sit" aria-haspopup="listbox" aria-expanded="false"><span class="k">Situação:</span><b id="ag-sit-val">A concluir</b><span data-i="down" data-s="14"></span></button><div class="menu" id="ag-sit-menu" role="listbox" aria-label="Situação" hidden></div></div>
+    <div class="ddn ag-lista-only"><button class="chip" id="ag-per" aria-haspopup="listbox" aria-expanded="false"><span class="k">Período:</span><b id="ag-per-val">Próximos 30 dias</b><span data-i="down" data-s="14"></span></button><div class="menu" id="ag-per-menu" role="listbox" aria-label="Período" hidden></div></div>
+    <div class="ddn ag-only"><button class="chip" id="ag-tag" aria-haspopup="listbox" aria-expanded="false"><span data-i="tag"></span><span class="k">Etiqueta:</span><b id="ag-tag-val">Todas</b></button><div class="menu" id="ag-tag-menu" role="listbox" aria-label="Etiqueta" hidden></div></div>
+    <label class="ag-busca ag-only"><span data-i="search" data-s="14"></span><input id="ag-q" type="search" placeholder="Buscar na agenda" aria-label="Buscar na agenda"></label>
+    <span class="ag-only" id="ag-acoes"><button class="btn primary" id="ag-nova"><span data-i="plus"></span>Nova atividade</button></span>
+    <div class="ddn kb-only"><button class="chip" id="kb-periodo" aria-haspopup="listbox" aria-expanded="false"><span class="k">Período:</span><b id="kb-periodo-val">Este mês</b><span data-i="down" data-s="14"></span></button><div class="menu" id="kb-periodo-menu" role="listbox" aria-label="Período" hidden></div></div>
+    <div class="ddn kb-only"><button class="chip" id="kb-tag" aria-haspopup="listbox" aria-expanded="false"><span data-i="tag"></span><span class="k">Etiqueta:</span><b id="kb-tag-val">Todas</b></button><div class="menu" id="kb-tag-menu" role="listbox" aria-label="Etiqueta" hidden></div></div>
+    <label class="kb-busca kb-only"><span data-i="search" data-s="14"></span><input id="kb-q" type="search" placeholder="Buscar no quadro" aria-label="Buscar no quadro"></label>
+    <span class="kb-only" id="kb-acoes"><button class="btn icon-btn" id="kb-att" aria-label="Atualizar quadro"><span data-i="refresh"></span></button><button class="btn primary" id="kb-nova"><span data-i="plus"></span>Nova atividade</button></span>
+   </div>
+   <div id="conteudo"></div>
+  </section>
+  <aside>
+   <section class="card"><div class="ch">Publicações a tratar<span class="n" id="n-pub">3</span><span data-i="up"></span></div><div class="cb" id="pubs"></div></section>
+   <section class="card"><div class="ch">Processos e casos<span data-i="up"></span></div><div class="cb" style="padding-bottom:6px">
+     <div class="stat"><a href="#">Sem movimentação há 30 dias</a><b>2</b></div>
+     <div class="stat"><a href="#">Com movimentação há 30 dias</a><b>6</b></div></div></section>
+   <section class="card"><div class="ch">Minha semana<span data-i="up"></span></div><div class="cb" style="padding-bottom:6px">
+     <div class="stat"><span>Concluídas</span><b>6</b></div>
+     <div class="stat"><a href="#">Analisar nos Indicadores</a></div></div></section>
+   <section class="card" data-closed><div class="ch">Estatísticas<span data-i="up"></span></div><div class="cb" style="padding-bottom:6px"><div class="stat"><span>Atendimentos ativos</span><b>4</b></div><div class="stat"><span>Documentos em 30 dias</span><b>12</b></div></div></section>
+   <section class="card" data-closed><div class="ch">Lembretes<span data-i="up"></span></div><div class="cb" style="padding-bottom:6px"><div class="stat"><span>Hoje</span><b>Audiência às 14:00</b></div></div></section>
+   <button class="btn ghost sm" style="width:100%"><span data-i="gear"></span>Personalizar esta coluna</button>
+  </aside>
+ </div>
+</main></div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<dialog id="dlg" aria-labelledby="dl-h"><form id="dl-form" novalidate><h2 id="dl-h">Criar prazo</h2><p id="dl-sub" class="m" style="margin:0;font-size:13px;color:var(--text-muted)"></p>
+<p id="dl-ia" hidden style="margin:12px 0 0;padding:8px 10px;border-radius:8px;background:var(--ai-soft);font-size:12px;color:var(--ai);font-weight:500">Data sugerida pela IA. Confira no processo antes de salvar.</p>
+<label>Descrição do prazo<input id="dl-tit" autocomplete="off"></label><label>Data limite<input id="dl-data" type="date"></label>
+<p id="dl-erro" hidden style="margin:8px 0 0;font-size:13px;color:var(--overdue);font-weight:500">Preencha a descrição e a data para criar o prazo.</p>
+<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px"><button type="button" class="btn" id="dl-cancelar">Cancelar</button><button type="submit" class="btn primary">Criar prazo</button></div></form></dialog>
+<dialog id="kb-novo" aria-labelledby="kn-h"><form id="kn-form" novalidate><h2 id="kn-h">Nova atividade</h2><p id="kn-col" style="margin:0;font-size:13px;color:var(--text-muted)"></p>
+<label>Tipo<select id="kn-tipo"><option>Tarefa</option><option>Prazo</option><option>Evento</option><option>Audiência</option></select></label><label>Descrição<input id="kn-tit" autocomplete="off"></label><label>Data<input id="kn-data" type="date"></label>
+<p id="kn-erro" hidden style="margin:8px 0 0;font-size:13px;color:var(--overdue);font-weight:500">Preencha a descrição e a data para criar a atividade.</p>
+<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px"><button type="button" class="btn" id="kn-cancelar">Cancelar</button><button type="submit" class="btn primary">Criar atividade</button></div></form></dialog>
+<dialog id="kb-det" class="kdet" aria-labelledby="kd-tit"><h2 id="kd-tit"></h2><dl id="kd-dl"></dl><div style="display:flex;justify-content:flex-end;gap:8px;margin-top:18px"><button class="btn" id="kd-fechar">Fechar</button><button class="btn primary" id="kd-concluir">Concluir</button></div></dialog>
+<script src="q3-prototipo.js"></script><script src="kanban.js"></script><script src="agenda.js"></script></body></html>

@@ -1,0 +1,76 @@
+/* GERADO por tokens-build.py. Não editar à mão. */
+@font-face{font-family:"Inter";src:url("fonts/inter-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-display:block}
+:root{
+ /* primitivos */
+ --gray-0:#ffffff;--gray-50:#f6f7f8;--gray-75:#f3f5f9;--gray-100:#eceef0;--gray-200:#d9dde1;--gray-300:#bcc2c8;--gray-400:#8a9199;--gray-500:#6e757c;--gray-600:#596067;--gray-700:#444b52;--gray-800:#2e343a;--gray-900:#1c2126;
+ --blue-50:#e8f0fa;--blue-100:#cfe0f5;--blue-200:#a9c6ea;--blue-300:#7ba6dc;--blue-400:#4589df;--blue-500:#3569b1;--blue-600:#2f63ad;--blue-700:#254f8c;--blue-800:#1c3c6b;--blue-900:#14294a;
+ --red-50:#fcedee;--red-100:#f8d7d9;--red-500:#d42e20;--red-700:#a11d12;--red-900:#6f130b;
+ --amber-50:#fdf3dc;--amber-100:#f9e4b3;--amber-500:#b87a00;--amber-700:#855400;--amber-900:#5a3900;
+ --green-50:#e4f6ea;--green-100:#c5ecd2;--green-500:#2f9a52;--green-700:#1f6b35;--green-900:#144524;
+ --yellow-600:#c28400;
+ --sky-600:#1c6fd8;
+ --violet-500:#8a4fd6;
+ --teal-500:#0a8f6c;
+ --white-60:#ffffff99;--white-72:#ffffffb8;--white-88:#ffffffe0;
+ --ink-4:#1c21260a;--ink-8:#1c212614;--ink-14:#1c212624;
+ /* semânticos */
+ --surface:var(--gray-0);
+ --surface-sunken:var(--gray-50);
+ --surface-page:var(--gray-75);
+ --surface-hover:var(--gray-50);
+ --glass:var(--white-72);
+ --glass-strong:var(--white-88);
+ --glass-soft:var(--white-60);
+ --border:var(--ink-8);
+ --border-soft:var(--ink-4);
+ --border-strong:var(--gray-400);
+ --text:var(--gray-900);
+ --text-muted:var(--gray-600);
+ --text-inverse:var(--gray-0);
+ --action:var(--blue-600);
+ --action-hover:var(--blue-700);
+ --action-soft:var(--blue-50);
+ --link:var(--blue-600);
+ --focus:var(--blue-700);
+ --overdue:var(--red-700);
+ --overdue-soft:var(--red-50);
+ --soon:var(--amber-700);
+ --soon-soft:var(--amber-50);
+ --done:var(--green-700);
+ --done-soft:var(--green-50);
+ --type-prazo:var(--yellow-600);
+ --type-audiencia:var(--violet-500);
+ --type-evento:var(--teal-500);
+ --type-tarefa:var(--sky-600);
+ --ai:var(--gray-700);
+ --ai-soft:var(--gray-50);
+ /* escala */
+ --sp-0-5:2px;--sp-1:4px;--sp-1-5:6px;--sp-2:8px;--sp-2-5:10px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;
+ --r-1:6px;--r-md:8px;--r-2:10px;--r-3:16px;--r-full:999px;
+ --fs-xs:12px;--fs-sm:13px;--fs-md:14px;--fs-lg:16px;--fs-xl:20px;--fs-2xl:24px;
+ --type-page-title:550 20px/1.2 "Inter",system-ui,sans-serif;
+ --type-section-title:550 20px/1.25 "Inter",system-ui,sans-serif;
+ --type-card-title:500 14px/1.35 "Inter",system-ui,sans-serif;
+ --type-body:400 14px/1.45 "Inter",system-ui,sans-serif;
+ --type-body-strong:500 14px/1.3 "Inter",system-ui,sans-serif;
+ --type-small:400 13px/1.4 "Inter",system-ui,sans-serif;
+ --type-caption:400 12px/1.35 "Inter",system-ui,sans-serif;
+ --type-caption-strong:550 12px/1.35 "Inter",system-ui,sans-serif;
+ --shadow-1:0 1px 2px rgb(28 33 38/.06);--shadow-2:0 8px 32px rgb(47 72 110/.14);--shadow-glass:0 1px 1px rgb(47 72 110/.04),0 10px 30px rgb(47 72 110/.08);--blur-glass:20px;
+ --focus-halo:rgb(47 99 173/.18);
+ --page-base:#f3f5f9;--deck-bg:#f8f9fb;
+ --page-bg:#f3f5f9;
+ /* movimento */
+ --ease-ios:cubic-bezier(.32,.72,0,1);--ease-pop:cubic-bezier(.34,1.56,.64,1);--dur-fast:120ms;--dur-base:240ms;--dur-slow:380ms;
+ /* componentes */
+ --button-height-md:36px;--button-height-sm:32px;--button-radius:8px;--chip-height:36px;--due-height:26px;--row-min-height:58px;--row-gap-x:12px;--row-padding-x:16px;--avatar-size:28px;--check-size:20px;--target-min:24px;--focus-width:2px;--focus-offset:2px;--layout-header:56px;--layout-nav:220px;--layout-rail:316px;--layout-gutter:24px;
+}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:400 var(--fs-md)/1.45 "Inter",system-ui,sans-serif;color:var(--text);background:var(--surface);font-feature-settings:"cv11","tnum"}
+:focus-visible{outline:var(--focus-width) solid var(--focus);outline-offset:var(--focus-offset)}
+input:focus-visible,select:focus-visible,textarea:focus-visible{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px var(--focus-halo)}
+input.err:focus-visible{border-color:var(--overdue);box-shadow:0 0 0 3px var(--overdue-soft)}
+::-webkit-calendar-picker-indicator:focus-visible{outline:2px solid var(--focus);outline-offset:1px;border-radius:4px}
+button,input,select{font:inherit;color:inherit}
+b,strong{font-weight:550}
+h1,h2,h3,h4{font-weight:550}

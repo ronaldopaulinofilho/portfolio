@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import { X } from 'lucide-react'
+import { ArrowUpRight, X } from 'lucide-react'
 import type { CaseStudy, CaseStudyBlock } from '../../data/caseStudies'
 import { useLang } from '../../contexts/LanguageContext'
 import { Media } from './Media'
@@ -118,7 +118,7 @@ export function CaseStudyModal({ study, onClose }: Props) {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 32, opacity: 0 }}
         transition={{ duration: 0.28 }}
-        className="w-full max-w-4xl max-h-[92vh] rounded-2xl flex flex-col overflow-hidden border"
+        className="w-full max-w-6xl max-h-[94vh] rounded-2xl flex flex-col overflow-hidden border"
         style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border)' }}
         onClick={e => e.stopPropagation()}
       >
@@ -176,6 +176,20 @@ export function CaseStudyModal({ study, onClose }: Props) {
               </div>
             ))}
           </div>
+
+          {/* Interactive prototype */}
+          {study.demo && locale.demoLabel && (
+            <a
+              href={imgUrl(study.demo)}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2.5 rounded-xl border transition-opacity hover:opacity-80"
+              style={{ borderColor: 'var(--accent-light)', color: 'var(--accent-light)', backgroundColor: 'var(--accent-glow)' }}
+            >
+              {locale.demoLabel}
+              <ArrowUpRight size={15} />
+            </a>
+          )}
 
           {/* Demo video */}
           {study.video && (

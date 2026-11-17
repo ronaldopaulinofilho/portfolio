@@ -1,0 +1,10 @@
+/* Área de conteúdo: título alinhado ao topo do menu; mesmo ritmo entre título, resumo e lista */
+main{padding:12px var(--sp-5) 12px var(--sp-4)}
+.hd{min-height:36px}
+.sum{margin-top:var(--sp-3)}
+/* Menu e conteúdo terminam na mesma linha, em qualquer página e altura de janela */
+main{display:flex;flex-direction:column}
+main>.cols{flex:1 0 auto}
+.tit-ic{display:inline-flex;margin-right:calc(var(--sp-1) * -1);color:var(--action)}
+.tit-ic .ico{stroke-width:1.75}
+.hd h1{font-size:var(--fs-xl);font-weight:550}

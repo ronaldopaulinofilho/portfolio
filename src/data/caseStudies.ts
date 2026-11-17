@@ -26,6 +26,8 @@ export interface CaseStudyLocale {
     impact?: string
   }
   intro: string
+  /** Rótulo do botão que abre `demo`; obrigatório quando o case tem demo. */
+  demoLabel?: string
   sections: CaseStudySection[]
 }
 
@@ -35,6 +37,8 @@ export interface CaseStudy {
   cardRole: string
   cardStack: string
   video?: string
+  /** Protótipo navegável servido de `public/`, aberto em nova aba. */
+  demo?: string
   images: string[]
   pt: CaseStudyLocale
   en: CaseStudyLocale
@@ -944,6 +948,779 @@ export const uiParaIaCase: CaseStudy = {
           {
             type: 'paragraph',
             text: 'It is worth noting that almost none of this is new. These are familiar interface patterns — loading states, destructive confirmation, version history — reapplied to a system that now answers differently on every run.',
+          },
+        ],
+      },
+    ],
+  },
+}
+
+/**
+ * Atividade prática de processo seletivo, publicada sem o nome do produto nem
+ * da empresa: o cenário é fictício e o diagnóstico usou uma conta de teste.
+ * As imagens são só do material autoral (tela redesenhada, componentes e plano),
+ * nunca prints do produto original.
+ */
+export const softwareJuridicoCase: CaseStudy = {
+  id: 'software-juridico-case-study',
+  label: 'Case Study',
+  cardRole: 'UX Designer & UX Engineer',
+  cardStack: 'Figma · Design Tokens · HTML/CSS/JS · MCP',
+  demo: '/demos/software-juridico/index.html',
+  images: [
+    '/projects/juridico-tela.webp',
+    '/projects/juridico-componentes.webp',
+    '/projects/juridico-plano.webp',
+  ],
+  pt: {
+    title: 'Redesign Incremental de um Software Jurídico',
+    subtitle:
+      'Diagnóstico, plano de design system para 12 meses e a primeira tela da nova direção para a gestão de atividades de um software usado por escritórios de advocacia — onde perder um prazo pode custar o direito do cliente.',
+    readMore: 'Ler case completo',
+    demoLabel: 'Abrir o protótipo navegável',
+    meta: {
+      roleLabel: 'Meu Papel',
+      role: 'UX Designer & UX Engineer — diagnóstico, estratégia de design system, UI e protótipo em código (autoria individual)',
+      toolsLabel: 'Ferramentas / Tecnologias',
+      tools: 'Figma, tokens gerados de uma fonte única (Figma e CSS), protótipo navegável em HTML/CSS/JS, servidor MCP do design system em Node.js, heurísticas de Nielsen e WCAG 2.2',
+      impactLabel: 'Contexto',
+      impact: 'Atividade prática de processo seletivo para UX Designer Especialista, com cenário fictício proposto pela empresa. Diagnóstico feito numa conta de teste do produto real; tela e componentes com dados fictícios.',
+    },
+    intro:
+      'Um software de gestão para escritórios de advocacia cresceu por muitos anos com times diferentes construindo partes diferentes. O resultado: padrões que variam entre módulos, componentes duplicados e uma interface que não transmitia mais a modernidade que a empresa queria.\n\nO desafio era propor como modernizar a experiência em 12 meses com restrições bem reais: o produto não pode parar, telas novas e legadas vão conviver durante a migração do front-end, não existe design system estruturado, quatro designers trabalham em squads diferentes sem se reportar a mim, e recursos de IA precisam nascer dentro dos mesmos padrões.\n\nO recorte foi a gestão de atividades — Agenda, Área de Trabalho e Kanban —, onde o advogado controla prazos processuais.',
+    sections: [
+      {
+        emoji: '🧪',
+        title: 'Discovery: como cheguei ao diagnóstico',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Antes de propor qualquer tela, montei um roteiro de investigação com quatro fontes e uma regra: cada falha precisa estar ligada a uma regra de avaliação e a uma evidência, e o que não tem evidência fica marcado como hipótese.',
+          },
+          { type: 'media', src: '/projects/juridico-discovery.webp' },
+          { type: 'subheading', text: 'Exploração guiada do produto' },
+          {
+            type: 'paragraph',
+            text: 'Usei a conta de teste com um roteiro de captura: visões de Agenda, Área de Trabalho e Kanban; a mesma atividade vista nas três; criação e edição; estados vazio, de erro e de carregamento; navegação entre módulos; e sinais de acessibilidade, como prazo indicado só por cor. Foram 27 prints anotados.',
+          },
+          { type: 'subheading', text: 'Auditoria heurística' },
+          {
+            type: 'paragraph',
+            text: 'Passei as telas pelas 10 heurísticas de Nielsen e por 18 critérios da WCAG 2.2 (níveis A e AA), escolhidos pelo que importa nesse contexto: uso de cor em prazos, contraste em uso prolongado, teclado no fluxo principal e arrastar no Kanban. Somei regras do domínio que propus, como "prazo atrasado nunca sai de vista sozinho" e "prazo, tarefa, evento e audiência são distinguíveis sem abrir o item".',
+          },
+          {
+            type: 'paragraph',
+            text: 'Cada falha foi registrada no mesmo formato: o que tentei fazer, o que aconteceu, a regra violada, sintoma, causa provável, impacto, gravidade de 0 a 4 e status — confirmado, confirmado só no visual, medido ou provável. O contraste foi medido por amostragem de pixels nos prints, com a ressalva de confirmar no código.',
+          },
+          { type: 'subheading', text: 'Um teste controlado' },
+          {
+            type: 'paragraph',
+            text: 'A suspeita mais grave era que atrasos saem de vista. Em vez de afirmar, criei prazos vencidos em datas diferentes e percorri cada visão e recorte no dia seguinte. Resultado: os vencidos ficavam fora da lista principal, do contador semanal, do Kanban no mês e da Agenda do mês corrente. Um prazo com 58 dias de atraso ficava fora até da contagem de atrasadas, que olhava só 30 dias. A suspeita virou fato.',
+          },
+          { type: 'subheading', text: 'Pedidos de clientes e benchmark' },
+          {
+            type: 'paragraph',
+            text: 'Agrupei a base de sugestões de clientes por tema. Ver o que é urgente ou novo e encontrar e organizar dominavam; o visual quase não aparecia. Tratei isso como sinal, não como prova: a base não tinha data, votos medem pedidos e não o tamanho do problema, e acessibilidade e consistência raramente aparecem nesse canal.',
+          },
+          {
+            type: 'paragraph',
+            text: 'No benchmark, comparei concorrentes diretos no Brasil, referências internacionais e padrões de fora do setor, como a visão "Hoje" do Todoist e a separação entre filtro e exibição do Linear. A leitura principal: ter Kanban não diferencia ninguém; o ponto em disputa é a priorização. E prazo jurídico não é tarefa comum — o padrão de "adiar" não serve para um prazo fatal, porque a data legal não muda.',
+          },
+          { type: 'subheading', text: 'Separar sintoma de causa' },
+          {
+            type: 'paragraph',
+            text: 'Com as falhas registradas, agrupei por causa, não por quantidade. Dezenas de sintomas convergiram para cinco problemas e uma causa comum. Também registrei o que já funcionava e valia manter — foco automático no formulário, a Agenda em lista mostrando o tipo em texto, a criação direto na coluna do Kanban —, porque mudar sem surpreender começa por saber o que não mexer.',
+          },
+        ],
+      },
+      {
+        emoji: '🔍',
+        title: 'O diagnóstico: o produto é organizado por módulos, mas o advogado trabalha por prazos',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Explorei o produto numa conta de teste e documentei cada problema com prints anotados. Os cinco problemas mais relevantes tinham uma causa comum: cada tela respondia "o que existe neste módulo?", quando a pessoa precisa saber "o que tenho que fazer, até quando e o que acontece se eu não fizer?".',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'A urgência não comanda a tela',
+                text: 'O prazo de hoje não aparecia pelo nome na lista principal. Nos testes, um prazo com 58 dias de atraso ficou fora da contagem de atrasadas, porque o recorte olhava só os últimos 30 dias. Na Agenda, o vermelho indicava o tipo de atividade, não a proximidade do prazo.',
+              },
+              {
+                title: 'A mesma atividade muda em cada visão',
+                text: 'Agenda, Kanban e Área de Trabalho tinham recortes, períodos, formatos de data e formas de mostrar o responsável diferentes. Uma tela vazia podia significar "nada a fazer" ou "outro filtro".',
+              },
+              {
+                title: 'A publicação chega como aviso, não como trabalho',
+                text: 'Publicações judiciais — onde um prazo nasce — chegavam sem identificação clara do caso, com dado técnico exposto e "Descartar" com o mesmo peso de "Tratar", lado a lado.',
+              },
+              {
+                title: 'A navegação e a IA expõem a estrutura do produto',
+                text: 'Catorze módulos numa lista plana, ícones sem rótulo e a IA aparecendo de quatro formas diferentes, como um produto à parte em vez de parte do fluxo.',
+              },
+              {
+                title: 'Sem sistema, as soluções se repetem de formas diferentes',
+                text: 'Salvar, filtrar, criar e estados vazios resolvidos de jeitos distintos em cada módulo. O azul principal media 3,56:1 de contraste em links e botões, abaixo do mínimo AA de 4,5:1.',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'Separei o que observei do que era hipótese. O diagnóstico terminou com oito hipóteses a validar antes de seguir — de chamados sobre prazos perdidos a testes com teclado, leitor de tela e zoom de 200% —, cada uma com o que mudaria no plano conforme a resposta.',
+          },
+          { type: 'media', src: '/projects/juridico-validacao.webp' },
+        ],
+      },
+      {
+        emoji: '🧭',
+        title: 'Cinco princípios que outros designers aplicam sem precisar me perguntar',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-principios.webp' },
+          {
+            type: 'bullets',
+            items: [
+              'O prazo vem primeiro: em qualquer tela que lista trabalho, o mais urgente aparece primeiro, e o atraso não some por causa de filtro ou período. Vermelho só significa atraso.',
+              'Uma atividade, várias visões: dados, nomes e estados vêm de um só modelo. Agenda e Kanban mudam a forma de ver, não a informação.',
+              'Toda informação leva a uma ação segura: cada aviso traz contexto e próximo passo; ação de risco pede confirmação ou pode ser desfeita.',
+              'A IA sugere, a pessoa decide: a IA aparece dentro da tarefa, com os mesmos componentes, mostra a origem e não altera prazo sem confirmação.',
+              'Mudar sem surpreender: local, nome e densidade só mudam com ganho claro, e o básico funciona igual em tela nova e legada.',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'Cada princípio veio com uma pergunta verificável — "em 5 segundos, dá para dizer o que está atrasado e o que vence hoje?" — e com as heurísticas e critérios WCAG que a tela atual violava. A conclusão orientou o resto: a modernização visual é consequência, não ponto de partida. O ganho para quem usa vem de clareza e segurança.',
+          },
+        ],
+      },
+      {
+        emoji: '🧱',
+        title: 'O design system: tokens e modelo de domínio primeiro',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-arquitetura.webp' },
+          {
+            type: 'paragraph',
+            text: 'Organizei o sistema em cinco camadas: tokens (primitivo, semântico e de componente), modelos de domínio, componentes base, componentes jurídicos e padrões de uso. Comecei pelos tokens porque um ajuste melhora tudo — inclusive o contraste — sem esperar a migração. E pelo modelo de Atividade junto, porque o segundo problema do diagnóstico não é visual: sem um contrato único, Agenda e Kanban voltam a divergir.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Na governança, a regra de entrada é necessidade real em dois ou mais squads, ou risco alto para prazos; o resto começa como solução local registrada. Uma única fonte de tokens alimenta Figma e código, as propriedades no Figma espelham a API dos componentes, e proposta sem resposta em cinco dias úteis segue como local, para o sistema nunca virar gargalo.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Também construí uma versão mínima de um servidor MCP do design system: ferramentas de IA consultam tokens, API dos componentes, o modelo de Atividade e regras como "vermelho só para atraso", e quem gera tela ou código com IA parte das regras do sistema.',
+          },
+        ],
+      },
+      {
+        emoji: '🗺️',
+        title: 'Plano incremental: começar pela tela mais arriscada, de forma reversível',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-plano.webp' },
+          {
+            type: 'paragraph',
+            text: 'Priorizei as telas com um critério ponderado — risco de prazo, frequência de uso, momento da migração, pedidos de clientes e risco da mudança. A Área de Trabalho ficou em primeiro. Começar por uma tela simples reduziria o risco de entrega, mas não provaria a tese de que clareza sobre prazos muda o trabalho. Por ser muito usada, ela entra opcional, reversível e medida.',
+          },
+          { type: 'media', src: '/projects/juridico-convivencia.webp' },
+          {
+            type: 'paragraph',
+            text: 'Para telas novas e antigas conviverem sem confundir, a unidade de migração é o fluxo inteiro, nunca a metade de uma tarefa. Cabeçalho, menu e tokens passam primeiro a todas as telas, e o significado nunca muda entre versões. Cada tela nova entra em etapas (time interno, 5%, 25%, todos), com "Voltar à anterior" sempre visível e critérios de parada. Nenhuma mudança de padrão na volta da suspensão de prazos do fim de ano, quando o volume cresce.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Com os quatro designers, a regra foi o squad não receber tarefa extra: cada um é dono dos padrões que o próprio roadmap já precisa, e o que eu assumo — tokens, modelo, código de referência, MCP, protótipos e automação — tira trabalho repetitivo deles antes de pedir contribuição. Não apresentei metas numéricas: sem linha de base, qualquer número seria inventado.',
+          },
+        ],
+      },
+      {
+        emoji: '🖥️',
+        title: 'A primeira tela da nova direção',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-tela.webp' },
+          {
+            type: 'paragraph',
+            text: 'A nova Área de Trabalho abre com um resumo de atrasadas, de hoje e dos próximos 7 dias, e agrupa a lista por urgência com todos os tipos juntos: prazo, audiência, evento e tarefa. As publicações chegam com o caso identificado e uma sugestão da IA que mostra o trecho usado e só cria o prazo depois de revisada. O menu manteve nomes e ordem, a densidade foi preservada e o azul de ação passou de 3,56:1 para 5,98:1 de contraste sem abandonar a identidade.',
+          },
+          { type: 'subheading', text: 'Componentes que nasceram da tela' },
+          { type: 'media', src: '/projects/juridico-linha.webp' },
+          {
+            type: 'paragraph',
+            text: 'A linha de atividade é um único componente para Área de Trabalho, Agenda em lista e buscas, com estados de padrão, hover, foco, selecionada, atrasada, concluída, erro, carregando e vazio.',
+          },
+          { type: 'media', src: '/projects/juridico-componentes.webp' },
+          {
+            type: 'paragraph',
+            text: 'O indicador de prazo usa sempre texto, num formato único de proximidade e data absoluta. O selo de tipo usa ícone colorido e texto neutro, corrigindo o vermelho como tipo. A barra de filtros tem a mesma ordem e os mesmos nomes em todas as visões. E a sugestão de IA nunca salva sozinha: sem sugestão, o componente não aparece e o fluxo manual segue igual.',
+          },
+        ],
+      },
+      {
+        emoji: '⚖️',
+        title: 'A decisão difícil',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Itens atrasados aparecem primeiro com qualquer ordenação ou filtro. Quem usa pode recolher o grupo, mas a contagem fica sempre no topo.',
+          },
+          {
+            type: 'paragraph',
+            text: 'A favor: destacar prazos era um dos pedidos mais frequentes dos clientes, com o detalhe de "não sumir quando estiver atrasado", e um atraso escondido custa mais do que um item a mais na lista. Contra: personalizar e ordenar também são pedidos reais, e quem tem muitos atrasados vê sempre a mesma lista — o excesso de alerta pode virar ruído.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'Descartei a ordem livre com aviso no topo: é fácil se acostumar a ignorar o aviso.',
+              'Descartei os atrasados em uma aba: a tela fica mais limpa, mas o problema só aparece para quem vai procurar.',
+              'Para reduzir o custo, o grupo pode ser recolhido, mostra as 5 mais antigas com "Ver todas" quando passa de 5, e a ordem livre continua valendo dentro de cada grupo.',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'O que me faria voltar atrás: no piloto, muitos retornos à versão anterior citando esse bloco, ou atrasos antigos que ninguém resolve e só ocupam a tela.',
+          },
+        ],
+      },
+      {
+        emoji: '💡',
+        title: 'O que fica',
+        blocks: [
+          {
+            type: 'bullets',
+            items: [
+              'Separar sintoma de causa muda o tamanho do redesign: precisar trocar o recorte para ver um atraso é sintoma; a causa está no modelo de atividade.',
+              'Coerência é verificável: cada princípio do diagnóstico tem um lugar na tela, e cada componente segue a arquitetura do sistema.',
+              'Construir em código — tokens, protótipo navegável e MCP — tirou o plano do papel e expôs estados e casos-limite que um mockup esconde.',
+              'O que ainda falta testar: proposta sem teste com usuários e com dados fictícios; faltam grande volume, teclado e leitor de tela, largura menor e o custo técnico da visão unificada.',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  en: {
+    title: 'Incremental Redesign of Legal Practice Software',
+    subtitle:
+      'Diagnosis, a 12-month design system plan and the first screen of the new direction for the task management of software used by law firms — where a missed deadline can cost a client their rights.',
+    readMore: 'Read full case',
+    demoLabel: 'Open the interactive prototype',
+    meta: {
+      roleLabel: 'My Role',
+      role: 'UX Designer & UX Engineer — diagnosis, design system strategy, UI and code prototype (solo work)',
+      toolsLabel: 'Tools / Technologies',
+      tools: 'Figma, tokens generated from a single source (Figma and CSS), navigable HTML/CSS/JS prototype, design system MCP server in Node.js, Nielsen heuristics and WCAG 2.2',
+      impactLabel: 'Context',
+      impact: 'Take-home exercise for a Senior UX Designer hiring process, with a fictional scenario set by the company. Diagnosis done on a trial account of the real product; screen and components use fictional data.',
+    },
+    intro:
+      'A management platform for law firms had grown for years with different teams building different parts. The result: patterns that vary between modules, duplicated components and an interface that no longer conveyed the modernity the company wanted.\n\nThe challenge was to propose how to modernise the experience over 12 months under very real constraints: the product cannot stop, new and legacy screens will coexist during the front-end migration, there is no structured design system, four designers work in different squads without reporting to me, and AI features must be born within the same patterns.\n\nThe scope was task management — Calendar, Workspace and Kanban — where lawyers track court deadlines.',
+    sections: [
+      {
+        emoji: '🧪',
+        title: 'Discovery: how I got to the diagnosis',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Before proposing any screen, I set up an investigation plan with four sources and one rule: every issue must be tied to an evaluation rule and to evidence, and anything without evidence is marked as a hypothesis.',
+          },
+          { type: 'media', src: '/projects/juridico-discovery.webp' },
+          { type: 'subheading', text: 'Guided product exploration' },
+          {
+            type: 'paragraph',
+            text: 'I used the trial account with a capture script: Calendar, Workspace and Kanban views; the same activity seen in all three; creating and editing; empty, error and loading states; navigation between modules; and accessibility signals such as deadlines shown only by colour. That produced 27 annotated screenshots.',
+          },
+          { type: 'subheading', text: 'Heuristic audit' },
+          {
+            type: 'paragraph',
+            text: "I ran the screens through Nielsen's 10 heuristics and 18 WCAG 2.2 criteria (levels A and AA), chosen for what matters in this context: colour use on deadlines, contrast under prolonged use, keyboard access in the main flow and dragging in Kanban. I added domain rules I proposed, such as \"an overdue deadline never leaves sight on its own\" and \"deadline, task, event and hearing are distinguishable without opening the item\".",
+          },
+          {
+            type: 'paragraph',
+            text: 'Each issue was logged in the same format: what I tried to do, what happened, the rule violated, symptom, likely cause, impact, severity from 0 to 4 and status — confirmed, confirmed visually only, measured or probable. Contrast was measured by sampling pixels in the screenshots, with the caveat of confirming in code.',
+          },
+          { type: 'subheading', text: 'A controlled test' },
+          {
+            type: 'paragraph',
+            text: 'The most serious suspicion was that overdue items drop out of sight. Instead of asserting it, I created overdue deadlines on different dates and went through every view and scope the next day. Result: they were missing from the main list, the weekly counter, the monthly Kanban and the current month in the Calendar. A deadline 58 days overdue was missing even from the overdue count, which only looked back 30 days. The suspicion became a fact.',
+          },
+          { type: 'subheading', text: 'Customer requests and benchmark' },
+          {
+            type: 'paragraph',
+            text: 'I grouped the customer suggestion base by theme. Seeing what is urgent or new, and finding and organising work, dominated; visual design barely appeared. I treated this as a signal, not proof: the base was undated, votes measure requests rather than problem size, and accessibility and consistency rarely surface in that channel.',
+          },
+          {
+            type: 'paragraph',
+            text: 'In the benchmark I compared direct competitors in Brazil, international references and patterns from outside the sector, such as the Todoist "Today" view and Linear\'s split between filtering and display. The main reading: having Kanban differentiates no one; the real contest is prioritisation. And a court deadline is not an ordinary task — the "postpone" pattern does not work for a hard deadline, because the legal date does not move.',
+          },
+          { type: 'subheading', text: 'Separating symptom from cause' },
+          {
+            type: 'paragraph',
+            text: 'With the issues logged, I grouped them by cause, not by count. Dozens of symptoms converged into five problems and one root cause. I also recorded what already worked and was worth keeping — autofocus on the form, the list Calendar showing type as text, creating straight from a Kanban column — because changing without surprises starts with knowing what not to touch.',
+          },
+        ],
+      },
+      {
+        emoji: '🔍',
+        title: 'The diagnosis: the product is organised by module, but lawyers work by deadline',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'I explored the product on a trial account and documented each problem with annotated screenshots. The five most relevant problems shared a root cause: each screen answered "what exists in this module?", when people need to know "what do I have to do, by when, and what happens if I don\'t?".',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'Urgency does not drive the screen',
+                text: "Today's deadline did not appear by name in the main list. In my tests, a deadline 58 days overdue was left out of the overdue count because the view only looked at the last 30 days. In the Calendar, red indicated the activity type, not how close the deadline was.",
+              },
+              {
+                title: 'The same activity changes in each view',
+                text: 'Calendar, Kanban and Workspace used different scopes, periods, date formats and ways of showing the assignee. An empty screen could mean "nothing to do" or "another filter".',
+              },
+              {
+                title: 'Court notices arrive as alerts, not as work',
+                text: 'Court publications — where a deadline is born — arrived without clear case identification, with technical data exposed and "Discard" carrying the same weight as "Handle", side by side.',
+              },
+              {
+                title: 'Navigation and AI expose the product structure',
+                text: 'Fourteen modules in a flat list, unlabelled icons and AI showing up in four different ways, as a separate product rather than part of the flow.',
+              },
+              {
+                title: 'Without a system, solutions repeat in different ways',
+                text: 'Saving, filtering, creating and empty states were solved differently in each module. The main blue measured 3.56:1 contrast on links and buttons, below the AA minimum of 4.5:1.',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'I kept observations apart from hypotheses. The diagnosis closed with eight hypotheses to validate before moving on — from support tickets about missed deadlines to keyboard, screen reader and 200% zoom tests — each with what would change in the plan depending on the answer.',
+          },
+          { type: 'media', src: '/projects/juridico-validacao.webp' },
+        ],
+      },
+      {
+        emoji: '🧭',
+        title: 'Five principles other designers can apply without asking me',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-principios.webp' },
+          {
+            type: 'bullets',
+            items: [
+              'Deadlines come first: on any screen that lists work, the most urgent item comes first, and overdue items never disappear because of a filter or period. Red only means overdue.',
+              'One activity, many views: data, names and states come from a single model. Calendar and Kanban change how you look, not the information.',
+              'Every piece of information leads to a safe action: each notice carries context and a next step; risky actions ask for confirmation or can be undone.',
+              'AI suggests, people decide: AI appears inside the task, with the same components, shows its source and never changes a deadline without confirmation.',
+              'Change without surprises: placement, naming and density only change for a clear gain, and the basics work the same on new and legacy screens.',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'Each principle came with a testable question — "in 5 seconds, can you tell what is overdue and what is due today?" — and the heuristics and WCAG criteria the current screen violated. The conclusion shaped everything else: visual modernisation is a consequence, not the starting point. The gain for users comes from clarity and safety.',
+          },
+        ],
+      },
+      {
+        emoji: '🧱',
+        title: 'The design system: tokens and domain model first',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-arquitetura.webp' },
+          {
+            type: 'paragraph',
+            text: 'I organised the system in five layers: tokens (primitive, semantic and component), domain models, base components, legal components and usage patterns. Tokens come first because one adjustment improves everything — contrast included — without waiting for the migration. The Activity model comes alongside, because the second problem in the diagnosis is not visual: without a single contract, Calendar and Kanban drift apart again.',
+          },
+          {
+            type: 'paragraph',
+            text: 'For governance, the entry rule is a real need in two or more squads, or high risk to deadlines; everything else starts as a documented local solution. A single token source feeds Figma and code, Figma properties mirror the component API, and a proposal with no answer in five business days proceeds as local, so the system never becomes a bottleneck.',
+          },
+          {
+            type: 'paragraph',
+            text: 'I also built a minimal design system MCP server: AI tools query tokens, the component API, the Activity model and rules such as "red only for overdue", so anyone generating screens or code with AI starts from the system\'s rules.',
+          },
+        ],
+      },
+      {
+        emoji: '🗺️',
+        title: 'Incremental plan: start with the riskiest screen, reversibly',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-plano.webp' },
+          {
+            type: 'paragraph',
+            text: 'I prioritised screens with a weighted criterion — deadline risk, frequency of use, migration timing, customer requests and risk of change. The Workspace came first. Starting with a simple screen would lower delivery risk but would not prove the thesis that clarity about deadlines changes the work. Because it is heavily used, it ships as optional, reversible and measured.',
+          },
+          { type: 'media', src: '/projects/juridico-convivencia.webp' },
+          {
+            type: 'paragraph',
+            text: 'For new and legacy screens to coexist without confusion, the unit of migration is the whole flow, never half a task. Header, menu and tokens reach every screen first, and meaning never changes between versions. Each new screen rolls out in stages (internal, 5%, 25%, everyone), with "Back to previous" always visible and stop criteria. No pattern changes when courts resume after the year-end deadline suspension, when volume peaks.',
+          },
+          {
+            type: 'paragraph',
+            text: 'With the four designers, the rule was that squads get no extra work: each one owns the patterns their own roadmap already needs, and what I take on — tokens, model, reference code, MCP, prototypes and automation — removes repetitive work before asking for contributions. I did not present numeric targets: without a baseline, any number would be made up.',
+          },
+        ],
+      },
+      {
+        emoji: '🖥️',
+        title: 'The first screen of the new direction',
+        blocks: [
+          { type: 'media', src: '/projects/juridico-tela.webp' },
+          {
+            type: 'paragraph',
+            text: 'The new Workspace opens with a summary of overdue items, today and the next 7 days, and groups the list by urgency with every type together: deadline, hearing, event and task. Court notices arrive with the case identified and an AI suggestion that shows the passage it used and only creates the deadline after review. The menu kept its names and order, density was preserved, and the action blue went from 3.56:1 to 5.98:1 contrast without abandoning the brand.',
+          },
+          { type: 'subheading', text: 'Components born from the screen' },
+          { type: 'media', src: '/projects/juridico-linha.webp' },
+          {
+            type: 'paragraph',
+            text: 'The activity row is a single component for the Workspace, list Calendar and search, with default, hover, focus, selected, overdue, completed, error, loading and empty states.',
+          },
+          { type: 'media', src: '/projects/juridico-componentes.webp' },
+          {
+            type: 'paragraph',
+            text: 'The deadline indicator always uses text, in a single format of proximity plus absolute date. The type badge uses a coloured icon and neutral text, fixing red-as-type. The filter bar keeps the same order and names in every view. And the AI suggestion never saves on its own: with no suggestion, the component does not appear and the manual flow stays the same.',
+          },
+        ],
+      },
+      {
+        emoji: '⚖️',
+        title: 'The hard decision',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Overdue items come first under any sort order or filter. Users can collapse the group, but the count always stays at the top.',
+          },
+          {
+            type: 'paragraph',
+            text: 'For: highlighting deadlines was one of the most frequent customer requests, specifically "don\'t make it disappear when it is overdue", and a hidden overdue item costs more than one extra item in the list. Against: customising and sorting are real requests too, and people with many overdue items always see the same list — too many alerts can turn into noise.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'I discarded free ordering with a banner at the top: it is easy to get used to ignoring the banner.',
+              'I discarded overdue items in a separate tab: the screen gets cleaner, but the problem only shows up for those who go looking.',
+              'To reduce the cost, the group can be collapsed, shows the 5 oldest with "See all" past 5, and free ordering still applies within each group.',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'What would make me reverse it: in the pilot, many switches back to the previous version citing this block, or old overdue items nobody resolves that just take up space.',
+          },
+        ],
+      },
+      {
+        emoji: '💡',
+        title: 'Takeaways',
+        blocks: [
+          {
+            type: 'bullets',
+            items: [
+              'Separating symptom from cause changes the size of the redesign: having to switch the view to see an overdue item is a symptom; the cause is the activity model.',
+              'Coherence is testable: every principle from the diagnosis has a place on the screen, and every component follows the system architecture.',
+              'Building in code — tokens, navigable prototype and MCP — took the plan off paper and exposed states and edge cases a mockup hides.',
+              'Still to test: the proposal has no user testing and uses fictional data; high volume, keyboard and screen reader, narrower widths and the technical cost of the unified view remain open.',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+}
+
+/**
+ * Novo front-end do painel administrativo de uma plataforma de VoIP. Publicado
+ * sem o nome da empresa: a demo em `public/demos/plataforma-voip` é um build
+ * próprio, com marca neutra e dados simulados trocados por fictícios.
+ */
+export const plataformaVoipCase: CaseStudy = {
+  id: 'plataforma-voip-case-study',
+  label: 'Case Study',
+  cardRole: 'Design Engineer',
+  cardStack: 'React · TypeScript · Tailwind · MSW · Playwright',
+  demo: '/demos/plataforma-voip/index.html',
+  images: [
+    '/projects/voip-dashboard.webp',
+    '/projects/voip-clientes.webp',
+    '/projects/voip-confirmar.webp',
+  ],
+  pt: {
+    title: 'Painel Administrativo de uma Plataforma VoIP',
+    subtitle:
+      'Benchmark, protótipo em duas versões e o novo front-end em React do painel que operadores usam para gerir clientes, faturas e a operação de telefonia — com segurança visível na interface, não só no back-end.',
+    readMore: 'Ler case completo',
+    demoLabel: 'Abrir o protótipo navegável',
+    meta: {
+      roleLabel: 'Meu Papel',
+      role: 'Design Engineer — benchmark, design de interface e front-end, da pesquisa ao código testado',
+      durationLabel: 'Período',
+      duration: 'Outubro e novembro de 2026',
+      toolsLabel: 'Ferramentas / Tecnologias',
+      tools: 'React, TypeScript, Vite, Tailwind CSS, shadcn/ui, TanStack Query, Zod, MSW, Vitest, Testing Library, Playwright e GitHub Actions',
+      impactLabel: 'No protótipo',
+      impact: 'Entre com Administrador, Operador ou Leitura para ver o que cada perfil pode fazer. Os dados são fictícios.',
+    },
+    intro:
+      'Uma plataforma de VoIP tinha o painel administrativo construído sobre um sistema de billing de mercado, adaptado com a marca da empresa. Funcionava, mas carregava o visual e as convenções de outra época: nove menus suspensos na barra superior, cores sem relação com estado, texto centralizado em todas as colunas e tabelas que quebravam palavras ao meio.\n\nO trabalho era refazer o front-end em React, consumindo o back-end existente por API, começando por Login, Dashboard, Clientes e Faturas. Foi dividido em etapas com aprovação entre elas: benchmark e protótipo em duas versões, depois a implementação com dados simulados e, por fim, a integração com a API real.\n\nEm um painel que mostra saldo, limite de crédito, senhas SIP e documentos de clientes, a pergunta que guiou cada tela foi: como deixar a segurança visível para quem opera, sem atrapalhar o trabalho?',
+    sections: [
+      {
+        emoji: '🔍',
+        title: 'Benchmark: o mercado e o sistema atual',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Analisei produtos de dois grupos: plataformas brasileiras de nota fiscal e cobrança, que o operador financeiro já conhece, e painéis de telefonia e CPaaS, que é o que o produto é. Para cada um, registrei navegação, cor de ação, tipografia, tabelas, dashboard, login e o que mostram de segurança, com fonte e data.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'Azul é o padrão sóbrio do segmento. Verde, roxo e laranja aparecem como marca, não como convenção.',
+              'Tabelas em painéis técnicos usam linhas finas, sem zebra, números à direita e abas de status com contadores acima da lista.',
+              'Segurança aparece na interface: segredo oculto com "mostrar", selo de ambiente, botão para ocultar valores e registro de atividades.',
+              'Aviso de sessão: cerca de dois minutos antes do fim, com pelo menos 20 segundos para estender com uma ação simples (NIST SP 800-63B e WCAG 2.2.1).',
+              'Nenhuma referência brasileira mostrava, antes de salvar um cadastro, o que exatamente ia mudar. Isso virou um diferencial a manter.',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'Também analisei as telas do sistema em produção, separando o que funcionava do que contrariava o benchmark. O painel tinha os indicadores certos (ASR, ACD, débito, custo e lucro), mas quatro blocos em azul, verde, amarelo e vermelho sem relação com estado. As faturas não tinham status visível (paga, aberta ou em atraso), e valores apareciam como "0.0000", sem moeda.',
+          },
+        ],
+      },
+      {
+        emoji: '🧭',
+        title: 'Duas versões, uma decisão',
+        blocks: [
+          { type: 'media', src: '/projects/voip-login.webp' },
+          {
+            type: 'paragraph',
+            text: 'A primeira etapa foi um protótipo navegável em código, não em Figma, com as quatro telas em duas versões: a A com barra lateral, padrão na maioria dos painéis técnicos, e a B com barra superior e superfícies planas. Um seletor permitia trocar de versão na mesma sessão, com os mesmos dados e estados, para comparar no uso e não em imagem estática.',
+          },
+          {
+            type: 'paragraph',
+            text: 'A versão B foi a aprovada. Com três áreas nesta fase, a barra superior devolve largura às tabelas, que são o centro do trabalho. Fazer o protótipo em código também teve um efeito prático: a versão aprovada virou a base da implementação, sem redesenhar nada.',
+          },
+        ],
+      },
+      {
+        emoji: '🛡️',
+        title: 'Segurança visível, sem atrito',
+        blocks: [
+          { type: 'media', src: '/projects/voip-clientes.webp' },
+          {
+            type: 'paragraph',
+            text: 'Dados sensíveis ficam mascarados até a ação de "mostrar": e-mail com a primeira letra e o domínio legíveis, CPF/CNPJ, PIN e senha SIP. Assim a tela pode ser usada em reunião ou compartilhada sem expor nada por acidente. Filtros com dados pessoais não vão para a URL.',
+          },
+          { type: 'media', src: '/projects/voip-confirmar.webp' },
+          {
+            type: 'paragraph',
+            text: 'Antes de salvar um cadastro, o painel mostra o que vai mudar, campo a campo, de e para, com os valores sensíveis ainda mascarados. Se a pessoa tenta sair com alterações não salvas, a navegação é bloqueada com aviso. Em limite de crédito ou status de conta, um clique errado tem custo real.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'Sessão visível: usuário, perfil e tempo restante sempre na barra, com aviso antes de expirar e opção de estender.',
+              'Três perfis (Administrador, Operador e Leitura): o que o perfil não pode fazer aparece desabilitado ou oculto, nunca como erro depois do clique.',
+              'Download de fatura rastreável: a interface informa qual documento está sendo baixado.',
+              'Selo de ambiente: "dados simulados" na demonstração e o nome do ambiente em homologação; em produção, nada.',
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '📊',
+        title: 'Dashboard e faturas',
+        blocks: [
+          { type: 'media', src: '/projects/voip-dashboard.webp' },
+          {
+            type: 'paragraph',
+            text: 'O dashboard manteve os indicadores que a operação já usava, mas reorganizados por leitura: chamadas por dia com seletor de período e opção de ver como tabela, resumo do período à direita e cartões da semana em que a cor só aparece quando há algo a fazer, como faturas em atraso.',
+          },
+          { type: 'media', src: '/projects/voip-faturas.webp' },
+          {
+            type: 'paragraph',
+            text: 'Nas faturas, o status ganhou selo próprio, os valores vieram para a direita com moeda e as abas com contador separam o que está pago, aberto e em atraso. Todas as telas cobrem os quatro estados: carregando, vazio, erro e sucesso.',
+          },
+        ],
+      },
+      {
+        emoji: '🛠️',
+        title: 'Arquitetura pronta para a API real',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Como a API ainda não existia, o front foi construído contra um contrato. Cada recurso tem um schema em Zod que valida as respostas e documenta o que o back-end precisa expor. Com o Mock Service Worker, o navegador responde às mesmas requisições que a API real vai receber: trocar de dados simulados para API é uma variável de ambiente, sem mudar código.',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'Camadas com fronteiras no lint',
+                text: 'Páginas só compõem; dados vêm de hooks por domínio (clientes, faturas, dashboard, autenticação); só uma camada faz requisições. O ESLint falha o build se alguém atravessa uma fronteira.',
+              },
+              {
+                title: 'Testes em três níveis',
+                text: '67 testes unitários e de componente (máscaras, regras do formulário, confirmação de alterações, download) e 11 de ponta a ponta com Playwright, um fluxo principal por tela.',
+              },
+              {
+                title: 'Entrega contínua',
+                text: 'CI com lint, tipos, testes e build em cada pull request, deploy de homologação a cada push na branch de staging e um build de demonstração com dados simulados para revisão.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '💡',
+        title: 'O que fica',
+        blocks: [
+          {
+            type: 'bullets',
+            items: [
+              'Benchmark serve para decidir, não para enfeitar: cada achado virou uma regra de tela, e o que o sistema atual já fazia melhor que o mercado foi mantido.',
+              'Protótipo em código encurta o caminho: a comparação entre versões aconteceu no uso real, e a versão aprovada já era o ponto de partida da implementação.',
+              'Segurança é design: mascarar, confirmar e mostrar a sessão são decisões de interface que reduzem risco sem pedir nada a mais de quem opera.',
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  en: {
+    title: 'Admin Panel for a VoIP Platform',
+    subtitle:
+      'Benchmark, a two-version prototype and the new React front-end for the panel operators use to manage customers, invoices and telephony operations — with security made visible in the interface, not just in the back-end.',
+    readMore: 'Read full case',
+    demoLabel: 'Open the interactive prototype',
+    meta: {
+      roleLabel: 'My Role',
+      role: 'Design Engineer — benchmark, interface design and front-end, from research to tested code',
+      durationLabel: 'Period',
+      duration: 'October and November 2026',
+      toolsLabel: 'Tools / Technologies',
+      tools: 'React, TypeScript, Vite, Tailwind CSS, shadcn/ui, TanStack Query, Zod, MSW, Vitest, Testing Library, Playwright and GitHub Actions',
+      impactLabel: 'In the prototype',
+      impact: 'Sign in as Administrator, Operator or Read-only to see what each role can do. All data is fictional. The interface is in Portuguese.',
+    },
+    intro:
+      "A VoIP platform ran its admin panel on an off-the-shelf billing system rebranded with the company's identity. It worked, but carried the look and conventions of another era: nine dropdown menus in the top bar, colours unrelated to state, centred text in every column and tables that broke words in half.\n\nThe job was to rebuild the front-end in React, consuming the existing back-end through an API, starting with Login, Dashboard, Customers and Invoices. It was split into stages with sign-off between them: benchmark and a two-version prototype, then the implementation with simulated data and, finally, integration with the real API.\n\nIn a panel that shows balances, credit limits, SIP passwords and customer documents, one question guided every screen: how do you make security visible to operators without getting in the way of their work?",
+    sections: [
+      {
+        emoji: '🔍',
+        title: 'Benchmark: the market and the current system',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'I analysed products from two groups: Brazilian invoicing and billing platforms, which finance operators already know, and telephony and CPaaS panels, which is what the product is. For each one I logged navigation, action colour, typography, tables, dashboard, login and what they show about security, with source and date.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'Blue is the sober standard in the segment. Green, purple and orange show up as branding, not convention.',
+              'Tables in technical panels use hairlines, no zebra striping, right-aligned numbers and status tabs with counters above the list.',
+              'Security shows up in the interface: hidden secrets with "show", environment badges, a button to hide values and activity logs.',
+              'Session warning: about two minutes before timeout, with at least 20 seconds to extend through a simple action (NIST SP 800-63B and WCAG 2.2.1).',
+              'No Brazilian reference showed exactly what would change before saving a record. That became a differentiator worth keeping.',
+            ],
+          },
+          {
+            type: 'paragraph',
+            text: 'I also reviewed the production screens, separating what worked from what went against the benchmark. The dashboard had the right indicators (ASR, ACD, debit, cost and profit), but four tiles in blue, green, yellow and red with no relation to state. Invoices had no visible status (paid, open or overdue), and amounts showed as "0.0000", with no currency.',
+          },
+        ],
+      },
+      {
+        emoji: '🧭',
+        title: 'Two versions, one decision',
+        blocks: [
+          { type: 'media', src: '/projects/voip-login.webp' },
+          {
+            type: 'paragraph',
+            text: 'The first stage was a navigable prototype built in code, not Figma, with the four screens in two versions: A with a sidebar, the norm in most technical panels, and B with a top bar and flat surfaces. A switcher let reviewers change versions within the same session, with the same data and states, so the comparison happened in use rather than on static images.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Version B was approved. With three areas in this phase, the top bar gives width back to the tables, which are the heart of the work. Building the prototype in code had a practical payoff too: the approved version became the foundation of the implementation, with nothing redrawn.',
+          },
+        ],
+      },
+      {
+        emoji: '🛡️',
+        title: 'Visible security without friction',
+        blocks: [
+          { type: 'media', src: '/projects/voip-clientes.webp' },
+          {
+            type: 'paragraph',
+            text: 'Sensitive data stays masked until the "show" action: email with the first letter and domain readable, tax ID, PIN and SIP password. The screen can be used in a meeting or shared without exposing anything by accident. Filters containing personal data never go into the URL.',
+          },
+          { type: 'media', src: '/projects/voip-confirmar.webp' },
+          {
+            type: 'paragraph',
+            text: 'Before saving a record, the panel shows what will change, field by field, from and to, with sensitive values still masked. Leaving with unsaved changes is blocked with a warning. On credit limits or account status, a wrong click has a real cost.',
+          },
+          {
+            type: 'bullets',
+            items: [
+              'Visible session: user, role and remaining time always in the bar, with a warning before expiry and an option to extend.',
+              'Three roles (Administrator, Operator and Read-only): what a role cannot do appears disabled or hidden, never as an error after the click.',
+              'Traceable invoice download: the interface states which document is being downloaded.',
+              'Environment badge: "simulated data" in the demo and the environment name in staging; nothing in production.',
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '📊',
+        title: 'Dashboard and invoices',
+        blocks: [
+          { type: 'media', src: '/projects/voip-dashboard.webp' },
+          {
+            type: 'paragraph',
+            text: 'The dashboard kept the indicators operations already relied on, reorganised for reading: calls per day with a period selector and a table view, a period summary on the right and weekly cards where colour only appears when there is something to act on, such as overdue invoices.',
+          },
+          { type: 'media', src: '/projects/voip-faturas.webp' },
+          {
+            type: 'paragraph',
+            text: 'In invoices, status got its own badge, amounts moved to the right with currency, and tabs with counters separate paid, open and overdue. Every screen covers the four states: loading, empty, error and success.',
+          },
+        ],
+      },
+      {
+        emoji: '🛠️',
+        title: 'Architecture ready for the real API',
+        blocks: [
+          {
+            type: 'paragraph',
+            text: 'Since the API did not exist yet, the front-end was built against a contract. Each resource has a Zod schema that validates responses and documents what the back-end must expose. With Mock Service Worker, the browser answers the same requests the real API will receive: switching from simulated data to the API is one environment variable, with no code changes.',
+          },
+          {
+            type: 'numbered',
+            items: [
+              {
+                title: 'Layers with lint-enforced boundaries',
+                text: 'Pages only compose; data comes from per-domain hooks (customers, invoices, dashboard, auth); a single layer makes requests. ESLint fails the build if anyone crosses a boundary.',
+              },
+              {
+                title: 'Tests at three levels',
+                text: '67 unit and component tests (masks, form rules, change confirmation, download) and 11 end-to-end tests with Playwright, one main flow per screen.',
+              },
+              {
+                title: 'Continuous delivery',
+                text: 'CI with lint, types, tests and build on every pull request, a staging deploy on every push to the staging branch and a demo build with simulated data for review.',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        emoji: '💡',
+        title: 'Takeaways',
+        blocks: [
+          {
+            type: 'bullets',
+            items: [
+              'A benchmark is for deciding, not decorating: each finding became a screen rule, and what the current system already did better than the market was kept.',
+              'Prototyping in code shortens the path: versions were compared in real use, and the approved one was already the starting point for implementation.',
+              'Security is design: masking, confirming and showing the session are interface decisions that reduce risk without asking anything extra of operators.',
+            ],
           },
         ],
       },

@@ -7,7 +7,7 @@ import { CaseStudyModal } from '../ui/CaseStudyModal'
 import { Media } from '../ui/Media'
 import { TiltCard } from '../ui/TiltCard'
 import { projects } from '../../data/projects'
-import { designSystemCase, fluxCrmCase, uiParaIaCase, type CaseStudy } from '../../data/caseStudies'
+import { designSystemCase, fluxCrmCase, plataformaVoipCase, softwareJuridicoCase, uiParaIaCase, type CaseStudy } from '../../data/caseStudies'
 import { fluxLandingShowcase, type Showcase } from '../../data/showcase'
 import { ease } from '../../lib/motion'
 import { useLang } from '../../contexts/LanguageContext'
@@ -329,13 +329,23 @@ export function Projects() {
                 onOpen={() => setOpenCase(designSystemCase)}
               />
               <CaseStudyCard
-                study={uiParaIaCase}
+                study={softwareJuridicoCase}
                 index={2}
+                onOpen={() => setOpenCase(softwareJuridicoCase)}
+              />
+              <CaseStudyCard
+                study={plataformaVoipCase}
+                index={3}
+                onOpen={() => setOpenCase(plataformaVoipCase)}
+              />
+              <CaseStudyCard
+                study={uiParaIaCase}
+                index={4}
                 onOpen={() => setOpenCase(uiParaIaCase)}
               />
               <ShowcaseCard
                 item={fluxLandingShowcase}
-                index={3}
+                index={5}
                 onOpen={() => setShowcase(fluxLandingShowcase)}
               />
             </>

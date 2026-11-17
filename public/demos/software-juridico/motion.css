@@ -1,0 +1,26 @@
+/* Movimento do protótipo: curvas inspiradas no iOS. Feedback rápido, sem atrasar o trabalho. */
+.btn,.chip,.check,.copy,.seg button,.gh,.ch,.menu button,.pers{transition:transform var(--dur-slow) var(--ease-pop),background-color var(--dur-fast) ease,color var(--dur-fast) ease,box-shadow var(--dur-fast) ease}
+.btn:active,.chip:active,.copy:active,.seg button:active,.menu button:active{transform:scale(.96);transition-duration:var(--dur-fast)}
+.check:active{transform:scale(.86);transition-duration:var(--dur-fast)}
+.check.on{animation:pop var(--dur-base) var(--ease-pop)}
+@keyframes pop{0%{transform:scale(.7)}100%{transform:none}}
+
+.seg{position:relative;isolation:isolate}
+.seg button{position:relative;z-index:1}
+.seg button[aria-pressed=true]{background:transparent!important;box-shadow:none!important}
+.thumb{position:absolute;top:2px;bottom:2px;left:0;z-index:0;background:var(--surface);border-radius:6px;box-shadow:var(--shadow-1),0 1px 4px rgb(28 33 38/.08);transition:transform var(--dur-slow) var(--ease-ios),width var(--dur-slow) var(--ease-ios)}
+.thumb.no-anim{transition:none}
+
+.grp{display:grid;grid-template-rows:1fr;transition:grid-template-rows var(--dur-slow) var(--ease-ios)}
+.grp.closed{grid-template-rows:0fr}
+.grp-in{min-height:0;overflow:hidden;transition:opacity var(--dur-base) ease}
+.grp.closed>.grp-in{opacity:0}
+.gh>.ico:first-child,.ch>.ico:last-child{transition:rotate var(--dur-slow) var(--ease-ios)}
+.gh[aria-expanded=false]>.ico:first-child,.ch[aria-expanded=false]>.ico:last-child{rotate:180deg}
+.ch[role=button]{cursor:pointer}.ch[role=button]:focus-visible{outline:2px solid var(--focus);outline-offset:-2px;border-radius:var(--r-1)}
+
+
+dialog[open]::backdrop{animation:fade var(--dur-base) ease}
+@keyframes fade{from{opacity:0}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after,::backdrop{animation:none!important;transition:none!important}.btn:active,.chip:active,.check:active,.copy:active,.seg button:active,.menu button:active{transform:none}}
