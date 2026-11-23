@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { ArrowDown, FileText } from 'lucide-react'
+import { ArrowDown, ArrowRight, FileText } from 'lucide-react'
 import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
+import { MediaPill } from '../ui/MediaPill'
 import { contact } from '../../data/contact'
 import { useLang } from '../../contexts/LanguageContext'
 
@@ -154,7 +155,7 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={label}
-              className="w-9 h-9 flex items-center justify-center rounded-xl border border-neutral-200 bg-white/80 backdrop-blur-sm text-neutral-500 hover:text-neutral-900 hover:border-neutral-300 transition-all duration-200"
+              className="ds-btn-light w-9 h-9 flex items-center justify-center"
             >
               {icon}
             </a>
@@ -163,7 +164,7 @@ export function Hero() {
           <a
             href={`${import.meta.env.BASE_URL}${t.hero.cvFile}`}
             download
-            className="h-9 px-4 hidden sm:flex items-center gap-2 rounded-xl border border-neutral-200 bg-white/80 backdrop-blur-sm text-sm font-medium text-neutral-700 hover:text-neutral-900 hover:border-neutral-300 transition-all duration-200"
+            className="ds-btn-light h-9 px-4 hidden sm:flex items-center gap-2 text-sm"
           >
             <FileText size={14} />
             {t.hero.cv}
@@ -171,9 +172,10 @@ export function Hero() {
 
           <a
             href="#projects"
-            className="h-9 px-4 flex items-center rounded-xl bg-neutral-900 text-white text-sm font-medium hover:bg-neutral-700 transition-colors duration-200"
+            className="ds-btn h-9 px-5 flex items-center gap-2 text-sm"
           >
             {t.hero.cta}
+            <ArrowRight size={14} />
           </a>
         </div>
       </div>
@@ -187,6 +189,7 @@ export function Hero() {
           {t.hero.heading[0]}<FigmaCursor />
           <br />
           <span className="text-neutral-400">{t.hero.heading[1]}</span>
+          <MediaPill />
         </h1>
 
         <div className="flex items-center gap-3 mt-8">
@@ -199,7 +202,7 @@ export function Hero() {
       <a
         href="#about"
         aria-label="Scroll down"
-        className="absolute bottom-14 right-8 sm:right-12 z-10 flex items-center justify-center w-9 h-9 rounded-full border border-neutral-200 text-neutral-400 hover:text-neutral-900 hover:border-neutral-300 transition-all duration-200"
+        className="ds-btn-light absolute bottom-14 right-8 sm:right-12 z-10 flex items-center justify-center w-9 h-9"
       >
         <ArrowDown size={16} className="animate-bounce" />
       </a>

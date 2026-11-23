@@ -160,8 +160,7 @@ export default function CasePage({ study }: { study: CaseStudy }) {
               href={assetUrl(study.demo)}
               target="_blank"
               rel="noopener"
-              className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2.5 rounded-xl border mt-4 transition-opacity hover:opacity-80"
-              style={{ borderColor: 'var(--accent-light)', color: 'var(--accent-light)', backgroundColor: 'var(--accent-glow)' }}
+              className="ds-btn inline-flex items-center gap-2 text-sm pl-5 pr-4 py-2.5 mt-4"
             >
               {c.demoLabel}
               <ArrowUpRight size={15} />

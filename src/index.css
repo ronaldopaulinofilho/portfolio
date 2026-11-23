@@ -64,41 +64,25 @@
      backdrop is the card's own (already frosted) fill.
      --------------------------------------------------------------------- */
 
-  /* Saturated colour fields behind the panels.
-     This is the part that makes glass legible: a card can only refract
-     something that is actually there. Flat or near-white walls give the blur
-     nothing to bend, which is why low-contrast versions of this read as paint
-     rather than glass, no matter how transparent the panel is set. */
+  /* Campo cinza do design system Hanzo (#d9d9d9) com uma varredura de luz.
+     Os cards brancos com anel de 8px só se destacam sobre um fundo com valor:
+     num branco quase puro o anel e a sombra desaparecem. As bordas esmaecem
+     para branco para que a emenda com as seções vizinhas não vire uma linha. */
   .ambient {
-    background-color: #f7f8fa;
+    background-color: #e9e9e9;
     background-image:
-      /* Edge fades come first, so they sit on top and wash the colour out at
-         the section boundaries. Without them adjacent sections butt their
-         tints together and the seam reads as a hard horizontal line. */
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0) 11rem),
-      linear-gradient(to top, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0) 11rem),
-      radial-gradient(34rem 26rem at 12% 2%, rgba(158, 165, 180, 0.28), transparent 58%),
-      radial-gradient(30rem 24rem at 88% 14%, rgba(146, 154, 170, 0.25), transparent 58%),
-      radial-gradient(28rem 22rem at 74% 94%, rgba(152, 160, 175, 0.23), transparent 58%),
-      radial-gradient(30rem 24rem at 16% 88%, rgba(160, 167, 182, 0.24), transparent 58%),
-      radial-gradient(26rem 20rem at 46% 44%, rgba(255, 255, 255, 0.98), transparent 62%);
+      linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0) 7rem),
+      linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0) 7rem),
+      linear-gradient(225deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 55%);
   }
 
-  /* More fields than `.ambient`, spread down the vertical range: these sections
-     are tall, and because the stops are a percentage of the section box, too
-     few of them stretch out and leave flat bands where cards land — which is
-     exactly how the About cards ended up with nothing behind them. */
+  /* Mesma base, com a luz vindo do outro lado para alternar entre seções. */
   .ambient-plain {
-    background-color: #fafbfc;
+    background-color: #ececec;
     background-image:
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0) 11rem),
-      linear-gradient(to top, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0) 11rem),
-      radial-gradient(26rem 20rem at 86% 4%, rgba(152, 160, 175, 0.24), transparent 58%),
-      radial-gradient(24rem 18rem at 8% 26%, rgba(158, 165, 180, 0.23), transparent 58%),
-      radial-gradient(26rem 20rem at 76% 54%, rgba(148, 156, 172, 0.22), transparent 58%),
-      radial-gradient(22rem 18rem at 14% 74%, rgba(156, 164, 178, 0.23), transparent 58%),
-      radial-gradient(24rem 18rem at 88% 92%, rgba(150, 158, 173, 0.2), transparent 58%),
-      radial-gradient(22rem 18rem at 44% 40%, rgba(255, 255, 255, 0.96), transparent 62%);
+      linear-gradient(to bottom, #ffffff 0%, rgba(255, 255, 255, 0) 7rem),
+      linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0) 7rem),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 55%);
   }
 
   /* Softens a hard seam where a plain white section meets a tinted one.
@@ -373,4 +357,156 @@
       translate: 0 0;
     }
   }
+}
+
+/* ---------------------------------------------------------------------
+   Hanzo design system — botões, cards e chips
+   Tokens: ink #000, superfície #fff, anel 8px rgba(255,255,255,.25),
+   sombra longa 12px 16px 16px rgba(0,0,0,.1), accent #ff3700.
+   Nenhuma destas classes define `display`, para não brigar com
+   utilitários como `hidden sm:flex`.
+   --------------------------------------------------------------------- */
+@layer utilities {
+  .ds-card {
+    background-color: #fff;
+    box-shadow:
+      0 0 0 8px rgba(255, 255, 255, 0.25),
+      12px 16px 16px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  /* `translate`, não `transform`: o framer-motion escreve transform inline. */
+  .ds-card-interactive {
+    translate: 0 0;
+    transition:
+      box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      translate 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ds-card-interactive:hover {
+    translate: 0 -2px;
+    box-shadow:
+      0 0 0 8px rgba(255, 255, 255, 0.35),
+      16px 22px 24px 0 rgba(0, 0, 0, 0.14);
+  }
+
+  /* Botão primário: pílula preta, sombra em camadas, seta a 50%. */
+  .ds-btn {
+    background-color: #000;
+    color: #fff;
+    border-radius: 9999px;
+    font-weight: 500;
+    box-shadow:
+      0.57px 0.57px 1.76px -0.42px rgba(0, 0, 0, 0.18),
+      1.45px 1.45px 4.5px -0.83px rgba(0, 0, 0, 0.18),
+      2.9px 2.9px 9px -1.25px rgba(0, 0, 0, 0.18),
+      5.5px 5.5px 17px -1.67px rgba(0, 0, 0, 0.18),
+      10.9px 10.9px 34px -2.08px rgba(0, 0, 0, 0.18),
+      0 -16px 48px 0 #000 inset;
+    translate: 0 0;
+    transition: translate 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s;
+  }
+  .ds-btn:hover {
+    translate: 0 -1px;
+    opacity: 0.88;
+  }
+  .ds-btn > svg:last-child {
+    opacity: 0.5;
+  }
+
+  /* Botão secundário: pílula branca com anel, sem peso visual. */
+  .ds-btn-light {
+    background-color: #fff;
+    color: #000;
+    border-radius: 9999px;
+    font-weight: 500;
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.25),
+      6px 8px 8px 0 rgba(0, 0, 0, 0.08);
+    translate: 0 0;
+    transition: translate 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s;
+  }
+  .ds-btn-light:hover {
+    translate: 0 -1px;
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.4),
+      8px 10px 12px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  /* Chip sobre o campo da página (fundo cinza/ambient). */
+  .ds-pill {
+    background-color: #fff;
+    color: #000;
+    border-radius: 9999px;
+    box-shadow:
+      0 0 0 3px rgba(255, 255, 255, 0.25),
+      4px 6px 6px 0 rgba(0, 0, 0, 0.07);
+  }
+
+  /* Chip dentro de um card branco: o branco sumiria, então vai com hairline. */
+  .ds-pill-inset {
+    background-color: #fff;
+    color: #000;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .ds-link {
+    color: #ff3700;
+    text-underline-offset: 4px;
+    transition: opacity 0.2s;
+  }
+  .ds-link:hover {
+    opacity: 0.7;
+  }
+}
+
+/* Pílula de mídia (MediaPill): card inline com slideshow vertical. */
+@layer utilities {
+  .ds-media-pill {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    --pill-h: 0.8em;
+    width: 1.22em;
+    height: var(--pill-h);
+    margin: 0 0.12em 0 0.7em;
+    vertical-align: -0.06em;
+    border: 0.035em solid #000;
+    border-radius: 0.2em;
+    background: #262626;
+    box-shadow: 0.08em 0.1em 0.12em rgba(0, 0, 0, 0.25);
+  }
+
+  /* No celular o título quebra e o card cai sozinho numa linha: sem o recuo grande. */
+  @media (max-width: 639px) {
+    .ds-media-pill {
+      margin-left: 0.15em;
+    }
+  }
+
+  .ds-media-pill-track {
+    display: flex;
+    flex-direction: column;
+    animation: ds-scroll-y linear infinite;
+    will-change: transform;
+  }
+
+  .ds-media-pill-item {
+    display: block;
+    flex: none;
+    width: 100%;
+    height: var(--pill-h);
+    object-fit: cover;
+    object-position: top;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-media-pill-track {
+      animation: none;
+    }
+  }
+}
+
+@keyframes ds-scroll-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
 }

@@ -3,10 +3,13 @@ import { useRef } from 'react'
 import { PenTool, Layers, Code2 } from 'lucide-react'
 import { useLang } from '../../contexts/LanguageContext'
 import { TiltCard } from '../ui/TiltCard'
+import { ColorIcon, type IconTone } from '../ui/ColorIcon'
+import { TechChip } from '../ui/TechChip'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
 const cardIcons = [PenTool, Layers, Code2]
+const cardTones: IconTone[] = ['pink', 'yellow', 'green']
 
 export function Services() {
   const { t } = useLang()
@@ -29,18 +32,18 @@ export function Services() {
           </h2>
         </motion.div>
 
-        <div className="grid sm:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-3 gap-8 sm:gap-10">
           {t.services.cards.map((card, i) => {
             const Icon = cardIcons[i]
             return (
               <TiltCard
                 key={card.title}
                 index={i}
-                className="group glass glass-interactive rounded-3xl p-8 flex flex-col gap-5"
+                className="group ds-card ds-card-interactive rounded-2xl p-8 flex flex-col gap-5"
               >
-                <div className="w-11 h-11 flex items-center justify-center rounded-2xl glass-chip glass-chip-hover text-neutral-600">
+                <ColorIcon tone={cardTones[i]}>
                   <Icon size={20} />
-                </div>
+                </ColorIcon>
 
                 <div>
                   <h3 className="font-semibold text-lg text-neutral-900 mb-2">{card.title}</h3>
@@ -49,12 +52,7 @@ export function Services() {
 
                 <div className="flex flex-wrap gap-2 mt-auto pt-2">
                   {card.tags.map(tag => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2.5 py-1 rounded-lg glass-chip text-neutral-600 font-mono"
-                    >
-                      {tag}
-                    </span>
+                    <TechChip key={tag} label={tag} variant="inset" />
                   ))}
                 </div>
               </TiltCard>

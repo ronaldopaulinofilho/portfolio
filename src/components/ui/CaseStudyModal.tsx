@@ -183,8 +183,7 @@ export function CaseStudyModal({ study, onClose }: Props) {
               href={imgUrl(study.demo)}
               target="_blank"
               rel="noopener"
-              className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2.5 rounded-xl border transition-opacity hover:opacity-80"
-              style={{ borderColor: 'var(--accent-light)', color: 'var(--accent-light)', backgroundColor: 'var(--accent-glow)' }}
+              className="ds-btn inline-flex items-center gap-2 text-sm pl-5 pr-4 py-2.5"
             >
               {locale.demoLabel}
               <ArrowUpRight size={15} />

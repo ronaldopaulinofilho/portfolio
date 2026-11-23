@@ -4,6 +4,7 @@ import { useLang } from '../../contexts/LanguageContext'
 import { FigmaLines } from '../ui/FigmaLines'
 import { TiltCard } from '../ui/TiltCard'
 import { AreaMotif } from '../ui/AreaMotif'
+import { TechChip } from '../ui/TechChip'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -13,7 +14,7 @@ export function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" className="pt-12 pb-10 sm:pt-16 sm:pb-14 px-8 sm:px-12 ambient-plain ambient-top-fade">
+    <section id="about" className="pt-12 pb-10 sm:pt-16 sm:pb-14 px-8 sm:px-12 ambient-plain ambient-top-fade overflow-x-clip">
       <div className="max-w-6xl mx-auto">
         <motion.div
           ref={ref}
@@ -33,12 +34,12 @@ export function About() {
         </motion.div>
 
         {/* Areas grid */}
-        <div className="grid sm:grid-cols-2 gap-4 mb-16">
+        <div className="grid sm:grid-cols-2 gap-8 sm:gap-10 mb-16">
           {t.about.areas.map((area, i) => (
             <TiltCard
               key={area.title}
               index={i}
-              className="glass glass-edge glass-interactive rounded-3xl p-7"
+              className="ds-card ds-card-interactive rounded-2xl p-7"
             >
               <div className="flex items-start justify-between gap-6">
                 <div>
@@ -65,9 +66,7 @@ export function About() {
               <div className="flex flex-wrap gap-2">
                 {skill.items.map(item => (
                   <FigmaLines key={item}>
-                    <span className="text-xs px-3 py-1.5 rounded-full border border-neutral-200 text-neutral-600 hover:border-neutral-400 hover:text-neutral-900 transition-colors duration-200 cursor-default">
-                      {item}
-                    </span>
+                    <TechChip label={item} className="cursor-default" />
                   </FigmaLines>
                 ))}
               </div>
@@ -86,7 +85,7 @@ export function About() {
           <span className="font-mono text-xs text-neutral-600 mr-2">indústrias</span>
           {t.about.industries.map(ind => (
             <FigmaLines key={ind}>
-              <span className="text-xs px-3 py-1 rounded-full glass-chip text-neutral-600 cursor-default">
+              <span className="text-xs px-3 py-1 ds-pill text-neutral-700 cursor-default">
                 {ind}
               </span>
             </FigmaLines>

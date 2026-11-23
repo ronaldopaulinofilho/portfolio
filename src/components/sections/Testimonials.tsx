@@ -34,11 +34,11 @@ function TestimonialCard({
       index={index}
       className={
         featured
-          ? 'rounded-3xl glass glass-interactive p-8'
-          : 'rounded-3xl glass glass-interactive p-7'
+          ? 'rounded-2xl ds-card ds-card-interactive p-8'
+          : 'rounded-2xl ds-card ds-card-interactive p-7'
       }
     >
-      <Quote size={featured ? 26 : 20} className="text-neutral-200 mb-4" aria-hidden="true" />
+      <Quote size={featured ? 26 : 20} className="text-black/25 mb-4" aria-hidden="true" />
 
       <blockquote className="space-y-3 mb-6">
         {item.text[lang].split('\n\n').map((para, j) => (
@@ -48,8 +48,8 @@ function TestimonialCard({
         ))}
       </blockquote>
 
-      <figcaption className="flex items-center gap-3 pt-5 border-t border-neutral-900/[0.07]">
-        <span className="w-10 h-10 shrink-0 rounded-full glass-chip flex items-center justify-center font-mono text-xs font-semibold text-neutral-600">
+      <figcaption className="flex items-center gap-3 pt-5 border-t border-black/10">
+        <span className="w-10 h-10 shrink-0 rounded-full ds-pill-inset flex items-center justify-center font-mono text-xs font-semibold text-neutral-600">
           {initials(item.name)}
         </span>
         <div>
@@ -88,15 +88,15 @@ export function Testimonials() {
             href={contact.linkedin.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="self-start md:self-auto flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl glass-chip glass-chip-hover text-neutral-700"
+            className="ds-btn-light self-start md:self-auto flex items-center gap-2 text-sm px-5 py-2.5"
           >
             <IconLinkedin size={14} />
             {t.testimonials.linkedin}
           </a>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-5 items-start">
-          <div className="flex flex-col gap-5">
+        <div className="grid md:grid-cols-2 gap-8 sm:gap-10 items-start">
+          <div className="flex flex-col gap-8 sm:gap-10">
             <TestimonialCard item={testimonials[2]} lang={lang} index={0} />
             <TestimonialCard item={testimonials[1]} lang={lang} index={1} />
           </div>

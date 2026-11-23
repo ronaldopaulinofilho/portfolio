@@ -6,6 +6,7 @@ import { ImageLightbox } from '../ui/ImageLightbox'
 import { CaseStudyModal } from '../ui/CaseStudyModal'
 import { Media } from '../ui/Media'
 import { TiltCard } from '../ui/TiltCard'
+import { TechChip } from '../ui/TechChip'
 import { projects } from '../../data/projects'
 import { designSystemCase, fluxCrmCase, plataformaVoipCase, softwareJuridicoCase, uiParaIaCase, type CaseStudy } from '../../data/caseStudies'
 import { fluxLandingShowcase, type Showcase } from '../../data/showcase'
@@ -37,7 +38,7 @@ function CaseStudyCard({
       id={anchorId}
       index={index}
       wrapperClassName="col-span-full"
-      className="rounded-3xl overflow-hidden flex flex-col md:flex-row glass glass-interactive"
+      className="rounded-3xl overflow-hidden flex flex-col md:flex-row ds-card ds-card-interactive"
     >
       <div className="flex-1 p-7 flex flex-col justify-between gap-5">
         <div>
@@ -66,7 +67,7 @@ function CaseStudyCard({
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <button
             onClick={onOpen}
-            className="flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl glass-chip glass-chip-hover text-neutral-700"
+            className="ds-btn flex items-center gap-2 text-sm pl-5 pr-4 py-2.5"
           >
             {locale.readMore}
             <ArrowRight size={14} />
@@ -75,7 +76,7 @@ function CaseStudyCard({
               agentes de IA descobrem a URL, já que o botão acima só abre o modal. */}
           <a
             href={`${import.meta.env.BASE_URL}${study.path.replace(/^\//, '')}/`}
-            className="text-xs text-neutral-600 underline underline-offset-4 hover:text-neutral-900 transition-colors"
+            className="ds-link text-xs underline"
           >
             {lang === 'en' ? 'Open as a page' : 'Abrir em página própria'}
           </a>
@@ -83,7 +84,7 @@ function CaseStudyCard({
       </div>
 
       <div
-        className="md:w-80 h-56 md:h-auto relative overflow-hidden cursor-pointer group shrink-0 bg-white/40"
+        className="md:w-80 h-56 md:h-auto relative overflow-hidden cursor-pointer group shrink-0 bg-neutral-100"
         onClick={onOpen}
       >
         {study.images.length > 0 ? (
@@ -133,7 +134,7 @@ function ShowcaseCard({
     <TiltCard
       index={index}
       wrapperClassName="col-span-full"
-      className="group rounded-3xl overflow-hidden flex flex-col md:flex-row glass glass-interactive"
+      className="group rounded-3xl overflow-hidden flex flex-col md:flex-row ds-card ds-card-interactive"
     >
       <div className="flex-1 p-7 flex flex-col justify-between gap-5">
         <div>
@@ -147,7 +148,7 @@ function ShowcaseCard({
             href={item.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="self-start flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl glass-chip glass-chip-hover text-neutral-700"
+            className="self-start ds-btn flex items-center gap-2 text-sm pl-5 pr-4 py-2.5"
           >
             {locale.cta}
             <ArrowUpRight size={14} />
@@ -155,7 +156,7 @@ function ShowcaseCard({
         ) : (
           <button
             onClick={onOpen}
-            className="self-start flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-xl glass-chip glass-chip-hover text-neutral-700"
+            className="self-start ds-btn flex items-center gap-2 text-sm pl-5 pr-4 py-2.5"
           >
             {locale.cta}
             <ZoomIn size={14} />
@@ -164,7 +165,7 @@ function ShowcaseCard({
       </div>
 
       <div
-        className="md:w-80 h-56 md:h-auto relative overflow-hidden cursor-zoom-in shrink-0 bg-white/40"
+        className="md:w-80 h-56 md:h-auto relative overflow-hidden cursor-zoom-in shrink-0 bg-neutral-100"
         onClick={onOpen}
       >
         {/* Still on the card, walkthrough only once opened: the video is ~57×
@@ -206,10 +207,10 @@ function ProjectCard({
     <TiltCard
       as="article"
       index={index}
-      className="group flex flex-col rounded-3xl overflow-hidden glass glass-interactive"
+      className="group flex flex-col rounded-3xl overflow-hidden ds-card ds-card-interactive"
     >
       <div
-        className={cn('h-52 relative overflow-hidden bg-white/40', hasImages && 'cursor-zoom-in')}
+        className={cn('h-52 relative overflow-hidden bg-neutral-100', hasImages && 'cursor-zoom-in')}
         onClick={hasImages ? onImageClick : undefined}
       >
         {project.image ? (
@@ -223,7 +224,7 @@ function ProjectCard({
               <ZoomIn size={28} className="text-white opacity-0 group-hover:opacity-90 transition-opacity duration-300 drop-shadow-lg" />
             </div>
             {project.images && project.images.length > 1 && (
-              <span className="absolute bottom-3 left-3 font-mono text-xs px-2.5 py-0.5 rounded-full text-white bg-black/35 backdrop-blur-md backdrop-saturate-150 border border-white/20">
+              <span className="absolute bottom-3 left-3 font-mono text-xs px-2.5 py-0.5 rounded-full text-white bg-black/70">
                 1 / {project.images.length}
               </span>
             )}
@@ -233,7 +234,7 @@ function ProjectCard({
             <ArrowUpRight size={36} className="text-neutral-200 group-hover:text-neutral-500 transition-colors duration-300" />
           </div>
         )}
-        <span className="absolute top-3 right-3 font-mono text-xs px-2.5 py-1 rounded-full glass-overlay text-neutral-600">
+        <span className="absolute top-3 right-3 font-mono text-xs px-2.5 py-1 ds-pill">
           {project.type}
         </span>
       </div>
@@ -244,15 +245,13 @@ function ProjectCard({
 
         <div className="flex flex-wrap gap-1.5 mb-5">
           {project.tags.map(tag => (
-            <span key={tag} className="font-mono text-xs px-2.5 py-1 rounded-lg glass-chip text-neutral-600">
-              {tag}
-            </span>
+            <TechChip key={tag} label={tag} variant="inset" />
           ))}
         </div>
 
         <div className="flex items-center gap-3">
           {project.liveUrl && (
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm font-medium text-neutral-900 hover:opacity-60 transition-opacity">
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="ds-link flex items-center gap-1.5 text-sm font-medium">
               <ExternalLink size={14} />
               {demo}
             </a>
@@ -305,15 +304,15 @@ export function Projects() {
               </h2>
             </div>
 
-            <div className="relative flex items-center gap-1 p-1 rounded-2xl glass self-start">
+            <div className="relative flex items-center gap-1 p-1 ds-pill self-start">
               {filterLabels.map(({ value, label }) => (
                 <button
                   key={value}
                   onClick={() => setFilter(value)}
                   className={cn(
-                    'px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200',
+                    'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200',
                     filter === value
-                      ? 'bg-neutral-900 text-white'
+                      ? 'bg-black text-white'
                       : 'text-neutral-600 hover:text-neutral-900'
                   )}
                 >
@@ -324,7 +323,7 @@ export function Projects() {
           </div>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
           {showCaseStudy && (
             <>
               <CaseStudyCard

@@ -22,7 +22,7 @@ export const translations = {
     },
     about: {
       label: 'sobre',
-      heading: ['Estratégia que escala,', 'código que entrega.'],
+      heading: ['Estratégia, design', 'e código.'],
       body: 'Product Designer & UX Engineer com mais de 5 anos em produtos SaaS B2B de alta complexidade, de logística a CRM e telefonia. Desenho no Figma, valido com quem usa e implemento em React, Vue.js e TypeScript — o que encurta o caminho entre a solução validada e o produto em produção. MBA em UX Design pela PUCRS e palestrante no TDC 2023 sobre Design Systems. Antes da tecnologia, foram 10 anos na advocacia e na docência universitária: daí vêm a comunicação escrita, a documentação e o hábito de alinhar stakeholders.',
       areas: [
         {
@@ -125,7 +125,7 @@ export const translations = {
     },
     about: {
       label: 'about',
-      heading: ['Strategy that scales,', 'code that delivers.'],
+      heading: ['Strategy, design', 'and code.'],
       body: 'Product Designer & UX Engineer with over 5 years on high-complexity B2B SaaS products, from logistics to CRM and telephony. I design in Figma, validate with the people who use the product and build in React, Vue.js and TypeScript — shortening the path from a validated solution to production. MBA in UX Design from PUCRS and speaker at TDC 2023 on Design Systems. Before tech, I spent 10 years in law and university teaching: that is where my written communication, documentation and stakeholder alignment come from.',
       areas: [
         {
