@@ -95,7 +95,7 @@ export function SideRail() {
 
       <button
         onClick={toggleLang}
-        className="w-10 h-7 flex items-center justify-center rounded-lg text-xs font-mono font-medium text-neutral-500 hover:text-neutral-900 hover:bg-white/70 transition-all duration-200"
+        className="ds-btn-light w-10 h-7 flex items-center justify-center text-xs font-mono"
         aria-label="Toggle language"
       >
         {lang === 'pt' ? 'EN' : 'PT'}

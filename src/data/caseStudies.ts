@@ -31,6 +31,14 @@ export interface CaseStudyLocale {
   sections: CaseStudySection[]
 }
 
+export type Platform = 'ios' | 'android' | 'web'
+
+export const platformLabel: Record<Platform, string> = {
+  ios: 'iOS',
+  android: 'Android',
+  web: 'Web',
+}
+
 export interface CaseStudy {
   id: string
   /**
@@ -42,6 +50,8 @@ export interface CaseStudy {
   label: string
   cardRole: string
   cardStack: string
+  /** Plataformas do produto. Só preencha nos cases que são app mobile (ou web). */
+  platforms?: Platform[]
   video?: string
   /** Protótipo navegável servido de `public/`, aberto em nova aba. */
   demo?: string

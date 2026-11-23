@@ -8,7 +8,7 @@ import { Media } from '../ui/Media'
 import { TiltCard } from '../ui/TiltCard'
 import { TechChip } from '../ui/TechChip'
 import { projects } from '../../data/projects'
-import { designSystemCase, fluxCrmCase, plataformaVoipCase, softwareJuridicoCase, uiParaIaCase, type CaseStudy } from '../../data/caseStudies'
+import { designSystemCase, fluxCrmCase, plataformaVoipCase, softwareJuridicoCase, uiParaIaCase, platformLabel, type CaseStudy } from '../../data/caseStudies'
 import { fluxLandingShowcase, type Showcase } from '../../data/showcase'
 import { ease } from '../../lib/motion'
 import { useLang } from '../../contexts/LanguageContext'
@@ -43,6 +43,15 @@ function CaseStudyCard({
       <div className="flex-1 p-7 flex flex-col justify-between gap-5">
         <div>
           <span className="font-mono text-xs text-neutral-600 block mb-3">{study.label}</span>
+          {study.platforms && study.platforms.length > 0 && (
+            <ul className="flex flex-wrap gap-2 mb-3" aria-label={lang === 'en' ? 'Platforms' : 'Plataformas'}>
+              {study.platforms.map(p => (
+                <li key={p} className="text-xs font-medium px-2.5 py-1 ds-pill-inset text-neutral-900">
+                  {platformLabel[p]}
+                </li>
+              ))}
+            </ul>
+          )}
           <h3 className="font-bold text-xl leading-snug mb-3 text-neutral-900">{locale.title}</h3>
           <p className="text-sm leading-relaxed max-w-lg text-neutral-600">{locale.subtitle}</p>
         </div>
@@ -304,19 +313,24 @@ export function Projects() {
               </h2>
             </div>
 
-            <div className="relative flex items-center gap-1 p-1 ds-pill self-start">
+            <div className="relative flex items-center gap-1 p-1 ds-btn-light self-start">
               {filterLabels.map(({ value, label }) => (
                 <button
                   key={value}
                   onClick={() => setFilter(value)}
                   className={cn(
-                    'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200',
-                    filter === value
-                      ? 'bg-black text-white'
-                      : 'text-neutral-600 hover:text-neutral-900'
+                    'relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors duration-200',
+                    filter === value ? 'text-white' : 'text-neutral-600 hover:text-neutral-900'
                   )}
                 >
-                  {label}
+                  {filter === value && (
+                    <motion.span
+                      layoutId="project-filter-pill"
+                      className="absolute inset-0 rounded-full bg-black"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative">{label}</span>
                 </button>
               ))}
             </div>

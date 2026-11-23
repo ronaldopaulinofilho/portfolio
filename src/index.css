@@ -395,6 +395,7 @@
     border-radius: 9999px;
     font-weight: 500;
     box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.25),
       0.57px 0.57px 1.76px -0.42px rgba(0, 0, 0, 0.18),
       1.45px 1.45px 4.5px -0.83px rgba(0, 0, 0, 0.18),
       2.9px 2.9px 9px -1.25px rgba(0, 0, 0, 0.18),

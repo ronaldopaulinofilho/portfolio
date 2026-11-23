@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { ArrowLeft, ArrowUpRight } from 'lucide-react'
-import type { CaseStudy } from '../data/caseStudies'
+import { platformLabel, type CaseStudy } from '../data/caseStudies'
 import { Block } from '../components/ui/CaseStudyModal'
 import { Media } from '../components/ui/Media'
 import { useLang } from '../contexts/LanguageContext'
@@ -94,12 +94,14 @@ export default function CasePage({ study }: { study: CaseStudy }) {
     creator: { '@id': `${SITE}/#person` },
     isPartOf: { '@id': `${SITE}/#webpage` },
     keywords: [study.cardStack, c.meta.tools].join(' · '),
+    ...(study.platforms?.length ? { operatingSystem: study.platforms.map(p => platformLabel[p]).join(', ') } : {}),
     ...(study.demo ? { workExample: { '@type': 'WebApplication', name: c.demoLabel, url: `${SITE}${study.demo}` } } : {}),
   }
 
   const meta = [
     { label: c.meta.roleLabel, value: c.meta.role },
     { label: c.meta.durationLabel, value: c.meta.duration },
+    { label: lang === 'en' ? 'Platforms' : 'Plataformas', value: study.platforms?.map(p => platformLabel[p]).join(' · ') },
     { label: c.meta.toolsLabel, value: c.meta.tools },
     { label: c.meta.impactLabel, value: c.meta.impact },
   ].filter((m): m is { label: string; value: string } => !!m.label && !!m.value)
