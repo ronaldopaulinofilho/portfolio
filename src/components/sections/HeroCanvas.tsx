@@ -9,9 +9,9 @@ export default function HeroCanvas() {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false })
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setClearColor(0xffffff, 1)
+    renderer.setClearColor(0x000000, 0)
     renderer.toneMapping = THREE.ACESFilmicToneMapping
     renderer.toneMappingExposure = 1.2
 
@@ -37,7 +37,8 @@ export default function HeroCanvas() {
 
     // Abstract composition: smooth sweep curve + straight line segments
     const group = new THREE.Group()
-    group.scale.setScalar(2.3)
+    group.scale.setScalar(2.9)
+    group.position.set(canvas.clientWidth > 900 ? 1.6 : 0, 0.2, 0)
     scene.add(group)
 
     // Abstract smoke: large wavy displaced surface with multi-frequency undulations
@@ -69,46 +70,20 @@ export default function HeroCanvas() {
     knotGeo.setIndex(idxArr)
     knotGeo.computeVertexNormals()
     const knotMat = new THREE.MeshStandardMaterial({
-      color: 0xEEEEEE,
-      roughness: 0.04,
-      metalness: 0.96,
+      color: 0xBFC3CA,
+      roughness: 0.12,
+      metalness: 0.95,
     })
     group.add(new THREE.Mesh(knotGeo, knotMat))
 
     // Wireframe overlay — adds surface texture on top of the metallic tube
     const wireMat = new THREE.MeshBasicMaterial({
-      color: 0xc0c0c0,
+      color: 0x6b7280,
       wireframe: true,
       transparent: true,
-      opacity: 0.62,
+      opacity: 0.45,
     })
     group.add(new THREE.Mesh(knotGeo, wireMat))
-
-    // Golden spark particles
-    const particleCount = 3000
-    const positions = new Float32Array(particleCount * 3)
-    const sizes = new Float32Array(particleCount)
-    for (let i = 0; i < particleCount; i++) {
-      const r = 3 + Math.random() * 5
-      const theta = Math.random() * Math.PI * 2
-      const phi = Math.acos(2 * Math.random() - 1)
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta)
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta)
-      positions[i * 3 + 2] = r * Math.cos(phi)
-      sizes[i] = Math.random() * 2 + 0.5
-    }
-    const particleGeo = new THREE.BufferGeometry()
-    particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    particleGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
-    const particleMat = new THREE.PointsMaterial({
-      color: 0xd97706,
-      size: 0.025,
-      transparent: true,
-      opacity: 0.7,
-      sizeAttenuation: true,
-    })
-    const particles = new THREE.Points(particleGeo, particleMat)
-    scene.add(particles)
 
     // Lights — metallic chrome setup
     const ambient = new THREE.AmbientLight(0xffffff, 0.5)
@@ -136,6 +111,17 @@ export default function HeroCanvas() {
     }
     window.addEventListener('mousemove', onMouseMove)
 
+    // Scroll: a malha recua e esmaece conforme o Hero sai da tela
+    const baseScale = group.scale.x
+    const basePos = group.position.clone()
+    let scrollTarget = 0
+    let scrollSmooth = 0
+    const onScroll = () => {
+      scrollTarget = Math.min(Math.max(window.scrollY / window.innerHeight, 0), 1)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+
     // Diagonal tilt bias — stays constant, parallax + drift animate on top
     const TILT_X = Math.PI * 0.28
     const TILT_Z = Math.PI * 0.15
@@ -157,8 +143,11 @@ export default function HeroCanvas() {
       group.rotation.y = driftY + influence.y
       group.rotation.z = TILT_Z
 
-      particles.rotation.y = driftY * 0.4 + mouse.x * 0.1
-      particles.rotation.x = driftX * 0.4 + mouse.y * 0.05
+
+      scrollSmooth += (scrollTarget - scrollSmooth) * 0.1
+      group.scale.setScalar(baseScale * (1 - scrollSmooth * 0.55))
+      group.position.set(basePos.x, basePos.y + scrollSmooth * 0.6, basePos.z - scrollSmooth * 3)
+      canvas.style.opacity = String(1 - scrollSmooth * 0.85)
 
       renderer.render(scene, camera)
     }
@@ -171,12 +160,11 @@ export default function HeroCanvas() {
       cancelAnimationFrame(frameId)
       window.removeEventListener('resize', onResize)
       window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('scroll', onScroll)
       renderer.dispose()
       knotGeo.dispose()
       knotMat.dispose()
       wireMat.dispose()
-      particleGeo.dispose()
-      particleMat.dispose()
     }
   }, [])
 

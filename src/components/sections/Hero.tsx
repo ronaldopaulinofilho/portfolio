@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { ArrowDown, ArrowRight, FileText } from 'lucide-react'
 import { IconBehance, IconLinkedin } from '../ui/BrandIcons'
 import { MediaPill } from '../ui/MediaPill'
@@ -129,6 +130,11 @@ function FigmaCursor() {
 
 export function Hero() {
   const { t } = useLang()
+  // O título encolhe e esmaece conforme o Hero sai da tela, junto com a malha 3D
+  const { scrollY } = useScroll()
+  const progresso = useSpring(useTransform(scrollY, [0, 600], [0, 1], { clamp: true }), { stiffness: 120, damping: 24 })
+  const escala = useTransform(progresso, [0, 1], [1, 0.6])
+  const opacidade = useTransform(progresso, [0, 1], [1, 0.2])
 
   const socials = [
     { icon: <IconBehance size={16} />, href: contact.behance.url, label: 'Behance' },
@@ -136,7 +142,11 @@ export function Hero() {
   ]
 
   return (
-    <section id="hero" className="relative min-h-screen overflow-hidden bg-white">
+    <section id="hero" className="relative min-h-screen overflow-hidden"
+      style={{
+        background:
+          'radial-gradient(ellipse 60% 55% at 72% 42%, rgba(120,130,150,0.14) 0%, rgba(120,130,150,0) 70%), linear-gradient(180deg, #d9d6d1 0%, #eceae6 18%, #f4f2ef 50%, #e4e1dc 82%, #d3d0ca 100%)',
+      }}>
       <Suspense fallback={null}>
         <HeroCanvas />
       </Suspense>
@@ -181,22 +191,25 @@ export function Hero() {
       </div>
 
       {/* Bottom content */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 pb-14 sm:pb-16">
-        <p className="font-mono text-xs text-neutral-400 mb-3 tracking-wider">
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 z-10 px-8 sm:px-12 pb-14 sm:pb-16"
+        style={{ scale: escala, opacity: opacidade, transformOrigin: 'left bottom' }}
+      >
+        <p className="font-mono text-xs text-neutral-600 mb-3 tracking-wider">
           {t.hero.tagline}
         </p>
         <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-neutral-900" style={{ lineHeight: '0.88' }}>
           {t.hero.heading[0]}<FigmaCursor />
           <br />
-          <span className="text-neutral-400">{t.hero.heading[1]}</span>
+          <span className="text-neutral-500">{t.hero.heading[1]}</span>
           <MediaPill />
         </h1>
 
         <div className="flex items-center gap-3 mt-8">
           <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-          <span className="font-mono text-xs text-neutral-400">{t.hero.badge}</span>
+          <span className="font-mono text-xs text-neutral-600">{t.hero.badge}</span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <a
