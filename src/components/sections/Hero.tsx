@@ -145,7 +145,7 @@ export function Hero() {
     <section id="hero" className="relative min-h-screen overflow-hidden"
       style={{
         background:
-          'radial-gradient(ellipse 60% 55% at 72% 42%, rgba(120,130,150,0.14) 0%, rgba(120,130,150,0) 70%), linear-gradient(180deg, #d9d6d1 0%, #eceae6 18%, #f4f2ef 50%, #e4e1dc 82%, #d3d0ca 100%)',
+          'radial-gradient(ellipse 60% 55% at 72% 42%, rgba(120,130,150,0.14) 0%, rgba(120,130,150,0) 70%), linear-gradient(180deg, #ebe9e5 0%, #f5f3f0 18%, #faf9f7 50%, #f0eeea 82%, #e7e5e0 100%)',
       }}>
       <Suspense fallback={null}>
         <HeroCanvas />
